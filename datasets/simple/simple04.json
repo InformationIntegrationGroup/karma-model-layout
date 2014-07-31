@@ -1,0 +1,23 @@
+{
+    "comment": "One path longer than the other, the two semantic types close together" ,
+    "anchors": [
+        { "id": "c1", "column": 1 } ,
+        { "id": "c2", "column": 2 }
+    ],
+    "nodes": [
+        { "id": "s1", "label": "s1 semantic type" } ,
+        { "id": "s2", "label": "s2 semantic type" } ,
+        { "id": "n1", "label": "n1 class" } ,
+        { "id": "n2", "label": "n2 class" } ,
+        { "id": "n3", "label": "n3 class" } , 
+    ],
+    "links": [
+        { "source": "s1", "target": "c1", "label": "link s1 c1" } ,
+        { "source": "s2", "target": "c2", "label": "link s2 c2" } ,
+        { "source": "n3", "target": "s1", "label": "link n3 s1" } ,
+        { "source": "n3", "target": "n2", "label": "link n3 n2" } ,
+        { "source": "n2", "target": "n1", "label": "link n2 n1" } ,
+        { "source": "n1", "target": "s1", "label": "link n1 s1" } ,
+  ]
+}
+
