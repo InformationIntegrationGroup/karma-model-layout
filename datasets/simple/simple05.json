@@ -1,0 +1,34 @@
+{
+    "comment": "One internal node pointing to many semantic types.",
+    "anchors": [
+        { "id": "c1", "column": 1 } ,
+        { "id": "c2", "column": 4 } ,
+        { "id": "c2", "column": 5 } ,
+        { "id": "c2", "column": 6 } ,
+        { "id": "c2", "column": 9 } ,
+        { "id": "c2", "column": 12 } ,
+        { "id": "c2", "column": 13 } ,
+    ],
+    "nodes": [
+        { "id": "s1", "label": "s1 semantic type" } ,
+        { "id": "s2", "label": "s2 semantic type" } ,
+        { "id": "s3", "label": "s3 semantic type" } ,
+        { "id": "s4", "label": "s4 semantic type" } ,
+        { "id": "s5", "label": "s5 semantic type" } ,
+        { "id": "s6", "label": "s6 semantic type" } ,
+        { "id": "s7", "label": "s7 semantic type" } ,
+        { "id": "n1", "label": "n1 class" }
+    ],
+    "links": [
+        { "source": "s1", "target": "c1", "label": "link s1 c1" } ,
+        { "source": "s2", "target": "c2", "label": "link s2 c2" } ,
+        { "source": "n1", "target": "s1", "label": "link n1 s1" } ,
+        { "source": "n1", "target": "s2", "label": "link n1 s2" } ,
+        { "source": "n1", "target": "s3", "label": "link n1 s3" } ,
+        { "source": "n1", "target": "s4", "label": "link n1 s4" } ,
+        { "source": "n1", "target": "s5", "label": "link n1 s5" } ,
+        { "source": "n1", "target": "s6", "label": "link n1 s6" } ,
+        { "source": "n1", "target": "s7", "label": "link n1 s7" } ,
+  ]
+}
+
