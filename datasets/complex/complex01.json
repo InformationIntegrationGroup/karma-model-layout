@@ -1,54 +1,45 @@
 {
     "comment": "CUBRC layout.",
     "anchors": [
-        { "id": 1, "column": 1 } ,
-        { "id": 2, "column": 4 } ,
-        { "id": 3, "column": 5 } ,
-        { "id": 4, "column": 6 } ,
-        { "id": 5, "column": 7 } ,
-        { "id": 6, "column": 11 } ,
-
+        { "id": "col1", "column": 1, "label": "column1"} ,
+        { "id": "col4", "column": 4, "label": "column4"} ,
+        { "id": "col5", "column": 5, "label": "column5"} ,
+        { "id": "col6", "column": 6, "label": "column6"} ,
+        { "id": "col7", "column": 7, "label": "column7"} ,
+        { "id": "col18", "column": 18, "label": "column18"} 
     ],
     "nodes": [
-        { "id": 7, "label": "semantic type c01" } ,
-        { "id": 8, "label": "semantic type c02" } ,
-        { "id": 9, "label": "semantic type c04" } ,
-        { "id": 10, "label": "semantic type c09" } ,
-        { "id": 11, "label": "semantic type c12" } ,
-
-        { "id": 12, "label": "class 10" } ,
-        { "id": 13, "label": "class 08" } ,
-        { "id": 14, "label": "class 06" } ,
-        { "id": 15, "label": "class 03" } ,
-        { "id": 16, "label": "class 07" } ,
-        { "id": 17, "label": "class 05" } ,
-        { "id": 18, "label": "class 11" } ,
-
-
+        { "id": "c1", "label": "class1" } ,
+        { "id": "c2", "label": "class2" } ,
+        { "id": "c3", "label": "class3" } ,
+        { "id": "c4", "label": "class4" } ,
+        { "id": "c5", "label": "class5" } ,
+        { "id": "c6", "label": "class6" } ,
+        { "id": "c7", "label": "class7" } ,
+        { "id": "c8", "label": "class8" } ,
+        { "id": "c9", "label": "class9" } ,
+        { "id": "c10", "label": "class10" } ,
+        { "id": "c11", "label": "class11" } ,
+        { "id": "c12", "label": "class12" } 
     ],
     "links": [
-        { "source": 7, "target": 1, "label": "link" } ,
-        { "source": 8, "target": 2, "label": "link" } ,
-        { "source": 8, "target": 3, "label": "link" } ,
-        { "source": 9, "target": 4, "label": "link" } ,
-        { "source": 10, "target": 5, "label": "link" } ,
-        { "source": 11, "target": 6, "label": "link" } ,
-
-        { "source": 10, "target": 13, "label": "link" } ,
-        { "source": 10, "target": 15, "label": "link" } ,
-        { "source": 10, "target": 16, "label": "link" } ,
-        { "source": 10, "target": 18, "label": "link" } ,
-        { "source": 13, "target": 14, "label": "link" } ,
-        { "source": 14, "target": 7, "label": "link" } ,
-        { "source": 15, "target": 9, "label": "link" } ,
-        { "source": 9, "target": 8, "label": "link" } ,
-        
-        { "source": 16, "target": 17, "label": "link" } ,
-        { "source": 9, "target": 8, "label": "link" } ,
-        { "source": 16, "target": 17, "label": "link" } ,
-        { "source": 17, "target": 10, "label": "link" } ,
-        { "source": 18, "target": 11, "label": "link" } ,
-
-  ]
+        { "source": "c1", "target": "col1", "label": "link" },
+        { "source": "c2", "target": "col4", "label": "link" },
+        { "source": "c2", "target": "col5", "label": "link" },
+        { "source": "c4", "target": "col6", "label": "link" },
+        { "source": "c9", "target": "col7", "label": "link" },
+        { "source": "c12", "target": "col18", "label": "link" },
+        { "source": "c6", "target": "c1", "label": "link" },
+        { "source": "c4", "target": "c2", "label": "link" },
+        { "source": "c5", "target": "c9", "label": "link" },
+        { "source": "c11", "target": "c12", "label": "link" },
+        { "source": "c8", "target": "c6", "label": "link" },
+        { "source": "c3", "target": "c4", "label": "link" },
+        { "source": "c7", "target": "c5", "label": "link" },
+        { "source": "c10", "target": "c11", "label": "link" },
+        { "source": "c10", "target": "c8", "label": "link" },
+        { "source": "c10", "target": "c3", "label": "link" },
+        { "source": "c10", "target": "c7", "label": "link" }
+    ]
 }
 

@@ -1,7 +1,7 @@
 {
 	"comment": "The simplest graph with one column and one semantic type.",
   	"anchors": [
-    	{ "id": "c1", "column": 1 }
+    	{ "id": "c1", "column": 1, "label" : "column1" }
   	],
   	"nodes": [
     	{ "id": "s1", "label": "s1 semantic type" }

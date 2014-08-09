@@ -1,13 +1,13 @@
 {
     "comment": "Flat layout with 7 columns.",
     "anchors": [
-        { "id": 1, "column": 1 } ,
-        { "id": 2, "column": 4 } ,
-        { "id": 3, "column": 5 } ,
-        { "id": 4, "column": 6 } ,
-        { "id": 5, "column": 7 } ,
-        { "id": 6, "column": 11 } ,
-        { "id": 7, "column": 13 } ,
+        { "id": 1, "column": 1, "label" : "column1" } ,
+        { "id": 2, "column": 4, "label" : "column4" } ,
+        { "id": 3, "column": 5, "label" : "column5" } ,
+        { "id": 4, "column": 6, "label" : "column6" } ,
+        { "id": 5, "column": 7, "label" : "column7" } ,
+        { "id": 6, "column": 11, "label" : "column11" } ,
+        { "id": 7, "column": 13, "label" : "column13" } 
     ],
     "nodes": [
         { "id": 8, "label": "semantic type" } ,
@@ -17,7 +17,7 @@
         { "id": 12, "label": "semantic type" } ,
         { "id": 13, "label": "semantic type" } ,
         { "id": 14, "label": "semantic type" } ,
-        { "id": 15, "label": "class" } ,
+        { "id": 15, "label": "class" } 
 
 
     ],
@@ -35,7 +35,7 @@
         { "source": 15, "target": 11, "label": "link" } ,
         { "source": 15, "target": 12, "label": "link" } ,
         { "source": 15, "target": 13, "label": "link" } ,
-        { "source": 15, "target": 14, "label": "link" } ,
+        { "source": 15, "target": 14, "label": "link" } 
   ]
 }
 

@@ -1,8 +1,8 @@
 {
     "comment": "One internal node pointing to two semantic types.",
     "anchors": [
-        { "id": "c1", "column": 1 } ,
-        { "id": "c2", "column": 4 }
+        { "id": "c1", "column": 1, "label" : "column1" } ,
+        { "id": "c2", "column": 4, "label" : "column4" }
     ],
     "nodes": [
         { "id": "s1", "label": "s1 semantic type" } ,
