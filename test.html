@@ -1,0 +1,54 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="http://localhost/d3Note/socialVis/d3.v3.min.js">
+</script>
+</head>
+
+
+<body>
+<script type="text/javascript">
+var padding = 20;
+var width=window.innerWidth - padding;           //width and height of scope
+var height=window.innerHeight - padding;
+
+var cScale = d3.scale.category20();            //return color of node
+
+svg = d3.select("body")                         //create svg
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .on("mousemove", mousemove);
+
+pos = svg.append("text")
+	.attr("fill", "white")
+	.attr("font-size", 10);
+
+function  mousemove(){
+	var ary = d3.mouse(this);
+	pos.attr("x", ary[0] + 2)
+		.attr("y", ary[1] + 2)
+		.text(ary[0] + ", " + ary[1]);
+}
+
+var g = svg.append("g");
+g.append("circle")
+	.attr("r", 10)
+	.attr("fill", cScale(1))
+	.attr("cx", 50)
+	.attr("cy", 50);
+
+setTimeout(function(){
+	g.transition()
+	.duration(1000)
+	.attr("transform", "translate(100, 100)");
+	g.append("circle")
+	.attr("r", 10)
+	.attr("fill", cScale(1))
+	.attr("cx", 100)
+	.attr("cy", 100);
+}, 500)
+
+</script>
+</body>
+</html>

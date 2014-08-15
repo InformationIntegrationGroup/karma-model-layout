@@ -1,0 +1,565 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="jquery.js">
+</script>
+<script type="text/javascript" src="d3.v3.min.js">
+</script>
+</head>
+
+
+<body>
+<script type="text/javascript">
+//width and height of scope
+var padding = 35;
+var width=window.innerWidth - padding;           
+var height=window.innerHeight - padding;
+var columns = 35;
+var barWidth = 100;
+var barHeight = 100;
+
+//return color of node
+var cScale = d3.scale.category20();            
+
+//create svg
+svg = d3.select("body")                         
+    .append("svg")
+    .attr("width", Math.max(width, columns * barWidth))
+    .attr("height", height)
+    .on("mousemove", mousemove);
+
+//svg to draw nodes and links
+var forceSVG = svg.append("g");
+
+//place to show mouse coordinate
+pos = svg.append("text")
+	.attr("fill", "black")
+	.attr("font-size", 10);
+
+//x-scale
+var xScale = d3.scale.linear()
+	.domain([0, columns])                        
+	.range([0, barWidth * columns]);
+
+//coefficient of force move nodes to top
+var upperForceScale = d3.scale.linear()
+	.domain([0, height]) 
+	.range([1, 0]);        
+
+
+var anchorData = [];                           //store anchor nodes
+var nodesData = [];                            //store all nodes includes anchors
+var linksData = [];                            //links data
+var textData = [];                             //text nodes
+var textLinksData = [];                        //text links
+var idMap = [];                                //map from label to id
+var layerMap = [];                             //store nodes'id in sequence of layers
+var nodesChildren = [];                        //store node's id and its children pair
+//var xPosMap = [];                              //how many nodes in x position
+
+
+var nodeRadius = 8;
+var unitLinkLength = 70;                       //difference between layers
+var maxLayer = 0;
+var reshuffleFrequency = 10;                   //pixel changes to excute scroll bar event
+var xOffset = 0;                               //x position offset
+var outsideNodesNum = 0;                       //outside nodes number
+
+
+
+var nodes = forceSVG.selectAll(".node");       //all nodes    
+var links = forceSVG.selectAll(".link");       //all links
+var labels = forceSVG.selectAll(".label");     //all labels
+var labelLinks = forceSVG.selectAll("labelLinks"); //all label links.
+
+
+//force layout for nodes
+var force = d3.layout.force()
+	.size([Math.max(width, columns * barWidth), height])
+	.gravity(0)
+	.linkStrength(function(d){
+		if (d.source.outside.isOutside || d.target.outside.isOutside){
+			return 1;
+		}
+		return 0;
+	})
+	.friction(0.8)
+	//.theta(0.1)
+	.charge(-100)
+	.linkDistance(30)
+	.on("tick", tick);
+
+// force layout for labels
+var labelForce = d3.layout.force()
+	.size([Math.max(width, columns * barWidth), height])
+	.gravity(0)
+	.friction(0.8)
+	.charge(function(d){
+		if (d.isOutside){
+			return 0;
+		}
+		return -50;
+	})
+	.linkDistance(0)
+	.linkStrength(1);
+
+//read file and execute program
+d3.json("datasets/complex/complex02.json", function(d){
+//d3.json("datasets/simple/simple05.json", function(d){
+	var tmpNodeData = d.anchors.concat(d.nodes);
+	var tmpLinkData = d.links;
+	initializeData(tmpLinkData, tmpNodeData);
+	setLayer();
+
+	drawTable();
+	transit();
+
+	force.nodes(nodesData)
+		.links(linksData)
+		.start();
+
+	labelForce.nodes(textData)
+		.links(textLinksData)
+		.start();
+
+	setNodePosition();
+});
+
+
+
+//draw nodes and links
+function transit(){
+	links = links.data(linksData)
+	links.enter()
+		.append("line")
+		.classed("link", true)
+		.attr("stroke", "black")
+		.attr("stroke-width", 0)
+		.attr("opacity", 0.5)
+		.attr("id", function(d, i){
+			return d.source.id + "link" + d.target.id;
+		});
+	links.transition()
+		.delay(250)
+		.duration(500)
+		.attr("stroke-width", 2);
+
+	nodes = nodes.data(nodesData);
+	nodes.enter()
+		.append("circle")
+		.classed("node", true)
+		.attr("r", 1)
+		.attr("fill", function(d, i){
+			//d.x = barWidth * (0.5 + d.xposCol);
+			//d.y = height - barHeight - nodeRadius - d.layer * unitLinkLength;	
+			d.position = {};
+			d.position.x = barWidth * (0.5 + d.xposCol);
+			d.position.y = height - barHeight - nodeRadius - d.layer * unitLinkLength;
+			d.outside = {};
+			d.outside.position = {};
+			d.outside.isOutside = false;
+			return cScale(i + 1);
+		})
+		.attr("id", function(d, i){
+			return "node" + d.id;
+		})
+		.call(force.drag)
+		.on("click", function(d){
+			//console.log("id: " + d.id + " " + "label: " + d.label + " " + "parent: " +nodesData[d.parent].label);
+			if (d.outside.isOutside){
+				if (d.position.x < xOffset){					
+					$(window).scrollLeft(Math.max(0, d.position.x - width / 2));
+				} else {
+					$(window).scrollLeft(Math.min(Math.max(width, columns * barWidth) - width, d.position.x - width / 2));
+				}				
+			}
+		})
+		.on("mouseover", function(d){
+			if (d.outside.isOutside){
+				d3.select("#nodeLabel" + d.id)
+					.classed("hiddenText", false);
+			}
+		})
+		.on("mouseout", function(d){
+			if (d.outside.isOutside){
+				d3.select("#nodeLabel" + d.id)
+					.classed("hiddenText", true);
+			}
+		});
+	nodes.transition()
+		.duration(500)
+		.attr("r", nodeRadius);
+
+	labels = labels.data(textData)
+		.enter()
+		.append("g")
+		.classed("label", true);
+	labels.append("circle")
+		.attr("r", 0)
+		//.attr("fill", "white");
+	labels.append("text")
+		.text(function(d, i){
+			return i % 2 == 0 ? "" : d.content;
+		})
+		.classed("labelText", true)
+		.attr("opacity", 0)
+		.attr("id", function(d, i){
+			if (d.type == "nodeLabel"){
+				return "nodeLabel" + d.node.id;
+			}
+			return "labelPart" + i;
+		})
+		.transition()
+		.delay(500)
+		.duration(500)
+		.attr("opacity", 0.5);
+	labelLinks = labelLinks.data(textLinksData);
+	labelLinks.enter()
+		.append("line")
+		.classed("labelLinks", true)
+		.attr("stroke-width", 0);
+	labels.moveToBack();
+
+
+	/*//set x poistion Map
+	var tmp = [];
+	nodesData.forEach(function(d){
+		if (!tmp[d.position.x]){
+			tmp[d.position.x] = {
+				ids : [],
+				isOutside : false
+			}
+		}
+		tmp[d.position.x].ids.push(d.id);
+	});	
+	xPosMap = d3.entries(tmp);*/
+}
+
+function tick(e){
+	labelForce.start();
+	var k = 0.03 * e.alpha;
+	
+	links.call(updateLink);
+   
+
+   	var kY = 0.05;
+   	//kY = k * 5;
+	nodes.attr("cx", function(d) {
+			if (d.outside.isOutside){				
+				return d.x = Math.max(xOffset + nodeRadius, Math.min(xOffset + width - nodeRadius, d.x));
+			} 
+			var differX = d.position.x - d.x;
+			if (d.type == "anchor"){
+				d.x = d.position.x;
+			} else {
+    			d.x += differX * kY;
+			}
+    		return d.x;
+    	})
+        .attr("cy", function(d) { 
+        	if (d.outside.isOutside){
+        		d.y += -d.y * k;
+        		return d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y));
+        	}
+        	var differY = d.position.y - d.y;
+        	if (d.type == "anchor"){
+        		d.y = d.position.y;
+        	} else {
+        		d.y += differY * kY;
+        	}
+        	return d.y;
+        });
+
+
+    labels.each(function(d, i){
+    	if (i % 2 == 0){
+    		if (d.type){
+    			var a = nodesData[d.node.src];
+    			var b = nodesData[d.node.tgt];
+    			d.x = (a.x + b.x) / 2;
+    			d.y = (a.y + b.y) / 2;
+    		} else {
+    			d.x = d.node.x;
+    			d.y = d.node.y;
+    		} 
+    	} else {
+    		var b = this.childNodes[1].getBBox();
+			var diffX = d.x - textData[i - 1].x;
+			var diffY = d.y - textData[i - 1].y;
+			var dist = Math.sqrt(diffX * diffX + diffY * diffY);
+			var shiftX = b.width * (diffX - dist) / (dist * 2) / 2;
+			shiftX = Math.max(-b.width, Math.min(0, shiftX));
+			var shiftY = 2;
+			this.childNodes[1].setAttribute("transform", "translate(" + shiftX + "," + shiftY + ")");
+    	}
+    })
+
+    labels.call(updateLabel);
+    labelLinks.call(updateLink);  	
+}
+
+//updata link for tick function
+var updateLink = function(){
+	this.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+}
+
+//update label of nodes for tick function
+var updateLabel = function() {
+	this.attr("transform", function(d) {
+		//dx = Math.max(xOffset + 20, Math.min(xOffset + width, d.x)); 
+		//d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y)); 
+		return "translate(" + d.x + "," + d.y + ")";
+	});
+}
+
+//initialize data
+function initializeData(tmpL, tmpN){
+	tmpN.forEach(function(d, i){
+		var node = {};
+		node.label = d.id;
+		node.id = i;
+		if (d.column || d.column == 0){
+			node.column = d.column;
+			node.type = "anchor";
+			node.layer = 0;
+			node.xposCol = d.column;
+			anchorData.push(node);
+			layerMap[i] = 1;
+		} else {
+			node.type = "node";
+		}
+		nodesData.push(node);
+		idMap[d.id] = i;
+
+	
+		textData.push({node : node});
+		textData.push({
+			node : node,
+			content : d.label,
+			type : "nodeLabel"
+		});
+
+		textLinksData.push({
+			source : textData.length - 2,
+			target : textData.length - 1
+		});
+		
+	});
+
+	tmpL.forEach(function(d, i){
+		var edge = {};
+		edge.source = idMap[d.source];
+		edge.target = idMap[d.target];
+		edge.id = i;
+		linksData.push(edge);
+
+		var node = {};
+		node.src = edge.source;
+		node.tgt = edge.target;
+		textData.push({
+			node : node,
+			type : "linkCircle"
+		});
+		textData.push({
+			node : node,
+			type : "linkLabel",
+			content : d.label
+		});
+
+		textLinksData.push({
+			source : textData.length - 2,
+			target : textData.length - 1
+		});
+	});
+}
+
+//set layer and position for each node
+function setLayer(){
+	//layer is set from bottem to top, one layer per loop. The anchors are layer 0.
+	var change = anchorData.length;
+	var tmpLinkData = linksData.slice(0);
+	while (change > 0){
+		var tmpLayerMap = [];
+		change = 0;
+		tmpLinkData.forEach(function(d){
+			var src = d.source;
+			var tgt = d.target;
+			if (tgt in layerMap){
+				nodesData[src].layer = nodesData[tgt].layer + 1;
+				tmpLayerMap[src] = 1;
+				change++;
+			}
+		});
+		layerMap = tmpLayerMap.slice(0);
+		maxLayer++;
+	}
+	maxLayer--;
+	
+	//nodesChildren contains the node's id - node's children pair.
+	anchorData.forEach(function(d){
+		nodesChildren[d.id] = [];
+	});
+	tmpLinkData.forEach(function(d){
+		if (!nodesChildren[d.source]){
+			nodesChildren[d.source] = [];
+		}
+		nodesChildren[d.source].push(d.target);
+		nodesData[d.target].parent = d.source;
+	});
+
+	//store the node id in the sequence of layer
+	//xPos is the x position for nodes in the unit of column's width
+	layerMap = d3.range(maxLayer + 1).map(function(d){
+		return [];
+	});
+	nodesData.forEach(function(d){
+		layerMap[d.layer].push(d.id);
+	});
+	layerMap.forEach(function(d, i){
+		if (i > 0){
+			d.forEach(function(e){
+				var tmp = [];
+				nodesChildren[e].forEach(function(f){
+					tmp.push(nodesData[f].xposCol);
+				});				
+				nodesData[e].xposCol = (d3.min(tmp) + d3.max(tmp)) / 2;
+			}); 
+		}
+	});
+}
+
+//draw columns
+function drawTable(){
+	var columnName = d3.range(columns).map(function(d){
+		return d;
+	});
+	svg.selectAll("rect")
+		.data(columnName)
+		.enter()
+		.append("rect")
+		.attr("x", function(d, i){
+			return xScale(i);
+		})
+		.attr("y", height - 100)
+		.attr("height", barHeight)
+		.attr("width", barWidth)
+		.attr("fill", "steelblue")
+		.attr("stroke", "white")
+		.attr("stroke-width", 1)
+		.attr("opacity", 0.5);
+}
+
+//when move over show the coordinate
+function  mousemove(){
+	var ary = d3.mouse(this);
+	pos.attr("x", ary[0] + 2)
+		.attr("y", ary[1] + 2)
+		//.attr("x", 100)
+		//.attr("y", 100)
+		.text(Math.round(ary[0]) + ", " + Math.round(ary[1]));
+}
+
+//move element to the back of its parent's children
+d3.selection.prototype.moveToBack = function() { 
+    return this.each(function() { 
+        var firstChild = this.parentNode.firstChild; 
+        if (firstChild) { 
+            this.parentNode.insertBefore(this, firstChild); 
+        } 
+    });    //move component to the down of svg
+};
+
+//move element to the top of its parent's children
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });   //move component to the up of svg
+};
+
+//set the outside nodes
+function setNodePosition(){
+	var num = 0;
+	var change = 0;
+	//check if node is outside or not, when the status of node changes, the transition happens
+	nodes.each(function(d){
+		if (d.position.x - nodeRadius < xOffset || d.position.x + nodeRadius > xOffset + window.innerWidth){
+			if (!d.outside.isOutside){
+				d.outside.isOutside = true;				
+				d3.select(this)
+					.transition()
+					.duration(500)
+					.attr("opacity", 0.5)
+					.attr("r", nodeRadius / 2);				
+				change++;
+				num++;
+			}
+		} else {
+			if (d.outside.isOutside){
+				d.outside.isOutside = false;
+				d3.select(this)
+					.transition()
+					.duration(500)
+					.attr("opacity", 1)
+					.attr("r", nodeRadius);
+				change++;
+				num--;
+			}
+		}
+	});
+
+	//when some node changes its status, the correspoding links, labels and the x position of inside nodes should also change.
+	if (change > 0){
+		outsideNodesNum = num;		
+		d3.selectAll(".labelText")
+			.classed("hiddenText", function(d){
+				if (d.type == "linkLabel" && (nodesData[d.node.src].outside.isOutside || nodesData[d.node.tgt].outside.isOutside)){
+					d.isOutside = true;
+					return true;
+				}
+				else if (d.type == "nodeLabel" && d.node.outside.isOutside){
+					d.isOutside = true;
+					return true;
+				}
+				d.isOutside = false;
+				return false;
+			});
+		links.classed("outsideLink", function(d){
+			if (d.source.outside && d.target.outside){
+				return d.source.outside.isOutside || d.target.outside.isOutside;
+			}
+			return false;
+		});
+		layerMap.forEach(function(d, i){
+			if (i > 0){
+				d.forEach(function(e){
+					if (!nodesData[e].outside.isOutside){
+						var tmp = [];
+						nodesChildren[e].forEach(function(f){
+							if (!nodesData[f].outside.isOutside){
+								tmp.push(nodesData[f].xposCol);
+							}
+						});				
+						nodesData[e].xposCol = (d3.min(tmp) + d3.max(tmp)) / 2;
+						nodesData[e].position.x = barWidth * (0.5 + nodesData[e].xposCol);
+					}
+				});
+			}
+		});		
+		force.start();
+	}
+}
+
+//scroll bar move event
+window.onscroll = function(event){
+	//console.log(window.pageXOffset);
+	if (Math.abs(window.pageXOffset - xOffset) > reshuffleFrequency){
+		xOffset = window.pageXOffset;
+		setNodePosition();
+	}
+}
+</script>
+</body>
+</html>
