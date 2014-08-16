@@ -15,6 +15,11 @@
 	opacity: 0;
 }
 
+.fixed{
+	stroke : red;
+	stroke-width = 1;
+}
+
 body {
 	
 }
