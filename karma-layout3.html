@@ -81,7 +81,7 @@ var force = d3.layout.force()
 	.gravity(0)
 	.linkStrength(function(d){
 		if (d.source.outside.isOutside || d.target.outside.isOutside){
-			return 0.3;
+			return 0.7;
 		}
 		return 0;
 	})
@@ -120,8 +120,8 @@ var drag = force.drag()
 	});
 
 //read file and execute program
-d3.json("datasets/complex/complex02.json", function(d){
-//d3.json("datasets/simple/simple05.json", function(d){
+//d3.json("datasets/complex/complex02.json", function(d){
+d3.json("datasets/simple/simple06.json", function(d){
 	var tmpNodeData = d.anchors.concat(d.nodes);
 	var tmpLinkData = d.links;
 	initializeData(tmpLinkData, tmpNodeData);
@@ -149,9 +149,9 @@ function transit(){
 	links.enter()
 		.append("path")
 		.classed("link", true)
-		.attr("stroke", "black")
+		.attr("stroke", "#555")
 		.attr("stroke-width", 0)
-		.attr("opacity", 0.5)
+		//.attr("opacity", 0.5)
 		.attr("id", function(d, i){
 			return d.source.id + "link" + d.target.id;
 		})
@@ -165,8 +165,8 @@ function transit(){
 	linkArrow = linkArrow.data(linksData);
 	linkArrow.enter()
 		.append("polygon")
-		.attr("fill", "steelblue")
-		.attr("opacity", 0.6);
+		.attr("fill", "#555")
+		//.attr("opacity", 0.6);
 
 
 	labels = labels.data(textData)
@@ -189,6 +189,10 @@ function transit(){
 				d3.select(this)
 					.classed("nodeLabel", true);
 				return "nodeLabel" + d.node.id;
+			} else if (d.type == "linkLabel"){
+				d3.select(this)
+					.classed("linkLabel", true);
+				return "linkLabel" + nodesData[d.node.src].id + " " + nodesData[d.node.tgt].id;
 			}
 			return "labelPart" + i;
 		});
@@ -207,8 +211,6 @@ function transit(){
 		.classed("node", true)
 		.attr("r", 1)
 		.attr("fill", function(d, i){
-			//d.x = barWidth * (0.5 + d.xposCol);
-			//d.y = height - barHeight - nodeRadius - d.layer * unitLinkLength;	
 			d.position = {};
 			d.position.x = barWidth * (0.5 + d.xposCol);
 			d.position.y = height - barHeight - nodeRadius - d.layer * unitLinkLength;
@@ -222,21 +224,35 @@ function transit(){
 		})
 		.call(drag)
 		.on("click", function(d){
-			//console.log("id: " + d.id + " " + "label: " + d.label + " " + "parent: " +nodesData[d.parent].label);
 			if (d.outside.isOutside){
 				if (d.position.x < xOffset){		
-					var distance = Math.max(0, d.position.x - width / 2);
-					var times = Math.ceil(Math.abs(distance) / 10);
-					$(window).scrollLeft(distance);
+					var destination = Math.max(0, d.position.x - width / 2);
+					var xPosition = window.pageXOffset;
+					var differ = Math.max(30, (xPosition - destination) / 200);
+					var interval = setInterval(function(){
+						xPosition -= differ;
+						if (xPosition > destination){
+							$(window).scrollLeft(xPosition);
+						} else {
+							clearInterval(interval);
+						}
+					}, 10);
 				} else {
-					var distance = Math.min(Math.max(width, columns * barWidth) - width, d.position.x - width / 2);
-					var times = Math.ceil(Math.abs(distance) / 10);
-					$(window).scrollLeft(distance);
+					var destination = Math.min(Math.max(width, columns * barWidth) - width, d.position.x - width / 2);
+					var xPosition = window.pageXOffset;
+					var differ = Math.max(30, (destination - xPosition) / 200);
+					var interval = setInterval(function(){
+						xPosition += differ;
+						if (xPosition < destination){
+							$(window).scrollLeft(xPosition);
+						} else {
+							clearInterval(interval);
+						}
+					}, 10);
 				}				
 			}
 		})
 		.on("dblclick", function(d) {
-			//console.log('dblclick');
   			d3.select(this).classed("fixed", d.fixed = false);
   			d.position.x = barWidth * (0.5 + d.xposCol);
 			d.position.y = height - barHeight - nodeRadius - d.layer * unitLinkLength;
@@ -259,23 +275,29 @@ function transit(){
 			});
 		})
 		.on("mouseout", function(d){
-			if (d.outside.isOutside && d.degree < 3){
+			if (d.outside.isOutside){
+				if (d.degree < 3){
+					d3.select("#nodeLabel" + d.id)
+						.classed("hiddenText", true);
+					d.showLabel = false;
+				}
+				if (d.parent && nodesData[d.parent].degree < 3){
+					d3.select("#nodeLabel" + d.parent)
+						.classed("hiddenText", false);
+					d.showLabel = true;
+				}
+				nodesChildren[d.id].forEach(function(e){
+					if (nodesData[e].degree < 3){
+						d3.select("#nodeLabel" + e)
+							.classed("hiddenText", true);
+						nodesData[e].showLabel = false;
+					}
+				});
+			} else if (d.type == "anchor"){
 				d3.select("#nodeLabel" + d.id)
 					.classed("hiddenText", true);
 				d.showLabel = false;
 			}
-			if (d.parent && nodesData[d.parent].degree < 3){
-				d3.select("#nodeLabel" + d.parent)
-					.classed("hiddenText", false);
-				d.showLabel = true;
-			}
-			nodesChildren[d.id].forEach(function(e){
-				if (nodesData[e].degree < 3){
-					d3.select("#nodeLabel" + e)
-						.classed("hiddenText", true);
-					nodesData[e].showLabel = false;
-				}
-			});
 		});
 	nodes.transition()
 		.duration(500)
@@ -633,10 +655,19 @@ function setNodePosition(){
 						d.node.showLabel = true;
 						return false;
 					}
-					d.node.showLabel = false;
-					return true;
-				}					
+				}	
+				d.node.showLabel = false;
+				return true;			
 			});
+		d3.selectAll(".linkLabel")
+			.classed("hiddenText", function(d){
+				if (d.type == "linkLabel"){
+					if (nodesData[d.node.src].outside.isOutside || nodesData[d.node.tgt].outside.isOutside){
+						return true;
+					}
+					return false;
+				}
+			})
 
 		links.classed("outsideLink", function(d){
 			if (d.source.outside && d.target.outside){
