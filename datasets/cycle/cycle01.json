@@ -1,0 +1,26 @@
+{
+	"comment": "test cycle", 
+  	"anchors": [
+  	  	{ "id": "1", "column": 1, "label":"column1" },
+        { "id": "2", "column": 2, "label":"column2" },
+        { "id": "3", "column": 3, "label":"column3" },
+        { "id": "4", "column": 4, "label":"column4" }
+  	],
+  	"nodes": [
+    	{ "id": "5", "label": "c5" },
+      { "id": "6", "label": "c6" },
+      { "id": "7", "label": "c7" },
+      { "id": "8", "label": "c8" }
+  	],
+  	"links": [
+    	{ "source": "5", "target": "1", "label": "link " },
+      { "source": "5", "target": "2", "label": "link " },
+      { "source": "6", "target": "3", "label": "link " },
+      { "source": "7", "target": "4", "label": "link " },
+      { "source": "8", "target": "5", "label": "link " },
+      { "source": "8", "target": "7", "label": "link " },
+      { "source": "7", "target": "6", "label": "link " },
+      { "source": "6", "target": "8", "label": "link " }
+  	]
+}
+
