@@ -83,8 +83,10 @@ var force = d3.layout.force()
 	.size([Math.max(width, columns * barWidth), height])
 	.gravity(0)
 	.linkStrength(function(d){
-		if (d.source.outside.isOutside || d.target.outside.isOutside){
-			return 0.7;
+		if (d.source.outside.isOutside && d.target.outside.isOutside){
+			return 1;
+		} else if (d.source.outside.isOutside || d.target.outside.isOutside){
+			return 0.5;
 		}
 		return 0;
 	})
@@ -129,6 +131,7 @@ d3.json("datasets/complex/complex02.json", function(d){
 	var tmpNodeData = d.anchors.concat(d.nodes);
 	var tmpLinkData = d.links;
 	initializeData(tmpLinkData, tmpNodeData);
+/*	removeCycle();*/
 	setLayer();
 	drawTable();
 
@@ -203,11 +206,34 @@ function transit(){
 		.text(function(d, i){
 			return i % 2 == 0 ? "" : d.content;
 		})
-		.classed("labelText", true)
+		.attr("fill", function(d){
+			if (d.type == "nodeLabel"){
+				return "white";
+			}
+			if (d.type == "linkLabel"){
+				return "black";
+			}
+			return "none";
+		})
+		.attr("font-weight", function(d){
+			if (d.type == "nodeLabel"){
+				return "bold";
+			}
+			return "normal";
+		})
+		.classed("labelText", true);
 	labelBoard = labelFrame.append("path")
-		.attr("stroke-width", 1)
-		.attr("stroke", "black")
-		.attr("fill", "#ddd")
+		//.attr("stroke-width", 1)
+		//.attr("stroke", "black")
+		.attr("fill", function(d){
+			if (d.type == "nodeLabel"){
+				return "#555";
+			}
+			if (d.type == "linkLabel"){
+				return "#ddd";
+			}
+			return "none";
+		})
 		.attr("d", function(d){
 			if (d.type != "nodeLabel" && d.type != "linkLabel"){
 				return "";
@@ -340,10 +366,10 @@ function tick(e){
 
    	var kY = 0.05;
    	//kY = k * 5;
-   	if (firstTime){
+   	/*if (firstTime){
    		firstTime = false;
    		kY *= 10;
-   	}
+   	}*/
 	nodes.attr("cx", function(d) {
 			if (d.outside.isOutside){				
 				return d.x = Math.max(xOffset + nodeRadius, Math.min(xOffset + width - nodeRadius, d.x));
@@ -542,44 +568,51 @@ function initializeData(tmpL, tmpN){
 }
 
 //remove cycles of graph
-function removeCycle(tmpL){
-	var tmpLinkData = linksData.slice(0);
-	var tmpNodeData = [];
+var indexD = 0;
+var chosenNodes = [];
+var nodesD = [];
+function removeCycle(){
+	var tmpLinkData = linksData.slice(0);	
 	tmpLinkData.forEach(function(d){
-		var s = d.source;
-		var t = d.target;
-		if (!(s in tmpNodeData)){
-			tmpNodeData[s] = {children : [], id : s};
+		if (!nodesD[d.source]){
+			nodesD[d.source] = {id : d.source, children : []};
 		}
-		if (!(t in tmpNodeData)){
-			tmpNodeData[t] = {children : [], id : t};
+		if (!nodesD[d.target]){
+			nodesD[d.target] = {id : d.target, children : []};
 		}
-		tmpNodeData[s].children.push(t);
+		nodesD[d.source].children.push(d.target);
 	})
-	var path = [];
-	var chosen = [];
-	while (tmpNodeData.length > 0){
-		var tmp = tmpNodeData[0].id;
-		dfs(tmp, tmpNodeData, path, chosen);
-	}
+	nodesD.forEach(function(d){
+		if (!d.index){
+			dfs(d);
+		}
+	});
 }
 
-function dfs(cur, tmpNodeData, path, chosen){
-	if (path.indexOf(cur) != -1){
-		var index = path.indexOf(cur);
-		cycles.push(path.slice(index));
-		for (var i = index; i < path.length; i++){
-			chosen[path[i]] = 1;
+function dfs(d){
+	d.index = indexD;
+	d.lowlink = indexD;
+	indexD++;
+	chosenNodes[d.id] = 1;
+	d.children.forEach(function(e){
+		if (!nodesD[e].index){
+			dfs(nodesD[e]);
+			d.lowlink = Math.min(d.lowlink, nodesD[e].lowlink);
+		} else if (nodesD[e].id in chosenNodes){
+			d.lowlink = Math.min(d.lowlink, nodesD[e].index);
 		}
-		return;
-	}
-	path.push(cur);
-	for (var i = 0; i < tmpNodeData[cur].children.length; i++){
-		if (!(tmpNodeData[cur].children[i] in chosen)){
-			dfs(tmpNodeData[cur].children[i], tmpNodeData, path, chosen);
+	})
+	if (d.lowlink == d.index){
+		var path = [];
+		var tmp;
+		do{
+			tmp = chosenNodes.pop();
+			path.push(tmp);
+		} while (tmp != d.id);
+		if (path.length > 1){
+			cycles.push(path.slice(0));
 		}
 	}
-	path.pop();
 }
 
 //set layer and position for each node
