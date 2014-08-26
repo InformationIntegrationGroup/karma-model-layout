@@ -58,7 +58,9 @@ var textLinksData = [];                        //text links
 var idMap = [];                                //map from label to id
 var layerMap = [];                             //store nodes'id in sequence of layers
 var nodesChildren = [];                        //store node's id and its children pair
-//var xPosMap = [];                              //how many nodes in x position
+var SCCindex = 0;                              //strong connected component node's index
+var chosenNodes = [];                          //the node has been chosen during the dfs
+var SCCNodes = [];                             //SCC nodes set
 
 
 var nodeRadius = 4;
@@ -67,7 +69,7 @@ var maxLayer = 0;
 var reshuffleFrequency = 10;                   //pixel changes to excute scroll bar event
 var xOffset = 0;                               //x position offset
 var outsideNodesNum = 0;                       //outside nodes number
-var firstTime = true;     
+var firstTime = true;                          //first time to load the force-layout
 
 
 var nodes = forceSVG.selectAll(".node");       //all nodes    
@@ -105,7 +107,7 @@ var labelForce = d3.layout.force()
 		if (d.isOutside){
 			return 0;
 		}
-		return -100;
+		return -500;
 	})
 	.linkDistance(0)
 	.linkStrength(1);
@@ -125,14 +127,14 @@ var drag = force.drag()
 	});
 
 //read file and execute program
-//d3.json("datasets/cycle/cycle01.json", function(d){
-d3.json("datasets/complex/complex02.json", function(d){
+d3.json("datasets/cycle/cycle01.json", function(d){
+//d3.json("datasets/complex/complex02.json", function(d){
 //d3.json("datasets/simple/simple06.json", function(d){
 	var tmpNodeData = d.anchors.concat(d.nodes);
 	var tmpLinkData = d.links;
 	initializeData(tmpLinkData, tmpNodeData);
-/*	removeCycle();*/
-	setLayer();
+	var tmpL = removeCycle();
+	setLayer(tmpL);
 	drawTable();
 
 	transit();
@@ -180,7 +182,7 @@ function transit(){
 		.enter()
 		.append("g")
 		.classed("label", true);
-	labels.append("circle")
+	var test = labels.append("circle")
 		.attr("r", 0)
 		//.attr("fill", "black");
 	
@@ -201,7 +203,7 @@ function transit(){
 			}
 			return "labelPart" + i;
 		})
-		.attr("opacity", 1);
+		.attr("opacity", 0);
 	labelText = labelFrame.append("text")
 		.text(function(d, i){
 			return i % 2 == 0 ? "" : d.content;
@@ -238,9 +240,9 @@ function transit(){
 			if (d.type != "nodeLabel" && d.type != "linkLabel"){
 				return "";
 			}
-			var textWidth = Math.ceil(this.parentNode.firstChild.getBBox().width);
+			var textWidth = Math.ceil(this.parentNode.firstChild.getBBox().width) + 2;
 			var textHeight = Math.ceil(this.parentNode.firstChild.getBBox().height);
-			var dx = 0;
+			var dx = -2;
 			var dy = 0 + 3;
 			return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
 		})
@@ -354,7 +356,7 @@ function transit(){
 		.duration(500)
 		.attr("r", nodeRadius);
 
-	//labels.moveToFront();
+	//test.moveToFront();
 }
 
 function tick(e){
@@ -366,10 +368,7 @@ function tick(e){
 
    	var kY = 0.05;
    	//kY = k * 5;
-   	/*if (firstTime){
-   		firstTime = false;
-   		kY *= 10;
-   	}*/
+
 	nodes.attr("cx", function(d) {
 			if (d.outside.isOutside){				
 				return d.x = Math.max(xOffset + nodeRadius, Math.min(xOffset + width - nodeRadius, d.x));
@@ -501,7 +500,6 @@ var updateLabel = function() {
 		//d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y)); 
 		return "translate(" + d.x + "," + d.y + ")";
 	});
-
 }
 
 //initialize data
@@ -565,61 +563,82 @@ function initializeData(tmpL, tmpN){
 			target : textData.length - 1
 		});
 	});
-}
 
-//remove cycles of graph
-var indexD = 0;
-var chosenNodes = [];
-var nodesD = [];
-function removeCycle(){
-	var tmpLinkData = linksData.slice(0);	
-	tmpLinkData.forEach(function(d){
-		if (!nodesD[d.source]){
-			nodesD[d.source] = {id : d.source, children : []};
+	//nodesChildren contains the node's id - node's children pair.
+	anchorData.forEach(function(d){
+		nodesChildren[d.id] = [];
+	});
+	linksData.forEach(function(d){
+		if (!nodesChildren[d.source]){
+			nodesChildren[d.source] = [];
 		}
-		if (!nodesD[d.target]){
-			nodesD[d.target] = {id : d.target, children : []};
-		}
-		nodesD[d.source].children.push(d.target);
-	})
-	nodesD.forEach(function(d){
-		if (!d.index){
-			dfs(d);
-		}
+		nodesChildren[d.source].push(d.target);
+		nodesData[d.target].parent = d.source;
+		nodesData[d.source].degree++;
+		nodesData[d.target].degree++;
 	});
 }
 
-function dfs(d){
-	d.index = indexD;
-	d.lowlink = indexD;
-	indexD++;
-	chosenNodes[d.id] = 1;
-	d.children.forEach(function(e){
-		if (!nodesD[e].index){
-			dfs(nodesD[e]);
-			d.lowlink = Math.min(d.lowlink, nodesD[e].lowlink);
-		} else if (nodesD[e].id in chosenNodes){
-			d.lowlink = Math.min(d.lowlink, nodesD[e].index);
+//detect the strong connect component in the graph
+function detectCycle(){
+	SCCNodes = d3.range(nodesData.length).map(function(d, i){
+		return {id : nodesData[i].id, index : -1};
+	})
+	for (var i = 0; i < SCCNodes.length; i++){
+		strongConnect(SCCNodes[i]);
+	}
+}
+
+function strongConnect(d){
+	d.index = SCCindex;
+	d.lowlink = SCCindex++;
+	chosenNodes[d.id] = d.id;
+	nodesChildren[d.id].forEach(function(e){
+		if (SCCNodes[e].index == -1){
+			strongConnect(SCCNodes[e]);
+			d.lowlink = Math.min(d.lowlink, SCCNodes[e].lowlink);
+		} else if (SCCNodes[e].id in chosenNodes){
+			d.lowlink = Math.min(d.lowlink, SCCNodes[e].index);
 		}
 	})
 	if (d.lowlink == d.index){
-		var path = [];
-		var tmp;
-		do{
-			tmp = chosenNodes.pop();
-			path.push(tmp);
-		} while (tmp != d.id);
-		if (path.length > 1){
-			cycles.push(path.slice(0));
+		var cycle = [];
+		var last;
+		do {
+			last = chosenNodes[chosenNodes.length - 1];
+			chosenNodes.pop();
+			cycle.push(last);			
+		} while (last != d.id);
+		if (cycle.length > 1){
+			cycles.push(cycle);
 		}
 	}
 }
 
+//remove cycles of graph
+function removeCycle(){
+	detectCycle();
+	var removeLink = [];
+	cycles.forEach(function(d){
+		var a = d[0];
+		var b = d[d.length - 1];
+		removeLink[b + " " + a] = 1;
+	});
+	var tmpL = linksData.slice(0);
+	for (var i = 0; i < tmpL.length; i++){
+		var id = tmpL[i].source + " " + tmpL[i].target;
+		if (id in removeLink){
+			tmpL.splice(i, 1);
+			i--;
+		}
+	}
+	return tmpL;
+}
+
 //set layer and position for each node
-function setLayer(){
+function setLayer(tmpLinkData){
 	//layer is set from bottem to top, one layer per loop. The anchors are layer 0.
 	var change = anchorData.length;
-	var tmpLinkData = linksData.slice(0);
 	while (change > 0){
 		var tmpLayerMap = [];
 		change = 0;
@@ -637,19 +656,7 @@ function setLayer(){
 	}
 	maxLayer--;
 	
-	//nodesChildren contains the node's id - node's children pair.
-	anchorData.forEach(function(d){
-		nodesChildren[d.id] = [];
-	});
-	tmpLinkData.forEach(function(d){
-		if (!nodesChildren[d.source]){
-			nodesChildren[d.source] = [];
-		}
-		nodesChildren[d.source].push(d.target);
-		nodesData[d.target].parent = d.source;
-		nodesData[d.source].degree++;
-		nodesData[d.target].degree++;
-	});
+	
 
 	//store the node id in the sequence of layer
 	//xPos is the x position for nodes in the unit of column's width
@@ -758,7 +765,8 @@ function setNodePosition(){
 	});
 
 	//when some node changes its status, the correspoding links, labels and the x position of inside nodes should also change.
-	if (change > 0){
+	if (change > 0 || firstTime){
+		firstTime = false;
 		outsideNodesNum = num;	
 		d3.selectAll(".nodeLabel")
 			.attr("opacity", function(d){
