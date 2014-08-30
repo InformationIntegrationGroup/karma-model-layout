@@ -15,8 +15,8 @@
 }
 
 .fixed{
-	stroke : red;
-	stroke-width = 1;
+	stroke : #555;
+	stroke-width : 4;
 }
 
 body {

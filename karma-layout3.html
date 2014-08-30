@@ -61,6 +61,7 @@ var nodesChildren = [];                        //store node's id and its childre
 var SCCindex = 0;                              //strong connected component node's index
 var chosenNodes = [];                          //the node has been chosen during the dfs
 var SCCNodes = [];                             //SCC nodes set
+var layerLabel = [];                           //layers are divided into sections based on its layer
 
 
 var nodeRadius = 4;
@@ -111,7 +112,7 @@ var labelForce = d3.layout.force()
 		return 0;
 	})
 	.linkDistance(0)
-	.linkStrength(8);
+	.linkStrength(3);
 
 //node can be dragged to the position you want
 var drag = force.drag()
@@ -224,7 +225,11 @@ function transit(){
 			}
 			return "normal";
 		})
-		.classed("labelText", true);
+		.classed("labelText", true)
+		.attr("x", function(d){
+			return -(this.getBBox().width / 2);
+		})
+		.attr("y", -3);
 	labelBoard = labelFrame.append("path")
 		//.attr("stroke-width", 1)
 		//.attr("stroke", "black")
@@ -245,11 +250,13 @@ function transit(){
 			var textWidth = Math.ceil(this.parentNode.firstChild.getBBox().width);
 			var textHeight = Math.ceil(this.parentNode.firstChild.getBBox().height);
 			//console.log(textWidth + " " + textHeight);
-			var dx = 0;
-			var dy = 3;
-			d.width = textWidth;
+			var dx = -textWidth / 2;
+			var dy = 0;
+			d.width = textWidth + textHeight / 3 * 2;
 			d.height = textHeight;
-			maxLabelLength = Math.max(maxLabelLength, d.width);
+			if (d.type == "linkLabel" || (d.node.type != "anchor")){
+				maxLabelLength = Math.max(maxLabelLength, d.width);
+			}
 			return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
 		})
 	labelBoard.moveToBack();
@@ -333,6 +340,7 @@ function transit(){
 					nodesData[e].showLabel = true;
 				}
 			});
+			labelForce.start();
 		})
 		.on("mouseout", function(d){
 			if (d.outside.isOutside){
@@ -366,6 +374,7 @@ function transit(){
 	//test.moveToFront();
 }
 
+//tick function for force-layout
 function tick(e){
 	labelForce.start();
 	var k = 0.03 * e.alpha;
@@ -415,33 +424,15 @@ function tick(e){
     		if (d.type){
     			var a = nodesData[d.node.src];
     			var b = nodesData[d.node.tgt];
-    			d.x = (a.x + b.x) / 2;
+    			d.x = (a.x + b.x) / 2 + (nodesData[d.node.tgt].x - nodesData[d.node.src].x) / 6;
     			d.y = (a.y + b.y) / 2;
     		} else {
     			d.x = d.node.x;
     			d.y = d.node.y;
     		} 
     	} else {
-    		/*var b = this.childNodes[1].getBBox();
-			var diffX = d.x - textData[i - 1].x;
-			var diffY = d.y - textData[i - 1].y;
-			var dist = Math.sqrt(diffX * diffX + diffY * diffY);
-			var shiftX = b.width * (diffX - dist) / (dist * 2);
-			shiftX = Math.max(-b.width, Math.min(0, shiftX));
-			var shiftY = 2;
-			this.childNodes[1].setAttribute("transform", "translate(" + 0 + "," + shiftY + ")");*/
 			var dx = textData[i - 1].x;
 			var dy = textData[i - 1].y;
-			var b = this.childNodes[1].getBBox();
-			dx -= b.width / 2;
-			dy -= 2;
-			var differ = 0;
-			if (d.type == "linkLabel"){
-				differ = (nodesData[d.node.tgt].x - nodesData[d.node.src].x) / 6;
-			}
-			dx += differ;
-			textData[i - 1].x = dx;
-			textData[i - 1].y = dy;
 			d.y = dy;
 			d.x = dx;
     	}
@@ -470,19 +461,18 @@ var updateLink = function(){
 			d.arrow.y = y;
 			var i, j;			
 			for (i = 0; i < 1; i += 0.1){
-				if (getXofBezier(a, b, d.arrow, ax, by, i, y)){
+				if (getXofBezier(d, ax, by, i, y)){
 					break;
 				}
 			}
 			i -= 0.1;
 			for (j = 0; j < 0.1; j += 0.01){
-				if (getXofBezier(a, b, d.arrow, ax, by, i + j, y)){
+				if (getXofBezier(d, ax, by, i + j, y)){
 					break;
 				}
 			}   		
 			d.arrow.t = i + j;
-			d.tmp = {};
-			getXofBezier(a, b, d.tmp, ax, by, i + j - 0.01, y)
+			getArrowAngle(d, ax, by, i + j + 0.05);
 			return p;
 	});	
 
@@ -490,9 +480,6 @@ var updateLink = function(){
 		if (d.target.outside.isOutside){
 			return "";
 		}
-		d.slope = (d.arrow.y - d.tmp.y != 0) ? (d.arrow.x - d.tmp.x) / (d.arrow.y - d.tmp.y) : 1;
-		d.angle = -Math.atan(d.slope) / Math.PI * 180;
-
 		var ax = d.arrow.x;
 		var ay = d.arrow.y;
 		var bx = ax - 6;
@@ -507,14 +494,18 @@ var updateLink = function(){
 			return "rotate(" + d.angle + " " + d.arrow.x + " " + d.arrow.y + ")";
 		}
 	})
-	/*.attr("transform", function(d){
-		if (!d.target.outside.isOutside){
-			return "translate(" + d.angle + " " + d.target.x + " " + d.target.y + ")";
-		}
-	});*/
 }
 
-function getXofBezier(a, b, obj, ax, by, t, y){
+//calculate coordinate on the bezier curve
+function getXofBezier(d, ax, by, t, y){
+	var a = d.source;
+	var b = d.target;
+	var x = b.x;
+	var tmpWidth = 100;
+	var obj = d3.select("nodeLabel" + b.id)
+		.attr("id", function(d){
+			tmpWidth = d.width / 2;
+		})
 	var Ax = ((1 - t) * b.x) + (t * b.x);
 	var Ay = ((1 - t) * b.y) + (t * by);
 	var Bx = ((1 - t) * b.x) + (t * ax);
@@ -527,12 +518,32 @@ function getXofBezier(a, b, obj, ax, by, t, y){
     var Ey = ((1 - t) * By ) + (t * Cy);
     var Px = ((1 - t) * Dx ) + (t * Ex);
     var Py = ((1 - t) * Dy ) + (t * Ey);
-    obj.y = Py;
-    obj.x = Px;
-    if (Py < y){
+    d.arrow.y = Py;
+    d.arrow.x = Px;
+    if (Py < y || Math.abs(Px - x) > tmpWidth){
     	return true;
     }    
     return false;
+}
+
+//compute the rotate slope of arrow
+function getArrowAngle(d, ax, by, t){
+	var a = d.source;
+	var b = d.target;
+	var Ax = ((1 - t) * b.x) + (t * b.x);
+	var Ay = ((1 - t) * b.y) + (t * by);
+	var Bx = ((1 - t) * b.x) + (t * ax);
+	var By = ((1 - t) * by) + (t * a.y);
+	var Cx = ((1 - t) * ax) + (t * a.x);
+	var Cy = ((1 - t) * a.y) + (t * a.y);
+	var Dx = ((1 - t) * Ax ) + (t * Bx);
+    var Dy = ((1 - t) * Ay ) + (t * By);
+    var Ex = ((1 - t) * Bx ) + (t * Cx);
+    var Ey = ((1 - t) * By ) + (t * Cy);
+    var Px = ((1 - t) * Dx ) + (t * Ex);
+    var Py = ((1 - t) * Dy ) + (t * Ey);
+    d.slope = (d.arrow.y - Py != 0) ? (d.arrow.x - Px) / (d.arrow.y - Py) : 1;
+	d.angle = -Math.atan(d.slope) / Math.PI * 180;
 }
 
 //updata links of labels for tick function
@@ -545,10 +556,49 @@ var updateLabelLink = function(){
 
 //update label of nodes for tick function
 var updateLabel = function() {
-	/*var q = d3.geom.quadtree(labels),
-      	i = 0,
-      	n = labels.length;
-    while (++i < n) q.visit(collide(labels[i]));*/
+	layerLabel = [];
+	textData.forEach(function(d, i){
+		if (i % 2 == 1){
+			if (d.type == "nodeLabel"){
+				if (d.node.outside.isOutside && d.node.showLabel){
+					if (!layerLabel[0]){
+						layerLabel[0] = [];
+					}
+					layerLabel[0].push(d);
+				}
+				if (!d.node.outside.isOutside && d.node.layer > 0){
+					if (!layerLabel[d.node.layer]){
+						layerLabel[d.node.layer] = [];
+					}
+					layerLabel[d.node.layer].push(d);
+				}
+			} else {
+				if (!nodesData[d.node.src].outside.isOutside && !nodesData[d.node.tgt].outside.isOutside){
+					var l = (nodesData[d.node.src].layer + nodesData[d.node.tgt].layer) / 2;
+					if (!layerLabel[l]){
+						layerLabel[l] = [];
+					}
+					layerLabel[l].push(d);
+				}
+			}
+		}
+	});
+
+	layerLabel.forEach(function(e, i){
+		if (e.length > 1 && i > 0){
+			var q = d3.geom.quadtree(e),
+				i = 0,
+      			n = e.length;
+    		while (++i < n) q.visit(collide(e[i]));
+    	}
+    	if (i == 0 && e.length > 1){
+    		var q = d3.geom.quadtree(e),
+				i = 0,
+      			n = e.length;
+    		while (++i < n) q.visit(collideOutside(e[i]));
+    	}
+	});
+      	
 	this.attr("transform", function(d) {
 		//dx = Math.max(xOffset + 20, Math.min(xOffset + width, d.x)); 
 		//d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y)); 
@@ -558,15 +608,15 @@ var updateLabel = function() {
 
 //collision detection
 function collide(d) {
-    var r = d.width / 2 + (maxLabelLength / 2 + height / 3),
+    var r = d.width / 2,
       	nx1 = d.x - r,
       	nx2 = d.x + r;
   	return function(quad, x1, y1, x2, y2) {
     	if (quad.point && (quad.point !== d)) {
       		var x = d.x - quad.point.x,
           		y = 0,
-          		l = Math.sqrt(x * x + y * y),
-          		r = d.width / 2 + quad.point.width / 2 + 10;
+          		l = Math.sqrt(x * x),
+          		r = d.width / 2 + quad.point.width / 2;
       		if (l < r) {
         		l = (l - r) / l * .5;
         		d.x -= x *= l;
@@ -574,6 +624,34 @@ function collide(d) {
       		}
     	}
     	return x1 > nx2 || x2 < nx1;
+  	};
+}
+
+//collision detection for outside nodes
+function collideOutside(d){
+  	var r = d.width / 2,
+      	nx1 = d.x - r,
+      	nx2 = d.x + r,
+      	ny1 = d.y - d.height,
+      	ny2 = d.y;
+  	return function(quad, x1, y1, x2, y2) {
+    	if (quad.point && (quad.point !== d)) {
+      		var x = d.x - quad.point.x,
+          		y = (d.y - quad.point.y),
+          		lx = Math.abs(x),
+          		ly = Math.abs(y),
+          		rx = d.width / 2 + quad.point.width / 2,
+          		ry = d.height;
+
+          	if (ly >= ry || lx >= rx){
+          		return true;
+          	}      		
+        	ly = (ly - ry) / ly * .5;
+        	d.y -= y *= ly;
+        	quad.point.y += y;
+      		
+    	}
+    	return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
   	};
 }
 
