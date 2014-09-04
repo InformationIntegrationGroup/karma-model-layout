@@ -1,5 +1,5 @@
 {
-    "comment": "One path longer than the other, the two semantic types close together" ,
+    "comment": "three nodes have no layers" ,
     "anchors": [
         { "id": "c1", "column": 1, "label" : "column1" } ,
         { "id": "c2", "column": 2, "label" : "column2" }

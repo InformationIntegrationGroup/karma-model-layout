@@ -130,9 +130,9 @@ var drag = force.drag()
 	});
 
 //read file and execute program
-d3.json("datasets/cycle/cycle03.json", function(d){
+//d3.json("datasets/cycle/cycle03.json", function(d){
 //d3.json("datasets/complex/complex02.json", function(d){
-//d3.json("datasets/simple/simple07.json", function(d){
+d3.json("datasets/simple/simple07.json", function(d){
 	var tmpNodeData = d.anchors.concat(d.nodes);
 	var tmpLinkData = d.links;
 	initializeData(tmpLinkData, tmpNodeData);
@@ -285,8 +285,10 @@ function transit(){
 			d.outside = {};
 			d.outside.position = {};
 			d.outside.isOutside = false;
-			if (d.layer == -1){
-				d.outside.isOutside = true;
+			if (d.noLayer){
+				//d.outside.isOutside = true;
+				d.position.x = -1;
+				d.position.y = -1;
 			}
 			return "red";
 		})
@@ -295,7 +297,7 @@ function transit(){
 		})
 		.call(drag)
 		.on("click", function(d){
-			if (d.outside.isOutside && d.layer > -1){
+			if (d.outside.isOutside && !d.noLayer){
 				if (d.position.x < xOffset){		
 					var destination = Math.max(0, d.position.x - width / 2);
 					var xPosition = window.pageXOffset;
@@ -337,6 +339,9 @@ function transit(){
 					.attr("opacity", 1);
 				nodesData[d.parent].showLabel = true;
 			}
+			if (nodesChildren[d.id] == undefined){
+				return;
+			}
 			nodesChildren[d.id].forEach(function(e){
 				if (nodesData[e].degree >= 2){
 					d3.select("#nodeLabel" + e)
@@ -357,6 +362,9 @@ function transit(){
 					d3.select("#nodeLabel" + d.parent)
 						.attr("opacity", 0);
 					d.showLabel = true;
+				}
+				if (nodesChildren[d.id] == undefined){
+					return;
 				}
 				nodesChildren[d.id].forEach(function(e){
 					if (nodesData[e].degree < 3){
@@ -382,12 +390,8 @@ function transit(){
 function tick(e){
 	labelForce.start();
 	var k = 0.03 * e.alpha;
-	
-	links.call(updateLink);
-   
+	var kY = 0.05;
 
-   	var kY = 0.05;
-   	//kY = k * 5;
 
 	nodes.attr("cx", function(d) {
 			if (d.outside.isOutside){				
@@ -442,8 +446,11 @@ function tick(e){
     	}
     })
 
-    labels.call(updateLabel);
-    labelLinks.call(updateLabelLink);  	
+    if (!firstTime){
+    	links.call(updateLink);
+    	labels.call(updateLabel);
+    	labelLinks.call(updateLabelLink);  	
+	}
 }
 
 //updata link for tick function
@@ -451,7 +458,7 @@ var updateLink = function(){
     this.attr("d", function(d){
 			var a = d.source;
 			var b = d.target;
-			if ((a.outside.isOutside && b.outside.isOutside) || (b.outside.isOutside && b.type == "anchor")){
+			if ((a.outside.isOutside && b.outside.isOutside) || (b.outside.isOutside && b.type == "anchor") || b.noLayer){
 				return "M" + b.x + " " + b.y + " L " + a.x + " " + a.y;
 			}
 			//var ay = a.y + (b.y - a.y) / 5;
@@ -491,7 +498,7 @@ var updateLink = function(){
 	});	
 
 	linkArrow.attr("points", function(d){
-		if (d.target.outside.isOutside){
+		if (d.target.outside.isOutside || d.target.noLayer){
 			return "";
 		}
 		if (d.up){
@@ -512,7 +519,7 @@ var updateLink = function(){
 		return ax + "," + ay + " " + bx + "," + by + " " + cx + "," + cy;
 	})
 	.attr("transform", function(d){
-		if (!d.target.outside.isOutside){
+		if (!d.target.outside.isOutside && !d.target.noLayer){
 			return "rotate(" + d.angle + " " + d.arrow.x + " " + d.arrow.y + ")";
 		}
 	})
@@ -865,6 +872,7 @@ function setLayer(tmpLinkData){
 	//for node that has no layer, set it as outside node	
 	nodesData.forEach(function(d){
 		if (d.layer == undefined){
+			d.noLayer = true;
 			d.layer = -1;
 			d.xPosCol = -1;
 		}
@@ -925,8 +933,15 @@ function setNodePosition(){
 	var change = 0;
 	//check if node is outside or not, when the status of node changes, the transition happens
 	nodes.each(function(d){
-		if (d.layer == -1){
+		if (d.noLayer){
 			d.outside.isOutside = true;
+			d3.select(this)
+				.transition()
+				.duration(500)
+				.attr("opacity", 0.8)
+				.attr("r", nodeRadius)
+				.attr("fill", "black");	
+			return;				
 		}
 		if (d.position.x - nodeRadius < xOffset || d.position.x + nodeRadius > xOffset + window.innerWidth){
 			d3.select(this).classed("fixed", d.fixed = false);
