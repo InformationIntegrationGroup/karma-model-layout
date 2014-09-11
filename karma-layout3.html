@@ -130,13 +130,15 @@ var drag = force.drag()
 	});
 
 //read file and execute program
-//d3.json("datasets/cycle/cycle03.json", function(d){
+d3.json("datasets/cycle/cycle07.json", function(d){
 //d3.json("datasets/complex/complex02.json", function(d){
-d3.json("datasets/simple/simple07.json", function(d){
+//d3.json("datasets/simple/simple06.json", function(d){
 	var tmpNodeData = d.anchors.concat(d.nodes);
 	var tmpLinkData = d.links;
 	initializeData(tmpLinkData, tmpNodeData);
-	var tmpL = removeCycle();
+	//var tmpL = removeCycle();
+	removeCycle();
+	var tmpL = linksData.slice(0);
 	setLayer(tmpL);
 	drawTable();
 
@@ -152,6 +154,7 @@ d3.json("datasets/simple/simple07.json", function(d){
 
 	setNodePosition();
 });
+
 
 
 
@@ -493,6 +496,9 @@ var updateLink = function(){
 				}   		
 				d.arrow.t = i + j;
 				getArrowAngle(d, ax, by, i + j + 0.05);
+				if (b.y < a.y){
+					d.angle -= 180;
+				}
 			}
 			return p;
 	});	
@@ -786,58 +792,85 @@ function strongConnect(d){
 				d.lowlink = Math.min(d.lowlink, SCCNodes[e].lowlink);
 			} else if (map.has(SCCNodes[e].id)){
 				d.lowlink = Math.min(d.lowlink, SCCNodes[e].index);
+				var cycle = SCCtmpNodes.slice(SCCtmpNodes.indexOf(SCCNodes[e].id));
+				cycles.push(cycle);
 			}
 		}
 	});
-	if (d.lowlink == d.index){
-		var cycle = [];
+	//if (d.lowlink == d.index){
+		//var cycle = [];
 		var last;
 		do {
 			last = SCCtmpNodes[SCCtmpNodes.length - 1];
 			SCCtmpNodes.pop();
 			map.delete(last);
-			cycle.push(last);			
+			//cycle.push(last);			
 		} while (last != d.id);
-		if (cycle.length > 1){
-			cycles.push(cycle);
-		}
-	}
+		//if (cycle.length > 1){
+			//cycles.push(cycle);
+		//}
+	//}
 }
 
-//remove cycles of graph
+//generate cycles set
 function removeCycle(){
 	detectCycle();
-	var removeLink = [];
+	map.clear();
 	cycles.forEach(function(d){
-		var a = d[d.length - 1];
-		var b = d[d.length - 2];
-		removeLink[a + " " + b] = 1;
-	});
-	var tmpL = linksData.slice(0);
-	for (var i = 0; i < tmpL.length; i++){
-		var id = tmpL[i].source + " " + tmpL[i].target;
-		if (id in removeLink){
-			tmpL.splice(i, 1);
-			i--;
+		var tmp = [];
+		for (var i = 0; i < d.length; i++){
+			var e = "";
+			if (i == d.length - 1){
+				e = d[i] + " " + d[0];
+			} else {
+				e = d[i] + " " + d[i + 1];
+			}
+			map.set(e, tmp);
+			tmp.push(e);
 		}
-	}
-	return tmpL;
+	});
+	/*map.forEach(function(v, k, m){
+		console.log(v + "------" + k);
+	})*/
 }
 
 //set layer and position for each node
 function setLayer(tmpLinkData){
 	//layer is set from bottem to top, one layer per loop. The anchors are layer 0.
 	var change = anchorData.length;
+	//for (var i = 0; i < 10; i++){
 	while (change > 0){
 		var tmpLayerMap = [];
 		change = 0;
 		tmpLinkData.forEach(function(d){
+		//for (var i = 0; i < tmpLinkData.length; i++){
+			//d = tmpLinkData[i];
 			var src = d.source;
 			var tgt = d.target;
+			var flag = true;
 			if (tgt in layerMap){
-				nodesData[src].layer = nodesData[tgt].layer + 1;
-				tmpLayerMap[src] = 1;
-				change++;
+				var e = src + " " + tgt;
+				if (map.has(e)){
+					var tmp = map.get(e);
+					if (tmp.length > 1){
+						tmp.splice(tmp.indexOf(e), 1);
+						//console.log(tmp);
+					} else {
+						if (tmp[0] == e){
+							var index = nodesChildren[src].indexOf(tgt);
+							if (index > -1){
+								nodesChildren[src].splice(index, 1);
+							}
+							flag = false;
+							//console.log("left" + e);
+						}
+					}
+				}
+				if (flag){
+					nodesData[src].layer = nodesData[tgt].layer + 1;
+					tmpLayerMap[src] = 1;
+					change++;
+				}
 			}
 		});
 		layerMap = tmpLayerMap.slice(0);
@@ -1009,7 +1042,6 @@ function setNodePosition(){
 			}
 			return false;
 		});
-
 		layerMap.forEach(function(d, i){
 			if (i > 0){
 				d.forEach(function(e){
@@ -1025,7 +1057,7 @@ function setNodePosition(){
 					}
 				});
 			}
-		});		
+		});	
 		force.start();
 	}
 }

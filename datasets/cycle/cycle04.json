@@ -1,5 +1,5 @@
 {
-    "comment": "One path longer than the other, the two semantic types close together" ,
+    "comment": "3 nodes cycle, but in one vetical line" ,
     "anchors": [
         { "id": "c1", "column": 1, "label" : "column1" } ,
         { "id": "c2", "column": 2, "label" : "column2" }
@@ -17,7 +17,8 @@
         { "source": "n3", "target": "s2", "label": "link" } ,
         { "source": "n3", "target": "n2", "label": "link" } ,
         { "source": "n2", "target": "n1", "label": "link" } ,
-        { "source": "n1", "target": "s1", "label": "link" } 
+        { "source": "n1", "target": "s1", "label": "link" } ,
+        { "source": "s1", "target": "n2", "label": "link" } 
   ]
 }
 

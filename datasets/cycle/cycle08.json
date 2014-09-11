@@ -1,0 +1,20 @@
+{
+	"comment": "three 2 nodes cycles", 
+  	"anchors": [
+  	  	{ "id": "0", "column": 0, "label":"col0" },
+        { "id": "1", "column": 1, "label":"col1" },
+        { "id": "2", "column": 2, "label":"col2" }
+  	],
+  	"nodes": [
+    	{ "id": "3", "label": "class1" }
+  	],
+  	"links": [
+    	{ "source": "0", "target": "3", "label": "link " },
+      { "source": "1", "target": "3", "label": "link " },
+      { "source": "3", "target": "0", "label": "link " },
+      { "source": "3", "target": "1", "label": "link " },
+      { "source": "3", "target": "2", "label": "link " },
+      { "source": "2", "target": "3", "label": "link " }
+  	]
+}
+
