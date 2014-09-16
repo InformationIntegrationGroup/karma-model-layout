@@ -1,10 +1,7 @@
 D3ModelLayout = function(htmlElement) {
 	padding = 35;
-	width=window.innerWidth - padding;           
-	height=window.innerHeight - padding;
-	columns = 35;
-	barWidth = 100;
-	barHeight = 100;
+	width=0;           
+	height=0;
 
 
 	test = [];
@@ -28,7 +25,8 @@ D3ModelLayout = function(htmlElement) {
 
 	nodeRadius = 4;
 	unitLinkLength = 70;                       //difference between layers
-	maxLayer = 0;
+	outsideUnitLinkLength = 30;                //length for outside links
+	maxLayer = 0;                              //max layer number, base 0
 	reshuffleFrequency = 10;                   //pixel changes to excute scroll bar event
 	xOffset = 0;                               //x position offset
 	outsideNodesNum = 0;                       //outside nodes number
@@ -39,8 +37,6 @@ D3ModelLayout = function(htmlElement) {
 	//create svg
 	svg = d3.select(htmlElement)                         
 	    .append("svg")
-	    .attr("width", Math.max(width, columns * barWidth))
-	    .attr("height", height)
 	    .on("mousemove", mousemove);
 
 	//svg to draw nodes and links
@@ -51,14 +47,9 @@ D3ModelLayout = function(htmlElement) {
 		.attr("fill", "black")
 		.attr("font-size", 10);
 
-	//x-scale
-	xScale = d3.scale.linear()
-		.domain([0, columns])                        
-		.range([0, barWidth * columns]);
-
 	//coefficient of force move nodes to top
 	upperForceScale = d3.scale.linear()
-		.domain([0, height]) 
+		//.domain([0, height]) 
 		.range([1, 0]);        
 
 	nodes = forceSVG.selectAll(".node");       //all nodes    
@@ -70,7 +61,7 @@ D3ModelLayout = function(htmlElement) {
 
 	//force layout for nodes
 	force = d3.layout.force()
-		.size([Math.max(width, columns * barWidth), height])
+		//.size([Math.max(width, columns * barWidth), height])
 		.gravity(0)
 		.linkStrength(function(d){
 			if (d.type == "edgeLink"){
@@ -92,12 +83,12 @@ D3ModelLayout = function(htmlElement) {
 		.friction(0.8)
 		//.theta(0.1)
 		.charge(-100)
-		.linkDistance(30)
+		.linkDistance(outsideUnitLinkLength)
 		.on("tick", tick);
 		// force layout for labels
 
 	labelForce = d3.layout.force()
-		.size([Math.max(width, columns * barWidth), height])
+		//.size([Math.max(width, columns * barWidth), height])
 		.gravity(0)
 		.friction(0.8)
 		.charge(function(d){
@@ -267,8 +258,8 @@ D3ModelLayout = function(htmlElement) {
 			.attr("opacity", 0.7)
 			.attr("fill", function(d, i){
 				d.position = {};
-				d.position.x = barWidth * (0.5 + d.xposCol);
-				d.position.y = height - barHeight - nodeRadius - d.layer * unitLinkLength;
+				d.position.x = d.xpos;
+				d.position.y = height - nodeRadius - d.layer * unitLinkLength;
 				d.outside = {};
 				d.outside.position = {};
 				d.outside.isOutside = false;
@@ -298,7 +289,7 @@ D3ModelLayout = function(htmlElement) {
 							}
 						}, 10);
 					} else {
-						var destination = Math.min(Math.max(width, columns * barWidth) - width, d.position.x - width / 2);
+						var destination = Math.min(width - window.innerWidth, d.position.x - width / 2);
 						var xPosition = window.pageXOffset;
 						var differ = Math.max(30, (destination - xPosition) / 200);
 						var interval = setInterval(function(){
@@ -314,8 +305,8 @@ D3ModelLayout = function(htmlElement) {
 			})
 			.on("dblclick", function(d) {
 	  			d3.select(this).classed("fixed", d.fixed = false);
-	  			d.position.x = barWidth * (0.5 + d.xposCol);
-				d.position.y = height - barHeight - nodeRadius - d.layer * unitLinkLength;
+	  			d.position.x = d.xpos;
+				d.position.y = height - nodeRadius - d.layer * unitLinkLength;
 			})
 			.on("mouseover", function(d){
 				d3.select("#nodeLabel" + d.id)
@@ -406,13 +397,13 @@ D3ModelLayout = function(htmlElement) {
 	        	var differY = d.position.y - d.y;
 	        	if (d.type == "anchor"){
 	        		d.y += differY * kY;
-	        		if (Math.abs(d.position.y - d.y) < 20 || d.y >= height - barHeight - nodeRadius){
+	        		if (Math.abs(d.position.y - d.y) < 20 || d.y >= height - nodeRadius){
 	        			d.y = d.position.y;
 	        		}
 	        	} else {
 	        		d.y += differY * kY;
 	        	}
-	        	return d.y;
+	        	return d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y));
 	        });
 	    
 
@@ -697,7 +688,7 @@ D3ModelLayout = function(htmlElement) {
 				node.column = d.column;
 				node.type = "anchor";
 				node.layer = 0;
-				node.xposCol = d.column;
+				node.xpos = d.xPos;
 				anchorData.push(node);
 				layerMap[i] = 1;
 			} else {
@@ -892,9 +883,9 @@ D3ModelLayout = function(htmlElement) {
 				d.forEach(function(e){
 					var tmp = [];
 					nodesChildren[e].forEach(function(f){
-						tmp.push(nodesData[f].xposCol);
+						tmp.push(nodesData[f].xpos);
 					});				
-					nodesData[e].xposCol = (d3.min(tmp) + d3.max(tmp)) / 2;
+					nodesData[e].xpos = (d3.min(tmp) + d3.max(tmp)) / 2;
 				}); 
 			}
 		});
@@ -905,7 +896,7 @@ D3ModelLayout = function(htmlElement) {
 			if (d.layer == undefined){
 				d.noLayer = true;
 				d.layer = -1;
-				d.xPosCol = -1;
+				d.xpos = -1;
 			}
 		});
 
@@ -922,27 +913,6 @@ D3ModelLayout = function(htmlElement) {
 			edge.type = "edgeLink";
 			linksData.push(edge);
 		});
-	}
-
-	//draw columns
-	function drawTable(){
-		var columnName = d3.range(columns).map(function(d){
-			return d;
-		});
-		svg.selectAll("rect")
-			.data(columnName)
-			.enter()
-			.append("rect")
-			.attr("x", function(d, i){
-				return xScale(i);
-			})
-			.attr("y", height - 100)
-			.attr("height", barHeight)
-			.attr("width", barWidth)
-			.attr("fill", "steelblue")
-			.attr("stroke", "white")
-			.attr("stroke-width", 1)
-			.attr("opacity", 0.5);
 	}
 
 	//when move over show the coordinate
@@ -1004,8 +974,8 @@ D3ModelLayout = function(htmlElement) {
 			}
 			if (d.position.x - nodeRadius < xOffset || d.position.x + nodeRadius > xOffset + window.innerWidth){
 				d3.select(this).classed("fixed", d.fixed = false);
-	  			d.position.x = barWidth * (0.5 + d.xposCol);
-				d.position.y = height - barHeight - nodeRadius - d.layer * unitLinkLength;
+	  			d.position.x = d.xpos;
+				d.position.y = height - nodeRadius - d.layer * unitLinkLength;
 			}
 			if (d.position.x - nodeRadius < xOffset || d.position.x + nodeRadius > xOffset + window.innerWidth){
 				if (!d.outside.isOutside){
@@ -1078,11 +1048,11 @@ D3ModelLayout = function(htmlElement) {
 							var tmp = [];
 							nodesChildren[e].forEach(function(f){
 								if (!nodesData[f].outside.isOutside){
-									tmp.push(nodesData[f].xposCol);
+									tmp.push(nodesData[f].xpos);
 								}
 							});				
-							nodesData[e].xposCol = (d3.min(tmp) + d3.max(tmp)) / 2;
-							nodesData[e].position.x = barWidth * (0.5 + nodesData[e].xposCol);
+							nodesData[e].xpos = (d3.min(tmp) + d3.max(tmp)) / 2;
+							nodesData[e].position.x = nodesData[e].xpos;
 						}
 					});
 				}
@@ -1102,7 +1072,14 @@ D3ModelLayout = function(htmlElement) {
 			removeCycle();
 			var tmpL = linksData.slice(0);
 			setLayer(tmpL, tmpEdgeLink);
-			drawTable();
+
+
+			width = d.width + padding;
+			height = (maxLayer + 1) * (unitLinkLength + outsideUnitLinkLength);
+			svg.attr("width", width);
+			svg.attr("height", height);
+			force.size([width, height]);
+			labelForce.size([width, height]);
 
 			transit();
 
