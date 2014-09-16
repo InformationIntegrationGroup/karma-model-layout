@@ -7,7 +7,11 @@
     	{ "id": "", "label": "s1 semantic type" }
   	],
   	"links": [
-    	{ "source": "", "target": "", "label": "link " }
+    	{ "source": "", "target": "", "label": "link ", "id": "" }
+  	],
+  	"edgeLinks":[
+  		{"source":"", "target":""} 
+  		//source is id of link and target is id of anchor
   	]
 }
 
