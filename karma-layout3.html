@@ -10,7 +10,7 @@
 <body>
 <script type="text/javascript">
 
-var layout = new D3ModelLayout();
+var layout = new D3ModelLayout("body");
 layout.generateLayoutForJsonFile("datasets/simple/simple09.json");
 
 layout.setNodeClickListener(function(e, node) {
