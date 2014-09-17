@@ -4,13 +4,47 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="d3.v3.min.js"></script>
 <script type="text/javascript" src="d3-model-layout.js"></script>
+
+<style type="text/css">
+	.wk-header-cell {
+		width: 200px;
+	}
+</style>
 </head>
 
 
 <body>
+
+<div id="WS1" class="Worksheet">
+	<div id="svgDiv_WS1" class="svg-model"></div>
+	<div class="table-container worksheet-table-container" >
+		<div class="table-header-container">
+			<table style="border: 1px solid black;" rules="all">
+				<tbody>
+					<tr class="wk-row-odd">
+						<td id="HN4" class="wk-header-cell htable-even-regular">Column 00</td>
+						<td id="HN4" class="wk-header-cell htable-even-regular">Column 01</td>
+						<td id="HN5" class="wk-header-cell htable-even-regular">Column 02</td>
+						<td id="HN6" class="wk-header-cell htable-even-regular">Column 03</td>
+						<td id="HN7" class="wk-header-cell htable-even-regular">Column 04</td>
+						<td id="HN8" class="wk-header-cell htable-even-regular">Column 05</td>
+						<td id="HN9" class="wk-header-cell htable-even-regular">Column 06</td>
+						<td id="HN10" class="wk-header-cell htable-even-regular">Column 07</td>
+						<td id="HN11" class="wk-header-cell htable-even-regular">Column 08</td>
+						<td id="HN12" class="wk-header-cell htable-even-regular">Column 09</td>
+						<td id="HN13" class="wk-header-cell htable-even-regular">Column 10</td>
+						<td id="HN14" class="wk-header-cell htable-even-regular">Column 11</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
 <script type="text/javascript">
 
-var layout = new D3ModelLayout("body");
+var layout = new D3ModelLayout("div#svgDiv_WS1");
 layout.generateLayoutForJsonFile("datasets/simple/simple09.json");
 
 layout.setNodeClickListener(function(node) {
@@ -22,5 +56,6 @@ layout.setLinkClickListener(function(link) {
 });
 
 </script>
+
 </body>
 </html>
