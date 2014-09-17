@@ -13,11 +13,11 @@
 var layout = new D3ModelLayout("body");
 layout.generateLayoutForJsonFile("datasets/simple/simple09.json");
 
-layout.setNodeClickListener(function(e, node) {
+layout.setNodeClickListener(function(node) {
 	console.log("This function is called when the node is clicked");
 });
 
-layout.setLinkClickListener(function(e, link) {
+layout.setLinkClickListener(function(link) {
 	console.log("This function is called when the link is clicked");
 });
 

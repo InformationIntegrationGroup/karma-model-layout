@@ -235,6 +235,38 @@ D3ModelLayout = function(htmlElement) {
 				return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
 			})
 		labelBoard.moveToBack();
+		labelClickBoard = labels.filter(function(d, i){
+			return (i % 2 == 1) && d.node.type != "anchor";
+		})
+		.append("rect")
+		.classed("clickBoard", true)
+		.attr("fill", "transparent")
+		.attr("width", function(d){
+			var w = Math.ceil(this.parentNode.childNodes[1].getBBox().width);
+			return w;
+		})
+		.attr("height", function(d){
+			var h = Math.ceil(this.parentNode.childNodes[1].getBBox().height);
+			return h;
+		})
+		.attr("x", function(d){
+			var w = Math.ceil(this.parentNode.childNodes[1].getBBox().width);
+			return -w / 2;
+		})
+		.attr("y", function(d){
+			var h = Math.ceil(this.parentNode.childNodes[1].getBBox().height);
+			return -h;
+		})
+		.on("click", function(d){
+			if (d.type == "linkLabel"){
+				layout.setLinkClickListener(d);
+
+			} else {
+				layout.setNodeClickListener(d);
+			}
+			//console.log(d.type);
+		})
+
 
 			
 		labelLinks = labelLinks.data(textLinksData);
@@ -1031,6 +1063,16 @@ D3ModelLayout = function(htmlElement) {
 						return 1;
 					}
 				})
+			d3.selectAll(".clickBoard")
+				.attr("fill", function(d){
+					if (d.type == "linkLabel"){
+						if (nodesData[d.node.src].outside.isOutside || nodesData[d.node.tgt].outside.isOutside){
+							return "none";
+						}
+						return "transparent";
+					} 
+					return d.node.showLabel ? "transparent" : "none";
+				});
 
 			links.classed("outsideLink", function(d){
 				if (d.type == "edgeLink"){
@@ -1041,6 +1083,7 @@ D3ModelLayout = function(htmlElement) {
 				}
 				return false;
 			});
+
 			layerMap.forEach(function(d, i){
 				if (i > 0){
 					d.forEach(function(e){
@@ -1115,12 +1158,11 @@ D3ModelLayout = function(htmlElement) {
 		});
 	};
 
-	this.setNodeClickListener = function(listener) {
-
+	this.setNodeClickListener = function(nodeLabel) {
+		console.log(nodeLabel.content + " " + nodeLabel.x + " " + nodeLabel.y);
 	}
 
-	this.setLinkClickListener = function(listener) {
-
+	this.setLinkClickListener = function(linkLabel) {
+		console.log(linkLabel.content + " " + linkLabel.x + " " + linkLabel.y);
 	}
-
 };
