@@ -38,8 +38,8 @@ D3ModelLayout = function(htmlElement) {
 
 	//create svg
 	svg = d3.select(htmlElement)                         
-	    .append("svg")
-	    .on("mousemove", mousemove);
+	    .append("svg");
+	    //.on("mousemove", mousemove);
 
 	//svg to draw nodes and links
 	forceSVG = svg.append("g");
@@ -262,10 +262,10 @@ D3ModelLayout = function(htmlElement) {
 		.on("click", function(d){
 			if (d.type == "linkLabel"){
 				if(linkClickListener != null)
-					linkClickListener(d);
+					linkClickListener(d, d3.event);
 			} else {
 				if(nodeClickListener != null)
-					nodeClickListener(d);
+					nodeClickListener(d, d3.event);
 			}
 			//console.log(d.type);
 		})

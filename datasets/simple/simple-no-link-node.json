@@ -1,0 +1,223 @@
+
+
+{
+  "edgeLinks": [
+    
+  ],
+  "anchors": [
+    {
+      "id": 0,
+      "isForcedByUser": false,
+      "nodeId": "HN4",
+      "nodeDomain": "HN4",
+      "column": 0,
+      "label": "HN4",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN4",
+      "xPos": 46
+    },
+    {
+      "id": 1,
+      "isForcedByUser": false,
+      "nodeId": "HN5",
+      "nodeDomain": "HN5",
+      "column": 1,
+      "label": "HN5",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN5",
+      "xPos": 155
+    },
+    {
+      "id": 2,
+      "isForcedByUser": false,
+      "nodeId": "HN6",
+      "nodeDomain": "HN6",
+      "column": 2,
+      "label": "HN6",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN6",
+      "xPos": 264
+    },
+    {
+      "id": 3,
+      "isForcedByUser": false,
+      "nodeId": "HN7",
+      "nodeDomain": "",
+      "column": 3,
+      "label": "column_04",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN7",
+      "xPos": 373
+    },
+    {
+      "id": 4,
+      "isForcedByUser": false,
+      "nodeId": "HN8",
+      "nodeDomain": "",
+      "column": 4,
+      "label": "column_05",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN8",
+      "xPos": 482
+    },
+    {
+      "id": 5,
+      "isForcedByUser": false,
+      "nodeId": "HN9",
+      "nodeDomain": "",
+      "column": 5,
+      "label": "column_06",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN9",
+      "xPos": 591
+    },
+    {
+      "id": 6,
+      "isForcedByUser": false,
+      "nodeId": "HN10",
+      "nodeDomain": "",
+      "column": 6,
+      "label": "column_07",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN10",
+      "xPos": 700
+    },
+    {
+      "id": 7,
+      "isForcedByUser": false,
+      "nodeId": "HN11",
+      "nodeDomain": "",
+      "column": 7,
+      "label": "column_08",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN11",
+      "xPos": 809
+    },
+    {
+      "id": 8,
+      "isForcedByUser": false,
+      "nodeId": "HN12",
+      "nodeDomain": "",
+      "column": 8,
+      "label": "column_09",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN12",
+      "xPos": 918
+    },
+    {
+      "id": 9,
+      "isForcedByUser": false,
+      "nodeId": "HN13",
+      "nodeDomain": "",
+      "column": 9,
+      "label": "column_10",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN13",
+      "xPos": 1027
+    },
+    {
+      "id": 10,
+      "isForcedByUser": false,
+      "nodeId": "HN14",
+      "nodeDomain": "",
+      "column": 10,
+      "label": "column_11",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN14",
+      "xPos": 1136
+    }
+  ],
+  "nodes": [
+    {
+      "id": 11,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/example.com\/layout\/C01_1",
+      "nodeDomain": "http:\/\/example.com\/layout\/C01_",
+      "label": "C01_1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 12,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/example.com\/layout\/C02_1",
+      "nodeDomain": "http:\/\/example.com\/layout\/C02_",
+      "label": "C02_1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 13,
+      "isForcedByUser": true,
+      "nodeId": "http:\/\/example.com\/layout\/C00_2",
+      "nodeDomain": "http:\/\/example.com\/layout\/C00_",
+      "label": "C00_2",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 14,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/example.com\/layout\/C03_1",
+      "nodeDomain": "http:\/\/example.com\/layout\/C03_",
+      "label": "C03_1",
+      "nodeType": "InternalNode"
+    }
+  ],
+  "links": [
+    {
+      "id": "http:\/\/example.com\/layout\/C01_1---http:\/\/example.com\/layout\/d1---HN4",
+      "linkUri": "http:\/\/example.com\/layout\/d1",
+      "source": 11,
+      "sourceNodeId": "http:\/\/example.com\/layout\/C01_1",
+      "target": 0,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "d1",
+      "targetNodeId": "HN4"
+    },
+    {
+      "id": "http:\/\/example.com\/layout\/C01_1---http:\/\/example.com\/layout\/o1---http:\/\/example.com\/layout\/C02_1",
+      "linkUri": "http:\/\/example.com\/layout\/o1",
+      "source": 11,
+      "sourceNodeId": "http:\/\/example.com\/layout\/C01_1",
+      "target": 12,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "o1",
+      "targetNodeId": "http:\/\/example.com\/layout\/C02_1"
+    },
+    {
+      "id": "http:\/\/example.com\/layout\/C02_1---http:\/\/example.com\/layout\/d2---HN5",
+      "linkUri": "http:\/\/example.com\/layout\/d2",
+      "source": 12,
+      "sourceNodeId": "http:\/\/example.com\/layout\/C02_1",
+      "target": 1,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "d2",
+      "targetNodeId": "HN5"
+    },
+    {
+      "id": "http:\/\/example.com\/layout\/C02_1---http:\/\/example.com\/layout\/o2---http:\/\/example.com\/layout\/C03_1",
+      "linkUri": "http:\/\/example.com\/layout\/o2",
+      "source": 12,
+      "sourceNodeId": "http:\/\/example.com\/layout\/C02_1",
+      "target": 14,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "o2",
+      "targetNodeId": "http:\/\/example.com\/layout\/C03_1"
+    },
+    {
+      "id": "http:\/\/example.com\/layout\/C03_1---http:\/\/example.com\/layout\/d3---HN6",
+      "linkUri": "http:\/\/example.com\/layout\/d3",
+      "source": 14,
+      "sourceNodeId": "http:\/\/example.com\/layout\/C03_1",
+      "target": 2,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "d3",
+      "targetNodeId": "HN6"
+    }
+  ],
+  "width": 1181
+}
+
