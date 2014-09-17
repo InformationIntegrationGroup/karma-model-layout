@@ -719,6 +719,7 @@ D3ModelLayout = function(htmlElement) {
 			node.id = i;
 			node.degree = 0;
 			node.showLabel = false;
+			node.original = d;
 			if (d.column || d.column == 0){
 				node.column = d.column;
 				node.type = "anchor";
@@ -760,6 +761,7 @@ D3ModelLayout = function(htmlElement) {
 			var node = {};
 			node.src = edge.source;
 			node.tgt = edge.target;
+			node.original = d;
 			textData.push({
 				node : node,
 				type : "linkCircle"
