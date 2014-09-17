@@ -1,20 +1,20 @@
 {
     "comment": "Contains label Links",
     "anchors": [
-        { "id": 0, "column": 0, "label" : "column0", "xPos" : 100 } ,
-        { "id": 1, "column": 1, "label" : "column1", "xPos" : 300 } ,
-        { "id": 16, "column": 2, "label" : "column2", "xPos" : 500},
-        { "id": 17, "column": 3, "label" : "column3" , "xPos" :  700} ,
-        { "id": 2, "column": 4, "label" : "column4" , "xPos" :  900} ,
-        { "id": 3, "column": 5, "label" : "column5", "xPos" : 1100} ,
-        { "id": 4, "column": 6, "label" : "column6", "xPos" : 1300} ,
-        { "id": 5, "column": 7, "label" : "column7", "xPos" : 1500 } ,
-        { "id": 18, "column": 8, "label" : "column11", "xPos" : 1700 } ,
-        { "id": 19, "column": 9, "label" : "column11", "xPos" : 1900 } ,
-        { "id": 20, "column": 10, "label" : "column11", "xPos" : 2100 } ,
-        { "id": 6, "column": 11, "label" : "column11", "xPos" : 2300 } ,
-        { "id": 21, "column": 12, "label" : "column11", "xPos" : 2500 } ,
-        { "id": 7, "column": 13, "label" : "column13", "xPos" : 2700 }          
+        { "id": 0, "column": 0, "label" : "column0", "xPos" : 50 } ,
+        { "id": 1, "column": 1, "label" : "column1", "xPos" : 150 } ,
+        { "id": 16, "column": 2, "label" : "column2", "xPos" : 250},
+        { "id": 17, "column": 3, "label" : "column3" , "xPos" :  350} ,
+        { "id": 2, "column": 4, "label" : "column4" , "xPos" :  450} ,
+        { "id": 3, "column": 5, "label" : "column5", "xPos" : 550} ,
+        { "id": 4, "column": 6, "label" : "column6", "xPos" : 650} ,
+        { "id": 5, "column": 7, "label" : "column7", "xPos" : 750 } ,
+        { "id": 18, "column": 8, "label" : "column8", "xPos" : 850 } ,
+        { "id": 19, "column": 9, "label" : "column9", "xPos" : 950 } ,
+        { "id": 20, "column": 10, "label" : "column10", "xPos" : 1050 } ,
+        { "id": 6, "column": 11, "label" : "column11", "xPos" : 1150 } ,
+        { "id": 21, "column": 12, "label" : "column12", "xPos" : 1250 } ,
+        { "id": 7, "column": 13, "label" : "column13", "xPos" : 1350 }          
     ],
     "nodes": [
         { "id": 8, "label": "semantic type" } ,
@@ -47,6 +47,6 @@
     "edgeLinks":[
         {"source":"l8", "target":"16"} 
     ],
-    "width" : 2800
+    "width" : 1400
 }
 
