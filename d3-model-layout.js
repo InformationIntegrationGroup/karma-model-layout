@@ -3,7 +3,9 @@ D3ModelLayout = function(htmlElement) {
 	width=0;           
 	height=0;
 
-
+	linkClickListener = null;
+	nodeClickListener = null;
+	
 	test = [];
 	anchorData = [];                           //store anchor nodes
 	nodesData = [];                            //store all nodes includes anchors
@@ -259,10 +261,11 @@ D3ModelLayout = function(htmlElement) {
 		})
 		.on("click", function(d){
 			if (d.type == "linkLabel"){
-				layout.setLinkClickListener(d);
-
+				if(linkClickListener != null)
+					linkClickListener(d);
 			} else {
-				layout.setNodeClickListener(d);
+				if(nodeClickListener != null)
+					nodeClickListener(d);
 			}
 			//console.log(d.type);
 		})
@@ -1158,11 +1161,11 @@ D3ModelLayout = function(htmlElement) {
 		});
 	};
 
-	this.setNodeClickListener = function(nodeLabel) {
-		console.log(nodeLabel.content + " " + nodeLabel.x + " " + nodeLabel.y);
+	this.setNodeClickListener = function(listener) {
+		nodeClickListener = listener;
 	}
 
-	this.setLinkClickListener = function(linkLabel) {
-		console.log(linkLabel.content + " " + linkLabel.x + " " + linkLabel.y);
+	this.setLinkClickListener = function(listener) {
+		linkClickListener = listener
 	}
 };
