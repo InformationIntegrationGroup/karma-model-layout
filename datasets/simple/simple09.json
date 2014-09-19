@@ -45,7 +45,7 @@
         { "source": 15, "target": 14, "label": "link", "id":"l14" } 
     ],
     "edgeLinks":[
-        {"source":"l8", "target":"16"} 
+        {"source":"l8", "target":"16", "label":"edgeLinks"} 
     ],
     "width" : 1400
 }
