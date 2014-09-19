@@ -172,10 +172,9 @@ D3ModelLayout = function(htmlElement) {
 				if (d.type == "nodeLabel"){
 					return "nodeLabel";
 				} else if (d.type == "linkLabel"){
-					if (d.content == "edgeLinks"){
-						return "edgeLinkLabel";
-					}
 					return "linkLabel";
+				} else if (d.type == "edgeLinkLabel"){
+					return "edgeLinkLabel";
 				}
 				return "unusedLable";
 			})
@@ -183,10 +182,9 @@ D3ModelLayout = function(htmlElement) {
 				if (d.type == "nodeLabel"){
 					return "nodeLabel" + d.node.id;
 				} else if (d.type == "linkLabel"){
-					if(d.content == "edgeLinks"){
-						return "edgeLinkLabel" + i;
-					}
 					return "linkLabel" + nodesData[d.node.src].id + " " + nodesData[d.node.tgt].id;
+				} else if (d.type == "edgeLinkLabel"){
+					return "edgeLinkLabel" + nodesData[d.node.tgt].id;
 				}
 				return "labelPart" + i;
 			})
@@ -199,7 +197,7 @@ D3ModelLayout = function(htmlElement) {
 				if (d.type == "nodeLabel"){
 					return "white";
 				}
-				if (d.type == "linkLabel"){
+				if (d.type == "linkLabel" || d.type == "edgeLinkLabel"){
 					return "black";
 				}
 				return "none";
@@ -222,13 +220,13 @@ D3ModelLayout = function(htmlElement) {
 				if (d.type == "nodeLabel"){
 					return "#555";
 				}
-				if (d.type == "linkLabel"){
+				if (d.type == "linkLabel" || d.type == "edgeLinkLabel"){
 					return "#ddd";
 				}
 				return "none";
 			})
 			.attr("d", function(d){
-				if (d.type != "nodeLabel" && d.type != "linkLabel"){
+				if (d.type != "nodeLabel" && d.type != "linkLabel" && d.type != "edgeLinkLabel"){
 					d.width = 0;
 					return "";
 				}
@@ -239,7 +237,7 @@ D3ModelLayout = function(htmlElement) {
 				var dy = 0;
 				d.width = textWidth + textHeight / 3 * 2;
 				d.height = textHeight;
-				if (d.type == "linkLabel" || (d.node.type != "anchor")){
+				if (d.type == "linkLabel" || d.tyoe == "edgeLinkLabel" || (d.node.type != "anchor")){
 					maxLabelLength = Math.max(maxLabelLength, d.width);
 				}
 				return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
@@ -268,7 +266,7 @@ D3ModelLayout = function(htmlElement) {
 			return -h;
 		})
 		.on("click", function(d){
-			if (d.type == "linkLabel"){
+			if (d.type == "linkLabel" || d.type == "edgeLinkLabel"){
 				if(linkClickListener != null)
 					linkClickListener(d.node.original, d3.event);
 			} else {
@@ -453,18 +451,16 @@ D3ModelLayout = function(htmlElement) {
 
 	    labels.each(function(d, i){
 	    	if (i % 2 == 0){
-	    		if (d.type){
-	    			if (d.content == "edgeLinks"){
-	    				var a = d.node.src;
-	    				var b = nodesData[d.node.tgt];
-	    				d.x = (a.x + b.x) / 2 + (b.x - a.x) / 6;
-	    				d.y = (a.y + b.y) / 2;
-	    			} else {
-		    			var a = nodesData[d.node.src];
-		    			var b = nodesData[d.node.tgt];
-		    			d.x = (a.x + b.x) / 2 + (nodesData[d.node.tgt].x - nodesData[d.node.src].x) / 6;
-		    			d.y = (a.y + b.y) / 2;
-		    		}
+	    		if (d.type == "linkCircle"){
+		    		var a = nodesData[d.node.src];
+		    		var b = nodesData[d.node.tgt];
+		    		d.x = (a.x + b.x) / 2 + (nodesData[d.node.tgt].x - nodesData[d.node.src].x) / 6;
+		    		d.y = (a.y + b.y) / 2;		    		
+	    		} else if (d.type == "edgeLinkCircle"){
+	    			var a = d.node.src;
+	    			var b = nodesData[d.node.tgt];
+	    			d.x = (a.x + b.x) / 2 + (b.x - a.x) / 6;
+	    			d.y = (a.y + b.y) / 2;
 	    		} else {
 	    			d.x = d.node.x;
 	    			d.y = d.node.y;
@@ -643,10 +639,10 @@ D3ModelLayout = function(htmlElement) {
 						}
 						layerLabel[d.node.layer].push(d);
 					}
-				} else {
-					if (d.content == "edgeLinks"){
+				} else if (d.type == "edgeLinkLabel"){
 
-					} else if (!nodesData[d.node.src].outside.isOutside && !nodesData[d.node.tgt].outside.isOutside){
+				} else if (d.type == "linkLabel"){
+					if (!nodesData[d.node.src].outside.isOutside && !nodesData[d.node.tgt].outside.isOutside){
 						var l = (nodesData[d.node.src].layer + nodesData[d.node.tgt].layer) / 2;
 						if (!layerLabel[l]){
 							layerLabel[l] = [];
@@ -977,12 +973,12 @@ D3ModelLayout = function(htmlElement) {
 			node.original = d;
 			textData.push({
 				node : node,
-				type : "linkCircle",
+				type : "edgeLinkCircle",
 				content : d.label
 			});
 			textData.push({
 				node : node,
-				type : "linkLabel",
+				type : "edgeLinkLabel",
 				content : d.label
 			});
 
