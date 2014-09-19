@@ -17,35 +17,37 @@
         { "id": 7, "column": 13, "label" : "column13", "xPos" : 1350 }          
     ],
     "nodes": [
-        { "id": 8, "label": "semantic type" } ,
-        { "id": 9, "label": "semantic type" } ,
-        { "id": 10, "label": "semantic type" } ,
-        { "id": 11, "label": "semantic type" } ,
-        { "id": 12, "label": "semantic type" } ,
-        { "id": 13, "label": "semantic type" } ,
-        { "id": 14, "label": "semantic type" } ,
+        { "id": 8, "label": "semantic type1" } ,
+        { "id": 9, "label": "semantic type2" } ,
+        { "id": 10, "label": "semantic type3" } ,
+        { "id": 11, "label": "semantic type4" } ,
+        { "id": 12, "label": "semantic type5" } ,
+        { "id": 13, "label": "semantic type6" } ,
+        { "id": 14, "label": "semantic type7" } ,
         { "id": 15, "label": "class" } 
 
 
     ],
     "links": [
-        { "source": 8, "target": 1, "label": "link", "id":"l1" } ,
-        { "source": 9, "target": 2, "label": "link","id":"l2" } ,
-        { "source": 10, "target": 3, "label": "link", "id":"l3" } ,
-        { "source": 11, "target": 4, "label": "link", "id":"l4" } ,
-        { "source": 12, "target": 5, "label": "link", "id":"l5" } ,
-        { "source": 13, "target": 6, "label": "link", "id":"l6" } ,
-        { "source": 14, "target": 7, "label": "link", "id":"l7" } ,
-        { "source": 15, "target": 8, "label": "link", "id":"l8" } ,
-        { "source": 15, "target": 9, "label": "link", "id":"l9" } ,
-        { "source": 15, "target": 10, "label": "link", "id":"l10" } ,
-        { "source": 15, "target": 11, "label": "link", "id":"l11" } ,
-        { "source": 15, "target": 12, "label": "link", "id":"l12" } ,
-        { "source": 15, "target": 13, "label": "link", "id":"l13" } ,
-        { "source": 15, "target": 14, "label": "link", "id":"l14" } 
+        { "source": 8, "target": 1, "label": "link1", "id":"l1" } ,
+        { "source": 9, "target": 2, "label": "link2","id":"l2" } ,
+        { "source": 10, "target": 3, "label": "link3", "id":"l3" } ,
+        { "source": 11, "target": 4, "label": "link4", "id":"l4" } ,
+        { "source": 12, "target": 5, "label": "link5", "id":"l5" } ,
+        { "source": 13, "target": 6, "label": "link6", "id":"l6" } ,
+        { "source": 14, "target": 7, "label": "link7", "id":"l7" } ,
+        { "source": 15, "target": 8, "label": "link8", "id":"l8" } ,
+        { "source": 15, "target": 9, "label": "link9", "id":"l9" } ,
+        { "source": 15, "target": 10, "label": "link10", "id":"l10" } ,
+        { "source": 15, "target": 11, "label": "link11", "id":"l11" } ,
+        { "source": 15, "target": 12, "label": "link12", "id":"l12" } ,
+        { "source": 15, "target": 13, "label": "link13", "id":"l13" } ,
+        { "source": 15, "target": 14, "label": "link14", "id":"l14" } 
     ],
     "edgeLinks":[
-        {"source":"l8", "target":"16", "label":"edgeLinks"} 
+        {"source":"l8", "target":"16", "label":"edgeLinks"},
+        {"source":"l1", "target":"17", "label":"edgeLink2"}
+        
     ],
     "width" : 1400
 }
