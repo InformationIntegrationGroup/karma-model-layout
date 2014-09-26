@@ -24,9 +24,8 @@
         { "id": 12, "label": "semantic type5" } ,
         { "id": 13, "label": "semantic type6" } ,
         { "id": 14, "label": "semantic type7" } ,
-        { "id": 15, "label": "class" } 
-
-
+        { "id": 15, "label": "class" } ,
+        { "id": 22, "label": "class" } 
     ],
     "links": [
         { "source": 8, "target": 1, "label": "link1", "id":"l1" } ,
@@ -45,8 +44,8 @@
         { "source": 15, "target": 14, "label": "link14", "id":"l14" } 
     ],
     "edgeLinks":[
-        {"source":"l8", "target":"16", "label":"edgeLinks"},
-        {"source":"l1", "target":"17", "label":"edgeLink2"}
+        {"source":"l8", "target":"17", "label":"edgeLink1"},
+        {"source":"l1", "target":"16", "label":"edgeLink2"}
         
     ],
     "width" : 1400
