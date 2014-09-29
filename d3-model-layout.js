@@ -5,6 +5,7 @@ D3ModelLayout = function(htmlElement) {
 	width=0;           
 	height=0;
 
+
 	linkClickListener = null;
 	nodeClickListener = null;
 	
@@ -326,7 +327,7 @@ D3ModelLayout = function(htmlElement) {
 				d.position.y = height - nodeRadius - d.layer * unitLinkLength;
 				d.outside = {};
 				d.outside.position = {};
-				d.outside.isOutside = true;
+				d.outside.isOutside = false;
 				if (d.noLayer){
 					d.outside.isOutside = true;
 					d.position.x = -1;
@@ -340,10 +341,11 @@ D3ModelLayout = function(htmlElement) {
 			})
 			.call(drag)
 			.on("click", function(d){
-				if (d.outside.isOutside && !d.noLayer){
-					if (d.position.x < xOffset){		
-						var destination = Math.max(0, d.position.x - width / 2);
-						var xPosition = window.pageXOffset;
+				var offset = Math.max(xOffset - leftPanelWidth,0);
+				if (d.outside.isOutside && !d.noLayer){					
+					if (d.position.x < offset){		
+						var destination = Math.max(0, d.position.x - windowWidth / 2);
+						var xPosition = offset;
 						var differ = Math.max(30, (xPosition - destination) / 200);
 						var interval = setInterval(function(){
 							xPosition -= differ;
@@ -354,8 +356,8 @@ D3ModelLayout = function(htmlElement) {
 							}
 						}, 10);
 					} else {
-						var destination = Math.min(width - window.innerWidth, d.position.x - width / 2);
-						var xPosition = window.pageXOffset;
+						var destination = Math.min(width - windowWidth, d.position.x - windowWidth / 2);
+						var xPosition = offset;
 						var differ = Math.max(30, (destination - xPosition) / 200);
 						var interval = setInterval(function(){
 							xPosition += differ;
@@ -967,7 +969,11 @@ D3ModelLayout = function(htmlElement) {
 				d.forEach(function(e){
 					var tmp = [];
 					nodesChildren[e].forEach(function(f){
-						tmp.push(nodesData[f].xpos);
+						var tmpX = nodesData[f].xpos;
+						var offset = Math.max(xOffset - leftPanelWidth,0);
+						if (tmpX - nodeRadius > offset && tmpX + nodeRadius < offset + windowWidth){
+							tmp.push(tmpX);
+						}
 					});				
 					nodesData[e].xpos = (d3.min(tmp) + d3.max(tmp)) / 2;
 				}); 
@@ -1079,8 +1085,7 @@ D3ModelLayout = function(htmlElement) {
 					.attr("r", nodeRadius)
 					.attr("fill", "black");	
 				return;				
-			}
-			//console.log(d.id + " " + d.position.x);
+			}			
 			var offset = Math.max(xOffset - leftPanelWidth,0);
 			if (d.position.x - nodeRadius < offset || d.position.x + nodeRadius > offset + windowWidth){				
 				d3.select(this).classed("fixed", d.fixed = false);
@@ -1118,6 +1123,7 @@ D3ModelLayout = function(htmlElement) {
 					num--;
 				}
 			}
+			//console.log(d.id + " " + d.outside.isOutside + " " + d.position.x);
 		});
 
 		//when some node changes its status, the correspoding links, labels and the x position of inside nodes should also change.
@@ -1181,6 +1187,7 @@ D3ModelLayout = function(htmlElement) {
 					return d.target.outside.isOutside;
 				}
 				if (d.source.outside && d.target.outside){
+					//console.log(d.source.outside.isOutside + " " + d.target.outside.isOutside);
 					return d.source.outside.isOutside || d.target.outside.isOutside;
 				}
 				return false;
