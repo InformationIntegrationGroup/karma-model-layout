@@ -61,13 +61,13 @@ D3ModelLayout = function(htmlElement) {
 	//create svg
 	svg = d3.select(htmlElement)                         
 	    .append("svg")
-	    .on("mousemove", mousemove);
-	function  mousemove(){
+	    //.on("mousemove", mousemove);
+	/*function  mousemove(){
 		var ary = d3.mouse(this);
 		pos.attr("x", ary[0] + 2)
 			.attr("y", ary[1] + 2)
 			.text(ary[0] + ", " + ary[1]);
-	}
+	}*/
 
 	//svg to draw nodes and links
 	forceSVG = svg.append("g");
@@ -213,6 +213,7 @@ D3ModelLayout = function(htmlElement) {
 				return "labelPart" + i;
 			})
 			.attr("opacity", 0);
+			
 		labelText = labelFrame.append("text")
 			.text(function(d, i){
 				return i % 2 == 0 ? "" : d.content;
@@ -237,9 +238,13 @@ D3ModelLayout = function(htmlElement) {
 				return -(this.getBBox().width / 2);
 			})
 			.attr("y", -3);
-		labelBoard = labelFrame.append("path")
-			//.attr("stroke-width", 1)
-			//.attr("stroke", "black")
+
+		labelBoard = labelFrame.append("path")	
+			.attr("stroke-width", 0)
+			.attr("stroke", "black")	
+			.attr("id", function(d, i){
+				return "labelBoard" + i;
+			})	
 			.attr("fill", function(d){
 				if (d.type == "nodeLabel"){
 					return "#555";
@@ -265,7 +270,8 @@ D3ModelLayout = function(htmlElement) {
 					maxLabelLength = Math.max(maxLabelLength, d.width);
 				}
 				return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
-			})
+			});
+			
 		labelBoard.moveToBack();
 		labelClickBoard = labels.filter(function(d, i){
 			return (i % 2 == 1) && d.node.type != "anchor";
@@ -298,6 +304,19 @@ D3ModelLayout = function(htmlElement) {
 					nodeClickListener(d.node.original, d3.event);
 			}
 			//console.log(d.type);
+		})
+		.on("mouseover", function(d, i){
+			var obj = d3.selectAll("#labelBoard" + i);
+			console.log(obj);
+			d3.select("#labelBoard" + i)
+				.attr("stroke-width", 1)
+				.moveToFront();					
+		})
+		.on("mouseout", function(d, i){
+			//console.log("out");
+			d3.select("#labelBoard" + i)
+				.attr("stroke-width", 0)
+				.moveToBack();
 		});
 
 
