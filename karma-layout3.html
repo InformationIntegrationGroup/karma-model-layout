@@ -24,6 +24,7 @@
 				<tbody>
 					<tr class="wk-row-odd">
 						<td id="HN4" class="wk-header-cell htable-even-regular">Column 00</td>
+						<!--
 						<td id="HN4" class="wk-header-cell htable-even-regular">Column 01</td>
 						<td id="HN5" class="wk-header-cell htable-even-regular">Column 02</td>
 						<td id="HN6" class="wk-header-cell htable-even-regular">Column 03</td>
@@ -37,6 +38,7 @@
 						<td id="HN14" class="wk-header-cell htable-even-regular">Column 11</td>
 						<td id="HN14" class="wk-header-cell htable-even-regular">Column 12</td>
 						<td id="HN14" class="wk-header-cell htable-even-regular">Column 13</td>
+						-->
 					</tr>
 				</tbody>
 			</table>
@@ -48,7 +50,7 @@
 <script type="text/javascript">
 
 var layout = new D3ModelLayout("div#svgDiv_WS1");
-layout.generateLayoutForJsonFile("datasets/floating.json");
+layout.generateLayoutForJsonFile("datasets/floating-connect.json");
 
 layout.setNodeClickListener(function(node) {
 	console.log("This function is called when the node is clicked");
