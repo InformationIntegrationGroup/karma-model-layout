@@ -1,7 +1,17 @@
 {
 	"edgeLinks":[],
 	"anchors":[
-		{"id":0,"isForcedByUser":false,"nodeId":"HN4","nodeDomain":"HN4","column":0,"isUri":false,"label":"HN4","nodeType":"ColumnNode","hNodeId":"HN4"}
+		{"id":0,
+		"isForcedByUser":false,
+		"nodeId":"HN4",
+		"nodeDomain":"HN4",
+		"column":0,
+		"isUri":false,
+		"label":"HN4",
+		"nodeType":"ColumnNode",
+		"hNodeId":"HN4",
+		"xPos":50
+		}
 		],
 	"nodes":[
 		{"id":1,"isForcedByUser":false,"nodeId":"http://xmlns.com/foaf/0.1/Person1","nodeDomain":"http://xmlns.com/foaf/0.1/Person","isUri":false,"label":"Person1","nodeType":"InternalNode"},
@@ -9,5 +19,6 @@
 		],
 	"links":[
 		{"id":"http://xmlns.com/foaf/0.1/Person1---http://xmlns.com/foaf/0.1/name---HN4","linkUri":"http://xmlns.com/foaf/0.1/name","source":1,"sourceNodeId":"http://xmlns.com/foaf/0.1/Person1","target":0,"linkType":"DataPropertyLink","linkStatus":"PreferredByUI","label":"name","targetNodeId":"HN4"}
-		]
+		],
+	"width":400
 }

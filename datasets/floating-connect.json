@@ -1,7 +1,7 @@
 {
 	"edgeLinks":[],
 	"anchors":[
-		{"id":0,"isForcedByUser":false,"nodeId":"HN4","nodeDomain":"HN4","column":0,"isUri":false,"label":"HN4","nodeType":"ColumnNode","hNodeId":"HN4"}
+		{"id":0,"isForcedByUser":false,"xPos":50,"nodeId":"HN4","nodeDomain":"HN4","column":0,"isUri":false,"label":"HN4","nodeType":"ColumnNode","hNodeId":"HN4"}
 	],
 
 	"nodes":[
@@ -13,4 +13,5 @@
 		{"id":"http://xmlns.com/foaf/0.1/Person1---http://xmlns.com/foaf/0.1/account---USC1","linkUri":"http://xmlns.com/foaf/0.1/account","source":1,"sourceNodeId":"http://xmlns.com/foaf/0.1/Person1","target":2,"linkType":"ObjectPropertyLink","linkStatus":"ForcedByUser","label":"account","targetNodeId":"USC1"},
 		{"id":"http://xmlns.com/foaf/0.1/Person1---http://xmlns.com/foaf/0.1/name---HN4","linkUri":"http://xmlns.com/foaf/0.1/name","source":1,"sourceNodeId":"http://xmlns.com/foaf/0.1/Person1","target":0,"linkType":"DataPropertyLink","linkStatus":"PreferredByUI","label":"name","targetNodeId":"HN4"}
 	]
+	,"width":400
 }
