@@ -204,28 +204,8 @@
     }
   ],
   "links": [
-    {
-      "id": "http:\/\/schema.org\/Organization1---http:\/\/schema.org\/legalName---HN7",
-      "linkUri": "http:\/\/schema.org\/legalName",
-      "source": 14,
-      "sourceNodeId": "http:\/\/schema.org\/Organization1",
-      "target": 4,
-      "linkType": "DataPropertyLink",
-      "linkStatus": "PreferredByUI",
-      "label": "legalName",
-      "targetNodeId": "HN7"
-    },
-    {
-      "id": "http:\/\/schema.org\/Organization1---http:\/\/schema.org\/url---HN16",
-      "linkUri": "http:\/\/schema.org\/url",
-      "source": 14,
-      "sourceNodeId": "http:\/\/schema.org\/Organization1",
-      "target": 13,
-      "linkType": "DataPropertyLink",
-      "linkStatus": "Normal",
-      "label": "url",
-      "targetNodeId": "HN16"
-    },
+    
+    
     {
       "id": "http:\/\/schema.org\/Person1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN7024",
       "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
