@@ -313,7 +313,7 @@
       "target": 6,
       "linkType": "DataPropertyLink",
       "linkStatus": "PreferredByUI",
-      "label": "addressLocality",
+      "label": "addressLocalityaddressLocalityaddressLocality",
       "targetNodeId": "HN9"
     },
     {
@@ -324,7 +324,7 @@
       "target": 8,
       "linkType": "DataPropertyLink",
       "linkStatus": "PreferredByUI",
-      "label": "addressRegion",
+      "label": "addressRegionaddressRegionaddressRegion",
       "targetNodeId": "HN11"
     },
     {
@@ -335,7 +335,7 @@
       "target": 9,
       "linkType": "DataPropertyLink",
       "linkStatus": "PreferredByUI",
-      "label": "postalCode",
+      "label": "postalCodepostalCodepostalCode",
       "targetNodeId": "HN12"
     },
     {
@@ -346,7 +346,7 @@
       "target": 5,
       "linkType": "DataPropertyLink",
       "linkStatus": "PreferredByUI",
-      "label": "streetAddress",
+      "label": "streetAddressstreetAddressstreetAddress",
       "targetNodeId": "HN8"
     }
   ],
