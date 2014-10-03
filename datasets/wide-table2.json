@@ -1,0 +1,629 @@
+
+
+{
+  "edgeLinks": [
+    
+  ],
+  "anchors": [
+    {
+      "id": 0,
+      "isForcedByUser": false,
+      "nodeId": "HN20",
+      "nodeDomain": "HN20",
+      "column": 0,
+      "isUri": false,
+      "label": "UN_LIST_TYPE",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN20"
+    },
+    {
+      "id": 1,
+      "isForcedByUser": false,
+      "nodeId": "HN22",
+      "nodeDomain": "HN22",
+      "column": 1,
+      "isUri": false,
+      "label": "REFERENCE_NUMBER",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN22"
+    },
+    {
+      "id": 2,
+      "isForcedByUser": false,
+      "nodeId": "HN29",
+      "nodeDomain": "HN29",
+      "column": 2,
+      "isUri": false,
+      "label": "ALIAS_NAME",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN29"
+    },
+    {
+      "id": 3,
+      "isForcedByUser": false,
+      "nodeId": "HN37",
+      "nodeDomain": "HN37",
+      "column": 3,
+      "isUri": false,
+      "label": "FIRST_NAME",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN37"
+    },
+    {
+      "id": 4,
+      "isForcedByUser": false,
+      "nodeId": "HN39",
+      "nodeDomain": "HN39",
+      "column": 4,
+      "isUri": false,
+      "label": "SECOND_NAME",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN39"
+    },
+    {
+      "id": 5,
+      "isForcedByUser": false,
+      "nodeId": "HN41",
+      "nodeDomain": "HN41",
+      "column": 5,
+      "isUri": false,
+      "label": "THIRD_NAME",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN41"
+    },
+    {
+      "id": 6,
+      "isForcedByUser": false,
+      "nodeId": "HN48",
+      "nodeDomain": "HN48",
+      "column": 6,
+      "isUri": false,
+      "label": "COUNTRY",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN48"
+    },
+    {
+      "id": 7,
+      "isForcedByUser": false,
+      "nodeId": "HN50",
+      "nodeDomain": "HN50",
+      "column": 7,
+      "isUri": false,
+      "label": "STATE_PROVINCE",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN50"
+    },
+    {
+      "id": 8,
+      "isForcedByUser": false,
+      "nodeId": "HN52",
+      "nodeDomain": "HN52",
+      "column": 8,
+      "isUri": false,
+      "label": "CITY",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN52"
+    },
+    {
+      "id": 9,
+      "isForcedByUser": false,
+      "nodeId": "HN64",
+      "nodeDomain": "HN64",
+      "column": 9,
+      "isUri": false,
+      "label": "values",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN64"
+    },
+    {
+      "id": 10,
+      "isForcedByUser": false,
+      "nodeId": "HN71",
+      "nodeDomain": "HN71",
+      "column": 10,
+      "isUri": false,
+      "label": "COUNTRY",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN71"
+    },
+    {
+      "id": 11,
+      "isForcedByUser": false,
+      "nodeId": "HN73",
+      "nodeDomain": "HN73",
+      "column": 11,
+      "isUri": false,
+      "label": "CITY",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN73"
+    },
+    {
+      "id": 12,
+      "isForcedByUser": false,
+      "nodeId": "HN75",
+      "nodeDomain": "HN75",
+      "column": 12,
+      "isUri": false,
+      "label": "STREET",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN75"
+    },
+    {
+      "id": 13,
+      "isForcedByUser": false,
+      "nodeId": "HN77",
+      "nodeDomain": "HN77",
+      "column": 13,
+      "isUri": false,
+      "label": "STATE_PROVINCE",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN77"
+    },
+    {
+      "id": 14,
+      "isForcedByUser": false,
+      "nodeId": "HN79",
+      "nodeDomain": "HN79",
+      "column": 14,
+      "isUri": false,
+      "label": "ZIP_CODE",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN79"
+    },
+    {
+      "id": 15,
+      "isForcedByUser": false,
+      "nodeId": "HN86",
+      "nodeDomain": "HN86",
+      "column": 15,
+      "isUri": false,
+      "label": "ISSUING_COUNTRY",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN86"
+    },
+    {
+      "id": 16,
+      "isForcedByUser": false,
+      "nodeId": "HN88",
+      "nodeDomain": "HN88",
+      "column": 16,
+      "isUri": false,
+      "label": "TYPE_OF_DOCUMENT",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN88"
+    },
+    {
+      "id": 17,
+      "isForcedByUser": false,
+      "nodeId": "HN90",
+      "nodeDomain": "HN90",
+      "column": 17,
+      "isUri": false,
+      "label": "NUMBER",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN90"
+    },
+    {
+      "id": 18,
+      "isForcedByUser": false,
+      "nodeId": "HN92",
+      "nodeDomain": "HN92",
+      "column": 18,
+      "isUri": false,
+      "label": "DATE_OF_ISSUE",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN92"
+    },
+    {
+      "id": 19,
+      "isForcedByUser": false,
+      "nodeId": "HN99",
+      "nodeDomain": "HN99",
+      "column": 19,
+      "isUri": false,
+      "label": "DATE",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN99"
+    },
+    {
+      "id": 20,
+      "isForcedByUser": false,
+      "nodeId": "HN101",
+      "nodeDomain": "HN101",
+      "column": 20,
+      "isUri": false,
+      "label": "NAME_ORIGINAL_SCRIPT",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN101"
+    },
+    {
+      "id": 21,
+      "isForcedByUser": false,
+      "nodeId": "HN113",
+      "nodeDomain": "HN113",
+      "column": 21,
+      "isUri": false,
+      "label": "values",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN113"
+    },
+    {
+      "id": 22,
+      "isForcedByUser": false,
+      "nodeId": "HN115",
+      "nodeDomain": "HN115",
+      "column": 22,
+      "isUri": false,
+      "label": "GENDER",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN115"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 23,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1",
+      "nodeDomain": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification",
+      "isUri": false,
+      "label": "Identification1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 24,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Organization1",
+      "nodeDomain": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Organization",
+      "isUri": false,
+      "label": "Organization1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 25,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "nodeDomain": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person",
+      "isUri": false,
+      "label": "Person1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 26,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place2",
+      "nodeDomain": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place",
+      "isUri": false,
+      "label": "Place2",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 27,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3",
+      "nodeDomain": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place",
+      "isUri": false,
+      "label": "Place3",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 28,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place1",
+      "nodeDomain": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place",
+      "isUri": false,
+      "label": "Place1",
+      "nodeType": "InternalNode"
+    }
+  ],
+  "links": [
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasAssignedID---HN90",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasAssignedID",
+      "source": 23,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1",
+      "target": 17,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasAssignedID",
+      "targetNodeId": "HN90"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasIssueDate---HN92",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasIssueDate",
+      "source": 23,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1",
+      "target": 18,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasIssueDate",
+      "targetNodeId": "HN92"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasIssuingCountry---HN86",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasIssuingCountry",
+      "source": 23,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1",
+      "target": 15,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasIssuingCountry",
+      "targetNodeId": "HN86"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasType---HN88",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasType",
+      "source": 23,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1",
+      "target": 16,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasType",
+      "targetNodeId": "HN88"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Organization1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasName---HN20",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasName",
+      "source": 24,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Organization1",
+      "target": 0,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasName",
+      "targetNodeId": "HN20"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Organization1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasPerson---http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasPerson",
+      "source": 24,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Organization1",
+      "target": 25,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasPerson",
+      "targetNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasAssignedID---HN22",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasAssignedID",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 1,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasAssignedID",
+      "targetNodeId": "HN22"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasDateOfBirth---HN99",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasDateOfBirth",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 19,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasDateOfBirth",
+      "targetNodeId": "HN99"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasFirstName---HN37",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasFirstName",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 3,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasFirstName",
+      "targetNodeId": "HN37"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasGender---HN115",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasGender",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 22,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasGender",
+      "targetNodeId": "HN115"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasIdentification---http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasIdentification",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 23,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasIdentification",
+      "targetNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Identification1"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasLastName---HN41",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasLastName",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 5,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasLastName",
+      "targetNodeId": "HN41"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasMiddleName---HN39",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasMiddleName",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 4,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasMiddleName",
+      "targetNodeId": "HN39"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasName---HN101",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasName",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 20,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasName",
+      "targetNodeId": "HN101"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasName---HN29",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasName",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 2,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasName",
+      "targetNodeId": "HN29"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasNationality---http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place2",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasNationality",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 26,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasNationality",
+      "targetNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place2"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasPlace---http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasPlace",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 27,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasPlace",
+      "targetNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasPlaceOfBirth---http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place1",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasPlaceOfBirth",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 28,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasPlaceOfBirth",
+      "targetNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place1"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasTitle---HN113",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasTitle",
+      "source": 25,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Person1",
+      "target": 21,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasTitle",
+      "targetNodeId": "HN113"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCity---HN52",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCity",
+      "source": 28,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place1",
+      "target": 8,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasCity",
+      "targetNodeId": "HN52"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCountry---HN48",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCountry",
+      "source": 28,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place1",
+      "target": 6,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasCountry",
+      "targetNodeId": "HN48"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place1---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasStateOrProvince---HN50",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasStateOrProvince",
+      "source": 28,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place1",
+      "target": 7,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasStateOrProvince",
+      "targetNodeId": "HN50"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place2---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCountry---HN64",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCountry",
+      "source": 26,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place2",
+      "target": 9,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasCountry",
+      "targetNodeId": "HN64"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCity---HN73",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCity",
+      "source": 27,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3",
+      "target": 11,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasCity",
+      "targetNodeId": "HN73"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCountry---HN71",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasCountry",
+      "source": 27,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3",
+      "target": 10,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasCountry",
+      "targetNodeId": "HN71"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasStateOrProvince---HN77",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasStateOrProvince",
+      "source": 27,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3",
+      "target": 13,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasStateOrProvince",
+      "targetNodeId": "HN77"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasStreetName---HN75",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasStreetName",
+      "source": 27,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3",
+      "target": 12,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasStreetName",
+      "targetNodeId": "HN75"
+    },
+    {
+      "id": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3---http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasZipCode---HN79",
+      "linkUri": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#hasZipCode",
+      "source": 27,
+      "sourceNodeId": "http:\/\/www.sri.com\/ontologies\/Fantail.owl#Place3",
+      "target": 14,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "Normal",
+      "label": "hasZipCode",
+      "targetNodeId": "HN79"
+    }
+  ]
+}
+
