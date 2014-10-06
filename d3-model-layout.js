@@ -1,4 +1,4 @@
-D3ModelLayout = function(htmlElement) {
+D3ModelLayout = function(htmlElement, cssClass) {
 	padding = 35;
 	windowWidth = window.innerWidth * 0.8 - padding;
 	leftPanelWidth = window.innerWidth * 0.2;

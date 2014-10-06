@@ -10,6 +10,32 @@
 	.wk-header-cell {
 		width: 200px;
 	}
+/*
+	.col-sm-2 {
+		position: relative;
+		min-height: 1px;
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+	.col-sm-10 {
+		position: relative;
+		min-height: 1px;
+		padding-right: 15px;
+		padding-left: 15px;
+
+	}
+*/
+
+	.col-sm-2 {
+		float:left;
+		width:17%;
+	}
+
+	.col-sm-10 {
+		float:left;
+		width: 83%;
+	}
+
 </style>
 </head>
 
@@ -17,8 +43,8 @@
 <body>
 
 <div id="mainContainer">
-	<div id="leftPanel" style="background:grey; width:20%; height:100%; float:left">Left Panel</div>
-	<div id="rightPanel" style="width:80%; float:left">
+	<div id="leftPanel" style="background:grey; height:100%;" class="col-sm-2">Left Panel</div>
+	<div id="rightPanel" class="col-sm-10">
 		<div id="WS1" class="Worksheet" style="float:left;">
 			<div id="svgDiv_WS1" class="svg-model"></div>
 			<div class="table-container worksheet-table-container" >
@@ -51,7 +77,7 @@
 
 <script type="text/javascript">
 
-var layout = new D3ModelLayout("div#svgDiv_WS1");
+var layout = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
 layout.generateLayoutForJsonFile("datasets/wide-table.json");
 
 layout.setNodeClickListener(function(node) {
