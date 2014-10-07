@@ -61,7 +61,8 @@ D3ModelLayout = function(htmlElement, cssClass) {
 	//create svg
 	svg = d3.select(htmlElement)                         
 	    .append("svg")
-	    .on("mousemove", mousemove);
+	    //.on("mousemove", mousemove)
+	    ;
 
 
 	//svg to draw nodes and links
@@ -1260,7 +1261,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 		if (change > 0 || firstTime){
 			firstTime = false;
 			outsideNodesNum = num;	
-			d3.selectAll(".nodeLabel")
+			d3.select(htmlElement).selectAll(".nodeLabel")
 				.attr("opacity", function(d){
 					if (d.node.noLayer){
 						d.node.showLabel = true;
@@ -1275,7 +1276,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 					d.node.showLabel = false;
 					return 0;			
 				});
-			d3.selectAll(".linkLabel")
+			d3.select(htmlElement).selectAll(".linkLabel")
 				.attr("opacity", function(d){
 					if (d.type == "linkLabel"){
 						if (nodesData[d.node.tgt].noLayer){
@@ -1290,7 +1291,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 						return 1;
 					}
 				});
-			d3.selectAll(".edgeLinkLabel")
+			d3.select(htmlElement).selectAll(".edgeLinkLabel")
 				.attr("opacity", function(d){
 					//console.log(d.index);
 					if (!d.node.src.show || nodesData[d.node.tgt].outside.isOutside){
@@ -1300,7 +1301,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 					d.show = true;
 					return 1;					
 				});
-			d3.selectAll(".clickBoard")
+			d3.select(htmlElement).selectAll(".clickBoard")
 				.attr("fill", function(d){
 					if (d.content == "edgeLinks"){
 						if (nodesData[d.node.tgt].outside.isOutside || !d.node.src.show){
@@ -1411,9 +1412,9 @@ D3ModelLayout = function(htmlElement, cssClass) {
 
 	this.setNodeClickListener = function(listener) {
 		nodeClickListener = listener;
-	}
+	};
 
 	this.setLinkClickListener = function(listener) {
 		linkClickListener = listener
-	}
+	};
 };
