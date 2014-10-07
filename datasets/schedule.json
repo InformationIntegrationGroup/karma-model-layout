@@ -1,0 +1,183 @@
+
+
+{
+  "edgeLinks": [
+    
+  ],
+  "anchors": [
+    {
+      "xPos":100,
+      "id": 0,
+      "isForcedByUser": false,
+      "nodeId": "HN662",
+      "nodeDomain": "HN662",
+      "column": 0,
+      "isUri": false,
+      "label": "id",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN662"
+    },
+    {
+      "xPos":300,
+      "id": 1,
+      "isForcedByUser": false,
+      "nodeId": "HN990",
+      "nodeDomain": "HN990",
+      "column": 1,
+      "isUri": false,
+      "label": "type",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN990"
+    },
+    {
+      "xPos":500,
+      "id": 2,
+      "isForcedByUser": false,
+      "nodeId": "HN943",
+      "nodeDomain": "HN943",
+      "column": 2,
+      "isUri": false,
+      "label": "uri",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN943"
+    },
+    {
+      "xPos":700,
+      "id": 3,
+      "isForcedByUser": false,
+      "nodeId": "HN663",
+      "nodeDomain": "HN663",
+      "column": 3,
+      "isUri": false,
+      "label": "date",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN663"
+    },
+    {
+      "xPos":850,
+      "id": 4,
+      "isForcedByUser": false,
+      "nodeId": "HN1083",
+      "nodeDomain": "",
+      "column": 4,
+      "isUri": false,
+      "label": "Values",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN1083"
+    },
+    {
+      "xPos":950,
+      "id": 5,
+      "isForcedByUser": false,
+      "nodeId": "HN1146",
+      "nodeDomain": "HN1146",
+      "column": 5,
+      "isUri": false,
+      "label": "instructor_uri",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN1146"
+    },
+    {
+      "xPos":1100,
+      "id": 6,
+      "isForcedByUser": false,
+      "nodeId": "HN665",
+      "nodeDomain": "",
+      "column": 6,
+      "isUri": false,
+      "label": "",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN665"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 7,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "nodeDomain": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event",
+      "isUri": false,
+      "label": "Event1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 8,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2",
+      "nodeDomain": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person",
+      "isUri": false,
+      "label": "Person2",
+      "nodeType": "InternalNode"
+    }
+  ],
+  "links": [
+    {
+      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN943",
+      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+      "source": 7,
+      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "target": 2,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "PreferredByUI",
+      "label": "classLink",
+      "targetNodeId": "HN943"
+    },
+    {
+      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/isi.edu\/integration\/karma\/dev#columnSubClassOfLink---HN990",
+      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#columnSubClassOfLink",
+      "source": 7,
+      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "target": 1,
+      "linkType": "ColumnSubClassLink",
+      "linkStatus": "PreferredByUI",
+      "label": "columnSubClassOfLink",
+      "targetNodeId": "HN990"
+    },
+    {
+      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/lod.isi.edu\/ontology\/syllabus\/hasEventDate---HN663",
+      "linkUri": "http:\/\/lod.isi.edu\/ontology\/syllabus\/hasEventDate",
+      "source": 7,
+      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "target": 3,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "hasEventDate",
+      "targetNodeId": "HN663"
+    },
+    {
+      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/lod.isi.edu\/ontology\/syllabus\/hasInstructor---http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2",
+      "linkUri": "http:\/\/lod.isi.edu\/ontology\/syllabus\/hasInstructor",
+      "source": 7,
+      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "target": 8,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasInstructor",
+      "targetNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2"
+    },
+    {
+      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/purl.org\/dc\/terms\/identifier---HN662",
+      "linkUri": "http:\/\/purl.org\/dc\/terms\/identifier",
+      "source": 7,
+      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "target": 0,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "identifier",
+      "targetNodeId": "HN662"
+    },
+    {
+      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN1146",
+      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+      "source": 8,
+      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2",
+      "target": 5,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "PreferredByUI",
+      "label": "classLink",
+      "targetNodeId": "HN1146"
+    }
+  ],
+  "width": 1200
+}
+

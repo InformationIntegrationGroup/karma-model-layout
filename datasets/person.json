@@ -1,0 +1,288 @@
+{
+    "edgeLinks": [
+      
+    ],
+    "anchors": [
+      {
+        "xPos":100,
+        "id": 0,
+        "isForcedByUser": false,
+        "nodeId": "HN499",
+        "nodeDomain": "HN499",
+        "column": 0,
+        "isUri": false,
+        "label": "name",
+        "nodeType": "ColumnNode",
+        "hNodeId": "HN499"
+      },
+      {
+        "xPos":300,
+        "id": 1,
+        "isForcedByUser": false,
+        "nodeId": "HN673",
+        "nodeDomain": "HN673",
+        "column": 1,
+        "isUri": false,
+        "label": "last_name",
+        "nodeType": "ColumnNode",
+        "hNodeId": "HN673"
+      },
+      {
+        "xPos":500,
+        "id": 2,
+        "isForcedByUser": false,
+        "nodeId": "HN688",
+        "nodeDomain": "HN688",
+        "column": 2,
+        "isUri": false,
+        "label": "uri",
+        "nodeType": "ColumnNode",
+        "hNodeId": "HN688"
+      },
+      {
+        "xPos":700,
+        "id": 3,
+        "isForcedByUser": false,
+        "nodeId": "HN501",
+        "nodeDomain": "HN501",
+        "column": 3,
+        "isUri": false,
+        "label": "email",
+        "nodeType": "ColumnNode",
+        "hNodeId": "HN501"
+      },
+      {
+        "xPos":900,
+        "id": 4,
+        "isForcedByUser": false,
+        "nodeId": "HN715",
+        "nodeDomain": "HN715",
+        "column": 4,
+        "isUri": false,
+        "label": "email_uri",
+        "nodeType": "ColumnNode",
+        "hNodeId": "HN715"
+      },
+      {
+        "xPos":1100,
+        "id": 5,
+        "isForcedByUser": false,
+        "nodeId": "HN503",
+        "nodeDomain": "HN503",
+        "column": 5,
+        "isUri": false,
+        "label": "title",
+        "nodeType": "ColumnNode",
+        "hNodeId": "HN503"
+      },
+      {
+        "xPos":1300,
+        "id": 6,
+        "isForcedByUser": false,
+        "nodeId": "HN505",
+        "nodeDomain": "HN505",
+        "column": 6,
+        "isUri": false,
+        "label": "homepage",
+        "nodeType": "ColumnNode",
+        "hNodeId": "HN505"
+      },
+      {
+        "xPos":1500,
+        "id": 7,
+        "isForcedByUser": false,
+        "nodeId": "HN507",
+        "nodeDomain": "HN507",
+        "column": 7,
+        "isUri": false,
+        "label": "depiction",
+        "nodeType": "ColumnNode",
+        "hNodeId": "HN507"
+      },
+      {
+        "xPos":1700,
+        "id": 8,
+        "isForcedByUser": false,
+        "nodeId": "HN509",
+        "nodeDomain": "HN509",
+        "column": 8,
+        "isUri": false,
+        "label": "twitter",
+        "nodeType": "ColumnNode",
+        "hNodeId": "HN509"
+      }
+    ],
+    "nodes": [
+      {
+        "id": 9,
+        "isForcedByUser": false,
+        "nodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1",
+        "nodeDomain": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person",
+        "isUri": false,
+        "label": "Person1",
+        "nodeType": "InternalNode"
+      },
+      {
+        "id": 10,
+        "isForcedByUser": false,
+        "nodeId": "http:\/\/xmlns.com\/foaf\/0.1\/Image1",
+        "nodeDomain": "http:\/\/xmlns.com\/foaf\/0.1\/Image",
+        "isUri": false,
+        "label": "Image1",
+        "nodeType": "InternalNode"
+      },
+      {
+        "id": 11,
+        "isForcedByUser": false,
+        "nodeId": "http:\/\/xmlns.com\/foaf\/0.1\/Document1",
+        "nodeDomain": "http:\/\/xmlns.com\/foaf\/0.1\/Document",
+        "isUri": false,
+        "label": "Document1",
+        "nodeType": "InternalNode"
+      },
+      {
+        "id": 12,
+        "isForcedByUser": false,
+        "nodeId": "http:\/\/www.w3.org\/2002\/07\/owl#Thing2",
+        "nodeDomain": "http:\/\/www.w3.org\/2002\/07\/owl#Thing",
+        "isUri": false,
+        "label": "Thing2",
+        "nodeType": "InternalNode"
+      }
+    ],
+    "links": [
+      {
+        "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN688",
+        "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+        "source": 9,
+        "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1",
+        "target": 2,
+        "linkType": "ClassInstanceLink",
+        "linkStatus": "PreferredByUI",
+        "label": "classLink",
+        "targetNodeId": "HN688"
+      },
+      {
+        "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1---http:\/\/lod.isi.edu\/ontology\/syllabus\/twitterId---HN509",
+        "linkUri": "http:\/\/lod.isi.edu\/ontology\/syllabus\/twitterId",
+        "source": 9,
+        "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1",
+        "target": 8,
+        "linkType": "DataPropertyLink",
+        "linkStatus": "PreferredByUI",
+        "label": "twitterId",
+        "targetNodeId": "HN509"
+      },
+      {
+        "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1---http:\/\/xmlns.com\/foaf\/0.1\/depiction---http:\/\/xmlns.com\/foaf\/0.1\/Image1",
+        "linkUri": "http:\/\/xmlns.com\/foaf\/0.1\/depiction",
+        "source": 9,
+        "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1",
+        "target": 10,
+        "linkType": "ObjectPropertyLink",
+        "linkStatus": "ForcedByUser",
+        "label": "depiction",
+        "targetNodeId": "http:\/\/xmlns.com\/foaf\/0.1\/Image1"
+      },
+      {
+        "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1---http:\/\/xmlns.com\/foaf\/0.1\/homepage---http:\/\/xmlns.com\/foaf\/0.1\/Document1",
+        "linkUri": "http:\/\/xmlns.com\/foaf\/0.1\/homepage",
+        "source": 9,
+        "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1",
+        "target": 11,
+        "linkType": "ObjectPropertyLink",
+        "linkStatus": "ForcedByUser",
+        "label": "homepage",
+        "targetNodeId": "http:\/\/xmlns.com\/foaf\/0.1\/Document1"
+      },
+      {
+        "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1---http:\/\/xmlns.com\/foaf\/0.1\/lastName---HN673",
+        "linkUri": "http:\/\/xmlns.com\/foaf\/0.1\/lastName",
+        "source": 9,
+        "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1",
+        "target": 1,
+        "linkType": "DataPropertyLink",
+        "linkStatus": "PreferredByUI",
+        "label": "lastName",
+        "targetNodeId": "HN673"
+      },
+      {
+        "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1---http:\/\/xmlns.com\/foaf\/0.1\/mbox---http:\/\/www.w3.org\/2002\/07\/owl#Thing2",
+        "linkUri": "http:\/\/xmlns.com\/foaf\/0.1\/mbox",
+        "source": 9,
+        "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1",
+        "target": 12,
+        "linkType": "ObjectPropertyLink",
+        "linkStatus": "ForcedByUser",
+        "label": "mbox",
+        "targetNodeId": "http:\/\/www.w3.org\/2002\/07\/owl#Thing2"
+      },
+      {
+        "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1---http:\/\/xmlns.com\/foaf\/0.1\/name---HN499",
+        "linkUri": "http:\/\/xmlns.com\/foaf\/0.1\/name",
+        "source": 9,
+        "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1",
+        "target": 0,
+        "linkType": "DataPropertyLink",
+        "linkStatus": "PreferredByUI",
+        "label": "name",
+        "targetNodeId": "HN499"
+      },
+      {
+        "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1---http:\/\/xmlns.com\/foaf\/0.1\/title---HN503",
+        "linkUri": "http:\/\/xmlns.com\/foaf\/0.1\/title",
+        "source": 9,
+        "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person1",
+        "target": 5,
+        "linkType": "DataPropertyLink",
+        "linkStatus": "PreferredByUI",
+        "label": "title",
+        "targetNodeId": "HN503"
+      },
+      {
+        "id": "http:\/\/www.w3.org\/2002\/07\/owl#Thing2---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN715",
+        "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+        "source": 12,
+        "sourceNodeId": "http:\/\/www.w3.org\/2002\/07\/owl#Thing2",
+        "target": 4,
+        "linkType": "ClassInstanceLink",
+        "linkStatus": "PreferredByUI",
+        "label": "classLink",
+        "targetNodeId": "HN715"
+      },
+      {
+        "id": "http:\/\/www.w3.org\/2002\/07\/owl#Thing2---http:\/\/www.w3.org\/2000\/01\/rdf-schema#label---HN501",
+        "linkUri": "http:\/\/www.w3.org\/2000\/01\/rdf-schema#label",
+        "source": 12,
+        "sourceNodeId": "http:\/\/www.w3.org\/2002\/07\/owl#Thing2",
+        "target": 3,
+        "linkType": "DataPropertyLink",
+        "linkStatus": "Normal",
+        "label": "label",
+        "targetNodeId": "HN501"
+      },
+      {
+        "id": "http:\/\/xmlns.com\/foaf\/0.1\/Document1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN505",
+        "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+        "source": 11,
+        "sourceNodeId": "http:\/\/xmlns.com\/foaf\/0.1\/Document1",
+        "target": 6,
+        "linkType": "ClassInstanceLink",
+        "linkStatus": "PreferredByUI",
+        "label": "classLink",
+        "targetNodeId": "HN505"
+      },
+      {
+        "id": "http:\/\/xmlns.com\/foaf\/0.1\/Image1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN507",
+        "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+        "source": 10,
+        "sourceNodeId": "http:\/\/xmlns.com\/foaf\/0.1\/Image1",
+        "target": 7,
+        "linkType": "ClassInstanceLink",
+        "linkStatus": "PreferredByUI",
+        "label": "classLink",
+        "targetNodeId": "HN507"
+      }
+    ],
+    "width": 1800
+  }

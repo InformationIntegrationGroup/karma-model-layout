@@ -1186,21 +1186,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 	  	});   //move component to the up of svg
 	};
 
-	window.onscroll = function(event){
-		//console.log(window.pageXOffset);
-		if (Math.abs(window.pageXOffset - xOffset) > reshuffleFrequency){
-			xOffset = window.pageXOffset;
-			windowWidth = Math.min(window.innerWidth * 0.8 + Math.min(xOffset, leftPanelWidth) - padding, width);
-			setNodePosition();
-		}
-	}
-
-	window.onresize = function(event) {
-	    windowWidth = Math.min(window.innerWidth * 0.8 + Math.min(xOffset, leftPanelWidth) - padding, width);
-	    //height=window.innerHeight - padding;
-	    //console.log(width + " " + height);
-	};
-
+	
 	//set the outside nodes
 	function setNodePosition(){
 		var num = 0;
@@ -1417,4 +1403,20 @@ D3ModelLayout = function(htmlElement, cssClass) {
 	this.setLinkClickListener = function(listener) {
 		linkClickListener = listener
 	};
+
+	this.onscroll = function(event){
+		//console.log(window.pageXOffset);
+		if (Math.abs(window.pageXOffset - xOffset) > reshuffleFrequency){
+			xOffset = window.pageXOffset;
+			windowWidth = Math.min(window.innerWidth * 0.8 + Math.min(xOffset, leftPanelWidth) - padding, width);
+			setNodePosition();
+		}
+	}
+
+	this.onresize = function(event) {
+	    windowWidth = Math.min(window.innerWidth * 0.8 + Math.min(xOffset, leftPanelWidth) - padding, width);
+	    //height=window.innerHeight - padding;
+	    //console.log(width + " " + height);
+	};
+
 };
