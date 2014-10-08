@@ -7,6 +7,7 @@
   "anchors": [
     {
       "id": 0,
+      "xPos":100,
       "isForcedByUser": false,
       "nodeId": "HN20",
       "nodeDomain": "HN20",
@@ -18,6 +19,7 @@
     },
     {
       "id": 1,
+      "xPos":300,
       "isForcedByUser": false,
       "nodeId": "HN22",
       "nodeDomain": "HN22",
@@ -29,6 +31,7 @@
     },
     {
       "id": 2,
+      "xPos":500,
       "isForcedByUser": false,
       "nodeId": "HN29",
       "nodeDomain": "HN29",
@@ -40,6 +43,7 @@
     },
     {
       "id": 3,
+      "xPos":700,
       "isForcedByUser": false,
       "nodeId": "HN37",
       "nodeDomain": "HN37",
@@ -51,6 +55,7 @@
     },
     {
       "id": 4,
+      "xPos":900,
       "isForcedByUser": false,
       "nodeId": "HN39",
       "nodeDomain": "HN39",
@@ -62,6 +67,7 @@
     },
     {
       "id": 5,
+      "xPos":1100,
       "isForcedByUser": false,
       "nodeId": "HN41",
       "nodeDomain": "HN41",
@@ -73,6 +79,7 @@
     },
     {
       "id": 6,
+      "xPos":1300,
       "isForcedByUser": false,
       "nodeId": "HN48",
       "nodeDomain": "HN48",
@@ -84,6 +91,7 @@
     },
     {
       "id": 7,
+      "xPos":1500,
       "isForcedByUser": false,
       "nodeId": "HN50",
       "nodeDomain": "HN50",
@@ -95,6 +103,7 @@
     },
     {
       "id": 8,
+      "xPos":1700,
       "isForcedByUser": false,
       "nodeId": "HN52",
       "nodeDomain": "HN52",
@@ -106,6 +115,7 @@
     },
     {
       "id": 9,
+      "xPos":1900,
       "isForcedByUser": false,
       "nodeId": "HN64",
       "nodeDomain": "HN64",
@@ -117,6 +127,7 @@
     },
     {
       "id": 10,
+      "xPos":2100,
       "isForcedByUser": false,
       "nodeId": "HN71",
       "nodeDomain": "HN71",
@@ -128,6 +139,7 @@
     },
     {
       "id": 11,
+      "xPos":2300,
       "isForcedByUser": false,
       "nodeId": "HN73",
       "nodeDomain": "HN73",
@@ -139,6 +151,7 @@
     },
     {
       "id": 12,
+      "xPos":2500,
       "isForcedByUser": false,
       "nodeId": "HN75",
       "nodeDomain": "HN75",
@@ -150,6 +163,7 @@
     },
     {
       "id": 13,
+      "xPos":2700,
       "isForcedByUser": false,
       "nodeId": "HN77",
       "nodeDomain": "HN77",
@@ -161,6 +175,7 @@
     },
     {
       "id": 14,
+      "xPos":2900,
       "isForcedByUser": false,
       "nodeId": "HN79",
       "nodeDomain": "HN79",
@@ -172,6 +187,7 @@
     },
     {
       "id": 15,
+      "xPos":3100,
       "isForcedByUser": false,
       "nodeId": "HN86",
       "nodeDomain": "HN86",
@@ -183,6 +199,7 @@
     },
     {
       "id": 16,
+      "xPos":3300,
       "isForcedByUser": false,
       "nodeId": "HN88",
       "nodeDomain": "HN88",
@@ -194,6 +211,7 @@
     },
     {
       "id": 17,
+      "xPos":3500,
       "isForcedByUser": false,
       "nodeId": "HN90",
       "nodeDomain": "HN90",
@@ -205,6 +223,7 @@
     },
     {
       "id": 18,
+      "xPos":3700,
       "isForcedByUser": false,
       "nodeId": "HN92",
       "nodeDomain": "HN92",
@@ -216,6 +235,7 @@
     },
     {
       "id": 19,
+      "xPos":3900,
       "isForcedByUser": false,
       "nodeId": "HN99",
       "nodeDomain": "HN99",
@@ -227,6 +247,7 @@
     },
     {
       "id": 20,
+      "xPos":4100,
       "isForcedByUser": false,
       "nodeId": "HN101",
       "nodeDomain": "HN101",
@@ -238,6 +259,7 @@
     },
     {
       "id": 21,
+      "xPos":4300,
       "isForcedByUser": false,
       "nodeId": "HN113",
       "nodeDomain": "HN113",
@@ -249,6 +271,7 @@
     },
     {
       "id": 22,
+      "xPos":4500,
       "isForcedByUser": false,
       "nodeId": "HN115",
       "nodeDomain": "HN115",
@@ -624,6 +647,7 @@
       "label": "hasZipCode",
       "targetNodeId": "HN79"
     }
-  ]
+  ],
+  "width" : 4600
 }
 

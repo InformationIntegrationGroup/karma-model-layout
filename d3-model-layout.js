@@ -49,11 +49,10 @@ D3ModelLayout = function(htmlElement, cssClass) {
 
 	nodeRadius = 4;
 	unitLinkLength = 70;                       //difference between layers
-	outsideUnitLinkLength = 30;                //length for outside links
+	outsideUnitLinkLength = 50;                //length for outside links
 	maxLayer = 0;                              //max layer number, base 0
 	reshuffleFrequency = 8;                    //pixel changes to excute scroll bar event
 	xOffset = 0;                               //x position offset
-	outsideNodesNum = 0;                       //outside nodes number
 	firstTime = true;                          //first time to load the force-layout
 	maxLabelLength = 0;    
 	cScale = d3.scale.category20();
@@ -61,8 +60,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 	//create svg
 	svg = d3.select(htmlElement)                         
 	    .append("svg")
-	    //.on("mousemove", mousemove)
-	    ;
+	    .on("mousemove", mousemove);
 
 
 	//svg to draw nodes and links
@@ -404,16 +402,12 @@ D3ModelLayout = function(htmlElement, cssClass) {
 			.attr("r", 1)
 			.attr("opacity", 0.7)
 			.attr("fill", function(d, i){
-				d.position = {};
-				d.position.x = d.xpos;
-				d.position.y = height - nodeRadius - d.layer * unitLinkLength;
-				d.outside = {};
-				d.outside.position = {};
-				d.outside.isOutside = false;
-				if (d.noLayer){
-					d.outside.isOutside = true;
+				if (d.noLayer){					
 					d.position.x = -1;
 					d.position.y = -1;
+				} else {
+					d.position.x = d.xpos;
+					d.position.y = height - nodeRadius - d.layer * unitLinkLength;
 				}
 				//console.log(d.id + " " + d.position.x);
 				return "red";
@@ -565,7 +559,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 	    		if (d.type == "linkCircle"){
 		    		var a = nodesData[d.node.src];
 		    		var b = nodesData[d.node.tgt];
-		    		d.y = (a.y + b.y) / 2;	
+		    		d.y = (a.y + b.y) / 2;
 		    		d.x = (a.x + b.x) / 2 + (nodesData[d.node.tgt].x - nodesData[d.node.src].x) / 6;
 		    		/*var i, j;			
 					for (i = 0; i < 1; i += 0.1){
@@ -598,11 +592,11 @@ D3ModelLayout = function(htmlElement, cssClass) {
 	    	}
 	    })
 
-	    if (!firstTime){
+	    //if (!firstTime){
 	    	links.call(updateLink);
 	    	labels.call(updateLabel);
 	    	labelLinks.call(updateLabelLink);  	
-		}
+		//}
 	}
 
 	//updata link for tick function
@@ -836,6 +830,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 	//collision detection
 	function collide(d) {
 	    var r = d.width / 2,
+	    //var r = d.width * 8,
 	      	nx1 = d.x - r,
 	      	nx2 = d.x + r;
 	  	return function(quad, x1, y1, x2, y2) {
@@ -902,6 +897,10 @@ D3ModelLayout = function(htmlElement, cssClass) {
 			} else {
 				node.type = "node";
 			}
+			node.position = {};
+			node.outside = {};
+			node.outside.position = {};
+			node.outside.isOutside = false;
 			nodesData.push(node);
 			idMap[d.id] = i;
 
@@ -1087,27 +1086,45 @@ D3ModelLayout = function(htmlElement, cssClass) {
 
 		//store the node id in the sequence of layer
 		//xPos is the x position for nodes in the unit of column's width
-		layerMap = d3.range(maxLayer + 1).map(function(d){
-			return [];
-		});
+		layerMap = d3.range(maxLayer + 1)
+			.map(function(d){
+				return [];
+			});
 		nodesData.forEach(function(d){
 			if (d.layer != undefined){
-				layerMap[d.layer].push(d.id);
+				if (!d.unAssigned){
+					layerMap[d.layer].push(d.id);
+				}				
 			}		
 		});
+
+		//set xpos of nodes, check whether a node is a outside nodes;
+		var offset = Math.max(xOffset - leftPanelWidth,0);
 		layerMap.forEach(function(d, i){
 			if (i > 0){
 				d.forEach(function(e){
 					var tmp = [];
 					nodesChildren[e].forEach(function(f){
-						var tmpX = nodesData[f].xpos;
-						var offset = Math.max(xOffset - leftPanelWidth,0);
-						if (tmpX - nodeRadius > offset && tmpX + nodeRadius < offset + windowWidth){
-							tmp.push(tmpX);
+						if (!nodesData[f].outside.isOutside){
+							tmp.push(nodesData[f].xpos);
 						}
-					});				
-					nodesData[e].xpos = (d3.min(tmp) + d3.max(tmp)) / 2;
+					});	
+					if (tmp.length == 0){
+						nodesData[e].outside.isOutside = true;
+						nodesData[e].xpos = -1;
+					} else {
+						nodesData[e].xpos = (d3.min(tmp) + d3.max(tmp)) / 2;
+					}
 				}); 
+			} else {
+				d.forEach(function(e){
+					var tmpX = nodesData[e].xpos;	
+					if (tmpX - nodeRadius > offset && tmpX + nodeRadius < offset + windowWidth){
+						nodesData[e].outside.isOutside = false;
+					} else {
+						nodesData[e].outside.isOutside = true;
+					}
+				})
 			}
 		});
 
@@ -1115,10 +1132,11 @@ D3ModelLayout = function(htmlElement, cssClass) {
 		//for node that has no layer, set it as outside node	
 		nodesData.forEach(function(d){
 			if (d.layer == undefined){
+				d.outside.isOutside = true;
 				d.noLayer = true;
 				d.layer = -1;
 				d.xpos = -1;
-			}
+			}			
 		});
 
 
@@ -1186,12 +1204,57 @@ D3ModelLayout = function(htmlElement, cssClass) {
 	  	});   //move component to the up of svg
 	};
 
-	
 	//set the outside nodes
 	function setNodePosition(){
-		var num = 0;
 		var change = 0;
-		//check if node is outside or not, when the status of node changes, the transition happens
+		var offset = Math.max(xOffset - leftPanelWidth,0);
+
+		//set xpos of nodes, and check if node is an outside node
+		layerMap.forEach(function(d, i){
+			if (i > 0){
+				d.forEach(function(e){
+					var tmp = [];
+					nodesChildren[e].forEach(function(f){
+						if (!nodesData[f].outside.isOutside){
+							tmp.push(nodesData[f].xpos);
+						}
+					});	
+					if (tmp.length == 0){
+						if (!nodesData[e].outside.isOutside){
+							change++;
+						}
+						nodesData[e].outside.isOutside = true;
+						nodesData[e].xpos = -1;
+					} else {
+						if (nodesData[e].outside.isOutside){
+							change++;
+						}
+						nodesData[e].xpos = (d3.min(tmp) + d3.max(tmp)) / 2;
+						nodesData[e].position.x = nodesData[e].xpos;
+						nodesData[e].outside.isOutside = false;
+					}
+				}); 
+			} else {
+				d.forEach(function(e){
+					var tmpX = nodesData[e].xpos;	
+					if (tmpX - nodeRadius > offset && tmpX + nodeRadius < offset + windowWidth){
+						if (nodesData[e].outside.isOutside){
+							change++;
+						}
+						nodesData[e].outside.isOutside = false;
+					} else {
+						if (!nodesData[e].outside.isOutside){
+							change++;
+						}
+						nodesData[e].outside.isOutside = true;
+					}
+				})
+			}
+		});
+
+
+		
+		//Set the color, opacity of nodes based on the status of isOutside
 		nodes.each(function(d){
 			if (d.noLayer){
 				d.outside.isOutside = true;
@@ -1202,51 +1265,40 @@ D3ModelLayout = function(htmlElement, cssClass) {
 					.attr("r", nodeRadius)
 					.attr("fill", "red");	
 				return;				
-			}			
-			var offset = Math.max(xOffset - leftPanelWidth,0);
-			if (d.position.x - nodeRadius < offset || d.position.x + nodeRadius > offset + windowWidth){				
+			}						
+			if (d.fixed && d.outside.isOutside){				
 				d3.select(this).classed("fixed", d.fixed = false);
 	  			d.position.x = d.xpos;
 				d.position.y = height - nodeRadius - d.layer * unitLinkLength;
 			}
-			if (d.position.x - nodeRadius < offset || d.position.x + nodeRadius > offset + windowWidth){
-				if (d.unAssigned == true){
+			if (d.outside.isOutside){
+				if (d.unAssigned){
 
-				}
-				else if (!d.outside.isOutside){
-					d.outside.isOutside = true;				
-					d3.select(this)
-						.transition()
-						.duration(500)
-						.attr("opacity", 0.5)
-						.attr("r", nodeRadius)
-						.attr("fill", function(d){
-							return cScale(d.index + 1);
-						});					
-					change++;
-					num++;
-				}
+				}				
+				d3.select(this)
+					.transition()
+					.duration(500)
+					.attr("opacity", 0.5)
+					.attr("r", nodeRadius)
+					.attr("fill", function(d){
+						return cScale(d.index + 1);
+					});	
+				
 			} else {
-				if (d.outside.isOutside){
-					d.outside.isOutside = false;
-					d3.select(this)
-						.transition()
-						.duration(500)
-						.attr("opacity", 0.7)
-						.attr("r", nodeRadius)
-						.attr("fill", "red");
-
-					change++;
-					num--;
-				}
+				d3.select(this)
+					.transition()
+					.duration(500)
+					.attr("opacity", 0.7)
+					.attr("r", nodeRadius)
+					.attr("fill", "red");				
 			}
 			//console.log(d.id + " " + d.outside.isOutside + " " + d.position.x);
 		});
+		//console.log(change)
 
 		//when some node changes its status, the correspoding links, labels and the x position of inside nodes should also change.
 		if (change > 0 || firstTime){
 			firstTime = false;
-			outsideNodesNum = num;	
 			d3.select(htmlElement).selectAll(".nodeLabel")
 				.attr("opacity", function(d){
 					if (d.node.noLayer){
@@ -1266,6 +1318,10 @@ D3ModelLayout = function(htmlElement, cssClass) {
 				.attr("opacity", function(d){
 					if (d.type == "linkLabel"){
 						if (nodesData[d.node.tgt].noLayer){
+							d.show = true;
+							return 1;
+						}
+						if (nodesData[d.node.tgt].type == 'anchor' && !nodesData[d.node.tgt].outside.isOutside){
 							d.show = true;
 							return 1;
 						}
@@ -1304,35 +1360,22 @@ D3ModelLayout = function(htmlElement, cssClass) {
 				});
 
 			links.classed("outsideLink", function(d){
-				if (d.type == "edgeLink"){
+				/*if (d.type == "edgeLink"){
 					return d.target.outside.isOutside;
-				}
+				}*/
 				if (d.target.noLayer){
 					return false;
 				}
 				if (d.source.outside && d.target.outside){
-					//console.log(d.source.outside.isOutside + " " + d.target.outside.isOutside);
+					if (d.target.type == 'anchor' && !d.target.outside.isOutside){
+						return false;
+					}
 					return d.source.outside.isOutside || d.target.outside.isOutside;
 				}
 				return false;
 			});
 
-			layerMap.forEach(function(d, i){
-				if (i > 0){
-					d.forEach(function(e){
-						if (!nodesData[e].outside.isOutside && !nodesData[e].fixed){
-							var tmp = [];
-							nodesChildren[e].forEach(function(f){
-								if (!nodesData[f].outside.isOutside){
-									tmp.push(nodesData[f].xpos);
-								}
-							});				
-							nodesData[e].xpos = (d3.min(tmp) + d3.max(tmp)) / 2;
-							nodesData[e].position.x = nodesData[e].xpos;
-						}
-					});
-				}
-			});	
+			
 			force.start();
 		}
 	}
@@ -1344,19 +1387,23 @@ D3ModelLayout = function(htmlElement, cssClass) {
 			var tmpNodeData = d.anchors.concat(d.nodes);
 			var tmpLinkData = d.links;
 			var tmpEdgeLink = d.edgeLinks;
+
+			xOffset = window.pageXOffset;
+			width = d.width + padding;
+			windowWidth = Math.ceil(Math.min(windowWidth + Math.min(xOffset, leftPanelWidth), width));
+
 			initializeData(tmpLinkData, tmpNodeData);
 			removeCycle();
 			var tmpL = linksData.slice(0);
 			setLayer(tmpL, tmpEdgeLink);
 
-			xOffset = window.pageXOffset;
-			width = d.width + padding;
-			windowWidth = Math.min(windowWidth + Math.min(xOffset, leftPanelWidth), width);
-			//console.log(windowWidth);
+			
+			console.log("window width: " + windowWidth);
 			height = (maxLayer + 0.5) * unitLinkLength;
 			if (width > window.innerWidth){
 				height += (maxLayer + 0.5) * outsideUnitLinkLength;
 			}
+
 			svg.attr("width", width);
 			svg.attr("height", height);
 			force.size([width, height]);
@@ -1398,11 +1445,11 @@ D3ModelLayout = function(htmlElement, cssClass) {
 
 	this.setNodeClickListener = function(listener) {
 		nodeClickListener = listener;
-	};
+	}
 
 	this.setLinkClickListener = function(listener) {
 		linkClickListener = listener
-	};
+	}
 
 	this.onscroll = function(event){
 		//console.log(window.pageXOffset);
@@ -1418,5 +1465,4 @@ D3ModelLayout = function(htmlElement, cssClass) {
 	    //height=window.innerHeight - padding;
 	    //console.log(width + " " + height);
 	};
-
 };

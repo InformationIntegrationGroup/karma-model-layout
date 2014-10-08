@@ -302,7 +302,7 @@
       "target": 7,
       "linkType": "DataPropertyLink",
       "linkStatus": "PreferredByUI",
-      "label": "addressCountryaddressCountry",
+      "label": "addressCountry",
       "targetNodeId": "HN10"
     },
     {
@@ -313,7 +313,7 @@
       "target": 6,
       "linkType": "DataPropertyLink",
       "linkStatus": "PreferredByUI",
-      "label": "addressLocalityaddressLocality",
+      "label": "addressLocality",
       "targetNodeId": "HN9"
     },
     {
@@ -335,7 +335,7 @@
       "target": 9,
       "linkType": "DataPropertyLink",
       "linkStatus": "PreferredByUI",
-      "label": "postalCodepostalCode",
+      "label": "postalCode",
       "targetNodeId": "HN12"
     },
     {
