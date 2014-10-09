@@ -46,7 +46,7 @@
 	<div id="leftPanel" style="background:grey; height:100%;" class="col-sm-2">Left Panel</div>
 	<div id="rightPanel" class="col-sm-10">
 
-		<div id="WS2" class="Worksheet" style="width:2000px; overflow:auto">
+		<div id="WS2" class="Worksheet" style="width:5000px; overflow:auto">
 			<div id="svgDiv_WS2" ></div>
 			<div class="table-container worksheet-table-container" >
 				<div class="table-header-container">
@@ -124,7 +124,7 @@ layout1.setLinkClickListener(function(link) {
 
 
 var layout2 = new D3ModelLayout("#svgDiv_WS2", "col-sm-10");
-layout2.generateLayoutForJsonFile("datasets/person.json");
+layout2.generateLayoutForJsonFile("datasets/wide-table2.json");
 layout2.setNodeClickListener(function(node) {
 	console.log("This function is called when the node2 is clicked");
 });
