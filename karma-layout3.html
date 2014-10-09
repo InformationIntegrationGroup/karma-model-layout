@@ -112,7 +112,7 @@
 <script type="text/javascript">
 
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
-layout1.generateLayoutForJsonFile("datasets/person.json");
+layout1.generateLayoutForJsonFile("datasets/schedule.json");
 layout1.setNodeClickListener(function(node) {
 	console.log("This function is called when the node is clicked");
 });
@@ -121,23 +121,23 @@ layout1.setLinkClickListener(function(link) {
 });
 
 
-// var layout2 = new D3ModelLayout("#svgDiv_WS2", "col-sm-10");
-// layout2.generateLayoutForJsonFile("datasets/person.json");
-// layout2.setNodeClickListener(function(node) {
-// 	console.log("This function is called when the node2 is clicked");
-// });
-// layout2.setLinkClickListener(function(link) {
-// 	console.log("This function is called when the link2 is clicked");
-// });
+var layout2 = new D3ModelLayout("#svgDiv_WS2", "col-sm-10");
+layout2.generateLayoutForJsonFile("datasets/person.json");
+layout2.setNodeClickListener(function(node) {
+	console.log("This function is called when the node2 is clicked");
+});
+layout2.setLinkClickListener(function(link) {
+	console.log("This function is called when the link2 is clicked");
+});
 
 window.onscroll = function(event) {
 	layout1.onscroll(event);
-	//layout2.onscroll(event);
+	layout2.onscroll(event);
 }
 
 window.onresize = function(event) {
 	layout1.onresize(event);
-	//layout2.onresize(event);
+	layout2.onresize(event);
 }
 
 </script>

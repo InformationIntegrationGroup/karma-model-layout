@@ -1,30 +1,33 @@
-D3ModelLayout = function(htmlElement, cssClass) {
-	padding = 35;
-	windowWidth = window.innerWidth * 0.8 - padding;
-	leftPanelWidth = window.innerWidth * 0.2;
-	width=0;           
-	height=0;
-
-
-	linkClickListener = null;
-	nodeClickListener = null;
+D3ModelLayout = function(p_htmlElement, p_cssClass) {
+	var htmlElement = p_htmlElement;
+	var cssClass = p_cssClass;
 	
-	test = [];
-	anchorData = [];                           //store anchor nodes
-	nodesData = [];                            //store all nodes includes anchors
-	linksData = [];                            //links data
-	noCycleLinksData = [];                     //cycles are removed
-	cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
-	textData = [];                             //text nodes
-	textLinksData = [];                        //text links
-	idMap = [];                                //map from label to id
-	edgeIdMap = [];                            //map of edge's id
-	layerMap = [];                             //store nodes'id in sequence of layers
-	nodesChildren = [];                        //store node's id and its children pair
-	SCCindex = 0;                              //strong connected component node's index
-	SCCNodes = [];                             //SCC nodes set
-	SCCtmpNodes = [];                          //the nodes stack of SCC
-	layerLabel = [];                           //layers are divided into sections based on its layer
+	var padding = 35;
+	var windowWidth = window.innerWidth * 0.8 - padding;
+	var leftPanelWidth = window.innerWidth * 0.2;
+	var width=0;           
+	var height=0;
+
+
+	var linkClickListener = null;
+	var nodeClickListener = null;
+	
+	var test = [];
+	var anchorData = [];                           //store anchor nodes
+	var nodesData = [];                            //store all nodes includes anchors
+	var linksData = [];                            //links data
+	var noCycleLinksData = [];                     //cycles are removed
+	var cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
+	var textData = [];                             //text nodes
+	var textLinksData = [];                        //text links
+	var idMap = [];                                //map from label to id
+	var edgeIdMap = [];                            //map of edge's id
+	var layerMap = [];                             //store nodes'id in sequence of layers
+	var nodesChildren = [];                        //store node's id and its children pair
+	var SCCindex = 0;                              //strong connected component node's index
+	var SCCNodes = [];                             //SCC nodes set
+	var SCCtmpNodes = [];                          //the nodes stack of SCC
+	var layerLabel = [];                           //layers are divided into sections based on its layer
 	var myMap = function(){
 		var data = [];
 		this.entry = data;
@@ -44,47 +47,47 @@ D3ModelLayout = function(htmlElement, cssClass) {
 			data = [];
 		}
 	}
-	map = new myMap();
+	var map = new myMap();
 
 
-	nodeRadius = 4;
-	unitLinkLength = 70;                       //difference between layers
-	outsideUnitLinkLength = 50;                //length for outside links
-	maxLayer = 0;                              //max layer number, base 0
-	reshuffleFrequency = 8;                    //pixel changes to excute scroll bar event
-	xOffset = 0;                               //x position offset
-	firstTime = true;                          //first time to load the force-layout
-	maxLabelLength = 0;    
-	cScale = d3.scale.category20();
+	var nodeRadius = 4;
+	var unitLinkLength = 70;                       //difference between layers
+	var outsideUnitLinkLength = 50;                //length for outside links
+	var maxLayer = 0;                              //max layer number, base 0
+	var reshuffleFrequency = 8;                    //pixel changes to excute scroll bar event
+	var xOffset = 0;                               //x position offset
+	var firstTime = true;                          //first time to load the force-layout
+	var maxLabelLength = 0;    
+	var cScale = d3.scale.category20();
 
 	//create svg
-	svg = d3.select(htmlElement)                         
+	var svg = d3.select(htmlElement)                         
 	    .append("svg")
-	    .on("mousemove", mousemove);
+	    ; //.on("mousemove", mousemove);
 
 
 	//svg to draw nodes and links
-	forceSVG = svg.append("g");
+	var forceSVG = svg.append("g");
 
 	//place to show mouse coordinate
-	pos = svg.append("text")
+	var pos = svg.append("text")
 		.attr("fill", "black")
 		.attr("font-size", 10);
 
 	//coefficient of force move nodes to top
-	upperForceScale = d3.scale.linear()
+	var upperForceScale = d3.scale.linear()
 		//.domain([0, height]) 
 		.range([1, 0]);        
 
-	nodes = forceSVG.selectAll(".node");       //all nodes    
-	links = forceSVG.selectAll(".link");       //all links
-	labels = forceSVG.selectAll(".label");     //all labels
-	labelLinks = forceSVG.selectAll(".labelLinks"); //all label links.
-	linkArrow = forceSVG.selectAll(".linkArrow");   //little triangle of links
-	labelFrame = forceSVG.selectAll(".labelFrame"); //the frame of each label
+	var nodes = forceSVG.selectAll(".node");       //all nodes    
+	var links = forceSVG.selectAll(".link");       //all links
+	var labels = forceSVG.selectAll(".label");     //all labels
+	var labelLinks = forceSVG.selectAll(".labelLinks"); //all label links.
+	var linkArrow = forceSVG.selectAll(".linkArrow");   //little triangle of links
+	var labelFrame = forceSVG.selectAll(".labelFrame"); //the frame of each label
 
 	//force layout for nodes
-	force = d3.layout.force()
+	var force = d3.layout.force()
 		.gravity(0)
 		.linkStrength(function(d){
 			if (d.type == "edgeLink"){
@@ -114,7 +117,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 		.on("tick", tick);
 
 	// force layout for labels
-	labelForce = d3.layout.force()
+	var labelForce = d3.layout.force()
 		//.size([Math.max(width, columns * barWidth), height])
 		.gravity(0)
 		.friction(0.8)
@@ -125,7 +128,7 @@ D3ModelLayout = function(htmlElement, cssClass) {
 		.linkStrength(3);
 		//node can be dragged to the position you want
 
-	drag = force.drag()
+	var drag = force.drag()
 		.on("dragstart", function(d) {
 			if (!d.outside.isOutside){
 	  			d3.select(this).classed("fixed", d.fixed = true);
