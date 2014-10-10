@@ -118,6 +118,12 @@ layout1.setLinkClickListener(function(link) {
 	console.log("This function is called when the link is clicked");
 });
 
+setTimeout(function(){
+	console.log("schedule2 is loaded")
+	layout1.generateLayoutForJsonFile("datasets/schedule2.json");
+}, 3000);
+
+
 var layout2 = new D3ModelLayout("div#svgDiv_WS2", "col-sm-10");
 var jsonFile2 = "datasets/person.json";
 drawTable($("#WS2"), jsonFile2);
