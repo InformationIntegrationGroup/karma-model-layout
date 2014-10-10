@@ -53,15 +53,6 @@
 					<table style="border: 1px solid black;" rules="all">
 						<tbody>
 							<tr class="wk-row-odd">
-								<td id="HN5" class="wk-header-cell htable-even-regular">name</td>
-								<td id="HN94" class="wk-header-cell htable-even-transformation">last_name</td>
-								<td id="HN109" class="wk-header-cell htable-even-transformation">uri</td>
-								<td id="HN7" class="wk-header-cell htable-even-regular">email</td>
-								<td id="HN136" class="wk-header-cell htable-even-transformation">email_uri</td>
-								<td id="HN9" class="wk-header-cell htable-even-regular">title</td>
-								<td id="HN11" class="wk-header-cell htable-even-regular">homepage</td>
-								<td id="HN13" class="wk-header-cell htable-even-regular">depiction</td>
-								<td id="HN15" class="wk-header-cell htable-even-regular">twitter</td>
 							</tr>
 						</tbody>
 					</table>
@@ -73,35 +64,13 @@
 		<div style="height:100px; width:800px">&nbsp;</div>
 		<br>
 		
-		<div id="WS1" class="Worksheet" style="width:1400px; overflow:auto">
+		<div id="WS1" class="Worksheet" style="width:1800px; overflow:auto">
 			<div id="svgDiv_WS1"></div>
 			<div class="table-container worksheet-table-container" >
 				<div class="table-header-container">
 					<table style="border: 1px solid black;" rules="all">
 						<tbody>
 							<tr class="wk-row-odd">
-								<td id="HN662" class="wk-header-cell htable-even-regular">id</td>
-								<td id="HN990" class="wk-header-cell htable-even-transformation">type</td>
-								<td id="HN943" class="wk-header-cell htable-even-transformation">uri</td>
-								<td id="HN663" class="wk-header-cell htable-even-regular">date</td>
-								<td id="HN664" class="wk-header-cell htable-even-regular">who
-									<div class="HN664-class">
-										<div class="wk-header wk-subtable-header">
-											<div class="table-container">
-												<div class="table-header-container">
-													<table style="border: 1px solid black;" rules="all">
-														<tbody>
-															<tr class="wk-row-even">
-																<td id="HN1083" class="wk-header-cell htable-odd-transformation">Values</td>
-																<td id="HN1146" class="wk-header-cell htable-odd-transformation">instructor_uri</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-								</td>
-								<td id="HN665" class="wk-header-cell htable-even-regular">&nbsp;</td>
 							</tr>
 						</tbody>
 					</table>
@@ -113,8 +82,35 @@
 
 <script type="text/javascript">
 
+function drawTableRow(data, row) {
+	data.forEach(function(column, i) {
+		var td = $("<td>").addClass("wk-header-cell").addClass("htable-even-regular");
+		td.attr("id", column.hNodeId);
+		td.text(column.columnName);
+		row.append(td);
+		if(column.hasNestedTable) {
+			var table = $("<table>").css("border", " 1px solid black").attr("rules", "all");
+			var tr = $("<tr>").addClass("wk-row-even");
+			table.append(tr);
+			td.append($("<div>").addClass("table-container").append(table));
+			drawTableRow(column.columns, tr);
+		}
+	});
+}
+
+function drawTable(worksheet, jsonFile) {
+	var row = $("tr.wk-row-odd", worksheet);
+	d3.json(jsonFile, function(d){
+		var tableLayout = d.tableLayout;
+		drawTableRow(tableLayout, row);
+	});
+}
+
+
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
-layout1.generateLayoutForJsonFile("datasets/schedule.json");
+var jsonFile1 = "datasets/schedule.json";
+drawTable($("#WS1"), jsonFile1);
+layout1.generateLayoutForJsonFile(jsonFile1);
 layout1.setNodeClickListener(function(node) {
 	console.log("This function is called when the node is clicked");
 });
@@ -122,9 +118,10 @@ layout1.setLinkClickListener(function(link) {
 	console.log("This function is called when the link is clicked");
 });
 
-
-var layout2 = new D3ModelLayout("#svgDiv_WS2", "col-sm-10");
-layout2.generateLayoutForJsonFile("datasets/wide-table2.json");
+var layout2 = new D3ModelLayout("div#svgDiv_WS2", "col-sm-10");
+var jsonFile2 = "datasets/person.json";
+drawTable($("#WS2"), jsonFile2);
+layout2.generateLayoutForJsonFile(jsonFile2);
 layout2.setNodeClickListener(function(node) {
 	console.log("This function is called when the node2 is clicked");
 });
