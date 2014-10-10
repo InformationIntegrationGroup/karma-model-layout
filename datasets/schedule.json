@@ -1,101 +1,99 @@
-
-
 {
   "edgeLinks": [
     
   ],
   "anchors": [
     {
-      "xPos":100,
+      "xPos": 100,
       "id": 0,
       "isForcedByUser": false,
-      "nodeId": "HN662",
-      "nodeDomain": "HN662",
+      "nodeId": "HN4",
+      "nodeDomain": "HN4",
       "column": 0,
       "isUri": false,
       "label": "id",
       "nodeType": "ColumnNode",
-      "hNodeId": "HN662"
+      "hNodeId": "HN4"
     },
     {
-      "xPos":300,
+      "xPos": 300,
       "id": 1,
       "isForcedByUser": false,
-      "nodeId": "HN990",
-      "nodeDomain": "HN990",
+      "nodeId": "HN277",
+      "nodeDomain": "HN277",
       "column": 1,
       "isUri": false,
       "label": "type",
       "nodeType": "ColumnNode",
-      "hNodeId": "HN990"
+      "hNodeId": "HN277"
     },
     {
-      "xPos":500,
+      "xPos": 500,
       "id": 2,
       "isForcedByUser": false,
-      "nodeId": "HN943",
-      "nodeDomain": "HN943",
+      "nodeId": "HN230",
+      "nodeDomain": "HN230",
       "column": 2,
       "isUri": false,
       "label": "uri",
       "nodeType": "ColumnNode",
-      "hNodeId": "HN943"
+      "hNodeId": "HN230"
     },
     {
-      "xPos":700,
+      "xPos": 700,
       "id": 3,
       "isForcedByUser": false,
-      "nodeId": "HN663",
-      "nodeDomain": "HN663",
+      "nodeId": "HN5",
+      "nodeDomain": "HN5",
       "column": 3,
       "isUri": false,
       "label": "date",
       "nodeType": "ColumnNode",
-      "hNodeId": "HN663"
+      "hNodeId": "HN5"
     },
     {
-      "xPos":850,
+      "xPos": 850,
       "id": 4,
       "isForcedByUser": false,
-      "nodeId": "HN1083",
+      "nodeId": "HN370",
       "nodeDomain": "",
       "column": 4,
       "isUri": false,
       "label": "Values",
       "nodeType": "ColumnNode",
-      "hNodeId": "HN1083"
+      "hNodeId": "HN370"
     },
     {
-      "xPos":950,
+      "xPos": 950,
       "id": 5,
       "isForcedByUser": false,
-      "nodeId": "HN1146",
-      "nodeDomain": "HN1146",
+      "nodeId": "HN433",
+      "nodeDomain": "HN433",
       "column": 5,
       "isUri": false,
       "label": "instructor_uri",
       "nodeType": "ColumnNode",
-      "hNodeId": "HN1146"
+      "hNodeId": "HN433"
     },
     {
-      "xPos":1100,
+      "xPos": 1100,
       "id": 6,
       "isForcedByUser": false,
-      "nodeId": "HN665",
+      "nodeId": "HN7",
       "nodeDomain": "",
       "column": 6,
       "isUri": false,
       "label": "",
       "nodeType": "ColumnNode",
-      "hNodeId": "HN665"
+      "hNodeId": "HN7"
     }
   ],
   "nodes": [
     {
       "id": 7,
       "isForcedByUser": false,
-      "nodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
-      "nodeDomain": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event",
+      "nodeId": "http://lod.isi.edu/ontology/syllabus/Event1",
+      "nodeDomain": "http://lod.isi.edu/ontology/syllabus/Event",
       "isUri": false,
       "label": "Event1",
       "nodeType": "InternalNode"
@@ -103,8 +101,8 @@
     {
       "id": 8,
       "isForcedByUser": false,
-      "nodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2",
-      "nodeDomain": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person",
+      "nodeId": "http://lod.isi.edu/ontology/syllabus/Person2",
+      "nodeDomain": "http://lod.isi.edu/ontology/syllabus/Person",
       "isUri": false,
       "label": "Person2",
       "nodeType": "InternalNode"
@@ -112,72 +110,115 @@
   ],
   "links": [
     {
-      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN943",
-      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+      "id": "http://lod.isi.edu/ontology/syllabus/Event1---http://isi.edu/integration/karma/dev#classLink---HN230",
+      "linkUri": "http://isi.edu/integration/karma/dev#classLink",
       "source": 7,
-      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "sourceNodeId": "http://lod.isi.edu/ontology/syllabus/Event1",
       "target": 2,
       "linkType": "ClassInstanceLink",
-      "linkStatus": "PreferredByUI",
+      "linkStatus": "ForcedByUser",
       "label": "classLink",
-      "targetNodeId": "HN943"
+      "targetNodeId": "HN230"
     },
     {
-      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/isi.edu\/integration\/karma\/dev#columnSubClassOfLink---HN990",
-      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#columnSubClassOfLink",
+      "id": "http://lod.isi.edu/ontology/syllabus/Event1---http://isi.edu/integration/karma/dev#columnSubClassOfLink---HN277",
+      "linkUri": "http://isi.edu/integration/karma/dev#columnSubClassOfLink",
       "source": 7,
-      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "sourceNodeId": "http://lod.isi.edu/ontology/syllabus/Event1",
       "target": 1,
       "linkType": "ColumnSubClassLink",
-      "linkStatus": "PreferredByUI",
+      "linkStatus": "ForcedByUser",
       "label": "columnSubClassOfLink",
-      "targetNodeId": "HN990"
+      "targetNodeId": "HN277"
     },
     {
-      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/lod.isi.edu\/ontology\/syllabus\/hasEventDate---HN663",
-      "linkUri": "http:\/\/lod.isi.edu\/ontology\/syllabus\/hasEventDate",
+      "id": "http://lod.isi.edu/ontology/syllabus/Event1---http://lod.isi.edu/ontology/syllabus/hasEventDate---HN5",
+      "linkUri": "http://lod.isi.edu/ontology/syllabus/hasEventDate",
       "source": 7,
-      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "sourceNodeId": "http://lod.isi.edu/ontology/syllabus/Event1",
       "target": 3,
       "linkType": "DataPropertyLink",
-      "linkStatus": "PreferredByUI",
+      "linkStatus": "ForcedByUser",
       "label": "hasEventDate",
-      "targetNodeId": "HN663"
+      "targetNodeId": "HN5"
     },
     {
-      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/lod.isi.edu\/ontology\/syllabus\/hasInstructor---http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2",
-      "linkUri": "http:\/\/lod.isi.edu\/ontology\/syllabus\/hasInstructor",
+      "id": "http://lod.isi.edu/ontology/syllabus/Event1---http://lod.isi.edu/ontology/syllabus/hasInstructor---http://lod.isi.edu/ontology/syllabus/Person2",
+      "linkUri": "http://lod.isi.edu/ontology/syllabus/hasInstructor",
       "source": 7,
-      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "sourceNodeId": "http://lod.isi.edu/ontology/syllabus/Event1",
       "target": 8,
       "linkType": "ObjectPropertyLink",
       "linkStatus": "ForcedByUser",
       "label": "hasInstructor",
-      "targetNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2"
+      "targetNodeId": "http://lod.isi.edu/ontology/syllabus/Person2"
     },
     {
-      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1---http:\/\/purl.org\/dc\/terms\/identifier---HN662",
-      "linkUri": "http:\/\/purl.org\/dc\/terms\/identifier",
+      "id": "http://lod.isi.edu/ontology/syllabus/Event1---http://purl.org/dc/terms/identifier---HN4",
+      "linkUri": "http://purl.org/dc/terms/identifier",
       "source": 7,
-      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Event1",
+      "sourceNodeId": "http://lod.isi.edu/ontology/syllabus/Event1",
       "target": 0,
       "linkType": "DataPropertyLink",
-      "linkStatus": "PreferredByUI",
+      "linkStatus": "ForcedByUser",
       "label": "identifier",
-      "targetNodeId": "HN662"
+      "targetNodeId": "HN4"
     },
     {
-      "id": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN1146",
-      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+      "id": "http://lod.isi.edu/ontology/syllabus/Person2---http://isi.edu/integration/karma/dev#classLink---HN433",
+      "linkUri": "http://isi.edu/integration/karma/dev#classLink",
       "source": 8,
-      "sourceNodeId": "http:\/\/lod.isi.edu\/ontology\/syllabus\/Person2",
+      "sourceNodeId": "http://lod.isi.edu/ontology/syllabus/Person2",
       "target": 5,
       "linkType": "ClassInstanceLink",
-      "linkStatus": "PreferredByUI",
+      "linkStatus": "ForcedByUser",
       "label": "classLink",
-      "targetNodeId": "HN1146"
+      "targetNodeId": "HN433"
+    }
+  ],
+  "tableLayout": [
+    {
+      "columnName": "id",
+      "hasNestedTable": false,
+      "hNodeId": "HN4"
+    },
+    {
+      "columnName": "type",
+      "hasNestedTable": false,
+      "hNodeId": "HN277"
+    },
+    {
+      "columnName": "uri",
+      "hasNestedTable": false,
+      "hNodeId": "HN230"
+    },
+    {
+      "columnName": "date",
+      "hasNestedTable": false,
+      "hNodeId": "HN5"
+    },
+    {
+      "columns": [
+        {
+          "columnName": "Values",
+          "hasNestedTable": false,
+          "hNodeId": "HN370"
+        },
+        {
+          "columnName": "instructor_uri",
+          "hasNestedTable": false,
+          "hNodeId": "HN433"
+        }
+      ],
+      "columnName": "who",
+      "hasNestedTable": true,
+      "hNodeId": "HN6"
+    },
+    {
+      "columnName": "",
+      "hasNestedTable": false,
+      "hNodeId": "HN7"
     }
   ],
   "width": 1200
 }
-

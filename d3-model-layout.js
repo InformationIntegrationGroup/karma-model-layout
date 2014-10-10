@@ -1,8 +1,7 @@
-D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
+D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	var htmlElement = p_htmlElement;
 	var cssClass = p_cssClass;
-	var worksheetId = p_worksheetId;
-	
+
 	var padding = 35;
 	var windowWidth = parseInt($("." + cssClass).css("width"));
 	var leftPanelWidth = window.innerWidth - windowWidth;
@@ -16,14 +15,12 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 	
 	var test = [];
 	var anchorData = [];                           //store anchor nodes
-	var nodesData = [];                            //store all nodes includes anchors
-	var linksData = [];                            //links data
+	 nodesData = [];                            //store all nodes includes anchors
+	 linksData = [];                            //links data
 	var noCycleLinksData = [];                     //cycles are removed
 	var cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
 	var textData = [];                             //text nodes
 	var textLinksData = [];                        //text links
-	var idMap = [];                                //map from label to id
-	var edgeIdMap = [];                            //map of edge's id
 	var layerMap = [];                             //store nodes'id in sequence of layers
 	var nodesChildren = [];                        //store node's id and its children pair
 	var SCCindex = 0;                              //strong connected component node's index
@@ -50,6 +47,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 		}
 	}
 	var map = new myMap();
+	var idMap = [];                                //map from label to id
+	var edgeIdMap = [];                            //map of edge's id
+	var nodePosMap = new myMap();                  //map of node's position
 
 
 	var nodeRadius = 4;
@@ -65,7 +65,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 	//create svg
 	var svg = d3.select(htmlElement)                         
 	    .append("svg")
-	   ;// .on("mousemove", mousemove);
+	    .on("mousemove", mousemove);
 
 
 	//svg to draw nodes and links
@@ -148,7 +148,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 
 
 	function transit(){
-		links = links.data(linksData)
+		links = links.data(linksData, function(d){
+			return d.edgeId;
+		});
 		links.enter()
 			.append("path")
 			.attr("stroke", "#555")
@@ -168,7 +170,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 			.remove();
 
 
-		linkArrow = linkArrow.data(linksData);
+		linkArrow = linkArrow.data(linksData, function(d){
+			return d.edgeId;
+		});
 		linkArrow.enter()
 			.append("polygon")
 			.attr("fill", "#555")
@@ -179,7 +183,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 			.remove();
 
 
-		labels = labels.data(textData);
+		labels = labels.data(textData, function(d){
+			return d.nodeId;
+		});
 		labels.enter()
 			.append("g")
 			.classed("label", true)
@@ -387,7 +393,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 
 
 			
-		labelLinks = labelLinks.data(textLinksData);
+		labelLinks = labelLinks.data(textLinksData, function(d){
+			return d.edgeId;
+		});
 		labelLinks.enter()
 			.append("line")
 			.classed("labelLinks", true)
@@ -400,23 +408,25 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 
 
 
-		nodes = nodes.data(nodesData);
+		nodesData.forEach(function(d){				
+			if (d.noLayer){					
+				d.position.x = -1;
+				d.position.y = -1;
+			} else {
+				d.position.x = d.xpos;
+				d.position.y = height - nodeRadius - d.layer * unitLinkLength;
+			}	
+		})	
+
+		nodes = nodes.data(nodesData, function(d){
+			return d.nodeId;
+		});
 		nodes.enter()
 			.append("circle")
 			.classed("node", true)
 			.attr("r", 1)
 			.attr("opacity", 0.7)
-			.attr("fill", function(d, i){
-				if (d.noLayer){					
-					d.position.x = -1;
-					d.position.y = -1;
-				} else {
-					d.position.x = d.xpos;
-					d.position.y = height - nodeRadius - d.layer * unitLinkLength;
-				}
-				//console.log(d.id + " " + d.position.x);
-				return "red";
-			})
+			.attr("fill", "red")
 			.attr("id", function(d, i){
 				return "node" + d.id;
 			})
@@ -883,17 +893,59 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 	  	};
 	}
 
+	//reset data
+	function resetData(){
+		nodePosMap.clear();
+		nodesData.forEach(function(d){
+			nodePosMap.set(d.nodeId, {x : d.x, y : d.y});
+		});
+
+		padding = 35;
+		windowWidth = parseInt($("." + cssClass).css("width"));
+		leftPanelWidth = window.innerWidth - windowWidth;
+		maxXOfferset = 0;
+		width=0;           
+		height=0;
+
+		test = [];
+		anchorData = [];                           //store anchor nodes
+		nodesData = [];                            //store all nodes includes anchors
+		linksData = [];                            //links data
+		noCycleLinksData = [];                     //cycles are removed
+		cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
+		textData = [];                             //text nodes
+		textLinksData = [];                        //text links
+		layerMap = [];                             //store nodes'id in sequence of layers
+		nodesChildren = [];                        //store node's id and its children pair
+		SCCindex = 0;                              //strong connected component node's index
+		SCCNodes = [];                             //SCC nodes set
+		SCCtmpNodes = [];                          //the nodes stack of SCC
+		layerLabel = [];                           //layers are divided into sections based on its layer
+		
+		map = new myMap();
+		idMap = [];                                //map from label to id
+		edgeIdMap = [];                            //map of edge's id	
+
+		maxLayer = 0;                              //max layer number, base 0
+		reshuffleFrequency = 8;                    //pixel changes to excute scroll bar event
+		xOffset = 0;                               //x position offset
+		firstTime = true;                          //first time to load the force-layout
+		maxLabelLength = 0;    	
+	}
+
 	//initialize data
 	function initializeData(tmpL, tmpN){
 		tmpN.forEach(function(d, i){
 			var node = {};
 			node.label = d.id;
 			node.id = i;
+			node.nodeId = d.nodeId;
 			node.degree = 0;
 			node.showLabel = false;
 			node.original = d;
 			node.isForcedByUser = d.isForcedByUser;
 			if (d.column || d.column == 0){
+				node.nodeId = d.hNodeId;
 				node.column = d.column;
 				node.type = "anchor";
 				node.layer = 0;
@@ -907,20 +959,29 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 			node.outside = {};
 			node.outside.position = {};
 			node.outside.isOutside = false;
+			if (nodePosMap.has(node.nodeId)){
+				node.x = nodePosMap.get(node.nodeId).x;
+				node.y = nodePosMap.get(node.nodeId).y;
+			}
 			nodesData.push(node);
 			idMap[d.id] = i;
 
 		
-			textData.push({node : node});
 			textData.push({
 				node : node,
+				nodeId : "circle" + d.nodeId
+			});
+			textData.push({
+				node : node,
+				nodeId : d.nodeId,
 				content : d.label,
 				type : "nodeLabel"
 			});
 
 			textLinksData.push({
 				source : textData.length - 2,
-				target : textData.length - 1
+				target : textData.length - 1,
+				edgeId : d.nodeId
 			});
 			
 		});
@@ -930,6 +991,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 			edge.source = idMap[d.source];
 			edge.target = idMap[d.target];
 			edge.id = i;
+			edge.edgeId = d.id;
 			edge.linkType = d.linkType;
 			edge.linkStatus = d.linkStatus;
 			if (d.id){
@@ -943,17 +1005,20 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 			node.original = d;
 			textData.push({
 				node : node,
-				type : "linkCircle"
+				type : "linkCircle",
+				nodeId : "circle" + d.id
 			});
 			textData.push({
 				node : node,
 				type : "linkLabel",
-				content : d.label
+				content : d.label,
+				nodeId : d.id
 			});
 
 			textLinksData.push({
 				source : textData.length - 2,
-				target : textData.length - 1
+				target : textData.length - 1,
+				edgeId : d.id
 			});
 		});
 
@@ -1143,7 +1208,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 				d.noLayer = true;
 				d.layer = -1;
 				d.xpos = -1;
-			}			
+			}	
 		});
 
 
@@ -1391,6 +1456,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 		//read file and execute program
 		//d3.json(jsonFile, function(d){
 		var processData = function(d) {
+			resetData();
 			var tmpNodeData = d.anchors.concat(d.nodes);
 			var tmpLinkData = d.links;
 			var tmpEdgeLink = d.edgeLinks;
@@ -1406,11 +1472,12 @@ D3ModelLayout = function(p_htmlElement, p_cssClass, p_w, p_worksheetId) {
 			setLayer(tmpL, tmpEdgeLink);
 
 			
-			console.log("window width: " + windowWidth);
 			height = (maxLayer + 0.5) * unitLinkLength;
 			if (width > window.innerWidth){
 				height += (maxLayer + 0.5) * outsideUnitLinkLength;
 			}
+
+			console.log("window width: " + windowWidth + "  window height: " + height);
 
 			svg.attr("width", width);
 			svg.attr("height", height);
