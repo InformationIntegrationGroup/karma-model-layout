@@ -1,0 +1,116 @@
+{
+  "edgeLinks": [
+    
+  ],
+  "anchors": [
+    {
+      "xPos": 100,
+      "id": 0,
+      "isForcedByUser": true,
+      "nodeId": "HN4",
+      "nodeDomain": "HN4",
+      "column": 0,
+      "isUri": false,
+      "label": "name",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN4"
+    },
+    {
+      "xPos": 300,
+      "id": 1,
+      "isForcedByUser": true,
+      "nodeId": "HN20",
+      "nodeDomain": "HN20",
+      "column": 1,
+      "isUri": false,
+      "label": "name_uri",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN20"
+    },
+    {
+      "xPos": 500,
+      "id": 2,
+      "isForcedByUser": true,
+      "nodeId": "HN5",
+      "nodeDomain": "HN5",
+      "column": 2,
+      "isUri": false,
+      "label": "description",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN5"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 3,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1",
+      "nodeDomain": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept",
+      "isUri": false,
+      "label": "Concept1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 4,
+      "isForcedByUser": true,
+      "nodeId": "http:\/\/memexproxy.com\/data\/controlledvocabularies\/features1",
+      "nodeDomain": "",
+      "isUri": true,
+      "label": "http:\/\/memexproxy.com\/data\/controlledvocabularies\/features",
+      "nodeType": "LiteralNode"
+    }
+  ],
+  "links": [
+    {
+      "id": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN20",
+      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+      "source": 3,
+      "sourceNodeId": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1",
+      "target": 1,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "ForcedByUser",
+      "label": "classLink",
+      "targetNodeId": "HN20"
+    },
+    {
+      "id": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1---http:\/\/www.w3.org\/2004\/02\/skos\/core#definition---HN5",
+      "linkUri": "http:\/\/www.w3.org\/2004\/02\/skos\/core#definition",
+      "source": 3,
+      "sourceNodeId": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1",
+      "target": 2,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "definition",
+      "targetNodeId": "HN5"
+    },
+    {
+      "id": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1---http:\/\/www.w3.org\/2004\/02\/skos\/core#prefLabel---HN4",
+      "linkUri": "http:\/\/www.w3.org\/2004\/02\/skos\/core#prefLabel",
+      "source": 3,
+      "sourceNodeId": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1",
+      "target": 0,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "prefLabel",
+      "targetNodeId": "HN4"
+    }
+  ],
+  "tableLayout": [
+    {
+      "columnName": "name",
+      "hasNestedTable": false,
+      "hNodeId": "HN4"
+    },
+    {
+      "columnName": "name_uri",
+      "hasNestedTable": false,
+      "hNodeId": "HN20"
+    },
+    {
+      "columnName": "description",
+      "hasNestedTable": false,
+      "hNodeId": "HN5"
+    }
+  ],
+  "width":600
+}
