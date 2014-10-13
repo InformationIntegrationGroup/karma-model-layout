@@ -1,0 +1,286 @@
+{
+  "edgeLinks": [
+    
+  ],
+  "anchors": [
+    {
+      "xPos": 100,
+      "id": 0,
+      "isForcedByUser": true,
+      "nodeId": "HN5",
+      "nodeDomain": "HN5",
+      "column": 0,
+      "isUri": false,
+      "label": "DB_ID",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN5"
+    },
+    {
+    "xPos": 300,
+      "id": 1,
+      "isForcedByUser": false,
+      "nodeId": "HN7",
+      "nodeDomain": "",
+      "column": 1,
+      "isUri": false,
+      "label": "_Protege_id",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN7"
+    },
+    {
+    "xPos": 500,
+      "id": 2,
+      "isForcedByUser": false,
+      "nodeId": "HN9",
+      "nodeDomain": "",
+      "column": 2,
+      "isUri": false,
+      "label": "__is_ghost",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN9"
+    },
+    {
+    "xPos": 700,
+      "id": 3,
+      "isForcedByUser": false,
+      "nodeId": "HN11",
+      "nodeDomain": "",
+      "column": 3,
+      "isUri": false,
+      "label": "_class",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN11"
+    },
+    {
+    "xPos": 900,
+      "id": 4,
+      "isForcedByUser": true,
+      "nodeId": "HN13",
+      "nodeDomain": "HN13",
+      "column": 4,
+      "isUri": false,
+      "label": "_displayName",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN13"
+    },
+    {
+    "xPos": 1100,
+      "id": 5,
+      "isForcedByUser": false,
+      "nodeId": "HN15",
+      "nodeDomain": "",
+      "column": 5,
+      "isUri": false,
+      "label": "_timestamp",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN15"
+    },
+    {
+    "xPos": 1300,
+      "id": 6,
+      "isForcedByUser": false,
+      "nodeId": "HN17",
+      "nodeDomain": "",
+      "column": 6,
+      "isUri": false,
+      "label": "created",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN17"
+    },
+    {
+    "xPos": 1500,
+      "id": 7,
+      "isForcedByUser": false,
+      "nodeId": "HN19",
+      "nodeDomain": "",
+      "column": 7,
+      "isUri": false,
+      "label": "created_class",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN19"
+    },
+    {
+    "xPos": 1700,
+      "id": 8,
+      "isForcedByUser": false,
+      "nodeId": "HN21",
+      "nodeDomain": "",
+      "column": 8,
+      "isUri": false,
+      "label": "stableIdentifier",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN21"
+    },
+    {
+    "xPos": 1900,
+      "id": 9,
+      "isForcedByUser": false,
+      "nodeId": "HN23",
+      "nodeDomain": "",
+      "column": 9,
+      "isUri": false,
+      "label": "stableIdentifier_class",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN23"
+    },
+    {
+    "xPos": 2100,
+      "id": 10,
+      "isForcedByUser": false,
+      "nodeId": "HN25",
+      "nodeDomain": "",
+      "column": 10,
+      "isUri": false,
+      "label": "input_rank",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN25"
+    },
+    {
+    "xPos": 2300,
+      "id": 11,
+      "isForcedByUser": false,
+      "nodeId": "HN27",
+      "nodeDomain": "",
+      "column": 11,
+      "isUri": false,
+      "label": "input",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN27"
+    },
+    {
+    "xPos": 2500,
+      "id": 12,
+      "isForcedByUser": false,
+      "nodeId": "HN29",
+      "nodeDomain": "",
+      "column": 12,
+      "isUri": false,
+      "label": "input_class",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN29"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 13,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#BiochemicalReaction1",
+      "nodeDomain": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#BiochemicalReaction",
+      "isUri": false,
+      "label": "BiochemicalReaction1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 14,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#PhysicalEntity1",
+      "nodeDomain": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#PhysicalEntity",
+      "isUri": false,
+      "label": "PhysicalEntity1",
+      "nodeType": "InternalNode"
+    }
+  ],
+  "links": [
+    {
+      "id": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#BiochemicalReaction1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN5",
+      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+      "source": 13,
+      "sourceNodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#BiochemicalReaction1",
+      "target": 0,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "ForcedByUser",
+      "label": "classLink",
+      "targetNodeId": "HN5"
+    },
+    {
+      "id": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#BiochemicalReaction1---http:\/\/www.biopax.org\/release\/biopax-level3.owl#displayName---HN13",
+      "linkUri": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#displayName",
+      "source": 13,
+      "sourceNodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#BiochemicalReaction1",
+      "target": 4,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "displayName",
+      "targetNodeId": "HN13"
+    },
+    {
+      "id": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#BiochemicalReaction1---http:\/\/www.biopax.org\/release\/biopax-level3.owl#left---http:\/\/www.biopax.org\/release\/biopax-level3.owl#PhysicalEntity1",
+      "linkUri": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#left",
+      "source": 13,
+      "sourceNodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#BiochemicalReaction1",
+      "target": 14,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "left",
+      "targetNodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#PhysicalEntity1"
+    }
+  ],
+  "tableLayout": [
+    {
+      "columnName": "DB_ID",
+      "hasNestedTable": false,
+      "hNodeId": "HN5"
+    },
+    {
+      "columnName": "_Protege_id",
+      "hasNestedTable": false,
+      "hNodeId": "HN7"
+    },
+    {
+      "columnName": "__is_ghost",
+      "hasNestedTable": false,
+      "hNodeId": "HN9"
+    },
+    {
+      "columnName": "_class",
+      "hasNestedTable": false,
+      "hNodeId": "HN11"
+    },
+    {
+      "columnName": "_displayName",
+      "hasNestedTable": false,
+      "hNodeId": "HN13"
+    },
+    {
+      "columnName": "_timestamp",
+      "hasNestedTable": false,
+      "hNodeId": "HN15"
+    },
+    {
+      "columnName": "created",
+      "hasNestedTable": false,
+      "hNodeId": "HN17"
+    },
+    {
+      "columnName": "created_class",
+      "hasNestedTable": false,
+      "hNodeId": "HN19"
+    },
+    {
+      "columnName": "stableIdentifier",
+      "hasNestedTable": false,
+      "hNodeId": "HN21"
+    },
+    {
+      "columnName": "stableIdentifier_class",
+      "hasNestedTable": false,
+      "hNodeId": "HN23"
+    },
+    {
+      "columnName": "input_rank",
+      "hasNestedTable": false,
+      "hNodeId": "HN25"
+    },
+    {
+      "columnName": "input",
+      "hasNestedTable": false,
+      "hNodeId": "HN27"
+    },
+    {
+      "columnName": "input_class",
+      "hasNestedTable": false,
+      "hNodeId": "HN29"
+    }
+  ],
+  "width": 2600
+}
