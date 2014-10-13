@@ -5,6 +5,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	var padding = 35;
 	var windowWidth = parseInt($("." + cssClass).css("width"));
 	var leftPanelWidth = window.innerWidth - windowWidth;
+	console.log("windowWidth: " + windowWidth + "  leftPanelWidth: " + leftPanelWidth);
 	var maxXOfferset = 0;
 	var width=0;           
 	var height=0;
@@ -15,11 +16,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	
 	var test = [];
 	var anchorData = [];                           //store anchor nodes
-	var nodesData = [];                            //store all nodes includes anchors
-	var linksData = [];                            //links data
+	 nodesData = [];                            //store all nodes includes anchors
+	 linksData = [];                            //links data
 	var noCycleLinksData = [];                     //cycles are removed
 	var cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
-	var textData = [];                             //text nodes
+	 textData = [];                             //text nodes
 	var textLinksData = [];                        //text links
 	var layerMap = [];                             //store nodes'id in sequence of layers
 	var nodesChildren = [];                        //store node's id and its children pair
@@ -132,12 +133,12 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 	var drag = force.drag()
 		.on("dragstart", function(d) {
-			if (!d.outside.isOutside){
+			if (!d.outside.isOutside || d.noLayer){
 	  			d3.select(this).classed("fixed", d.fixed = true);
 			}
 	  	})
 	    .on("dragend", function(d) {
-	  		if (!d.outside.isOutside){
+	  		if (!d.outside.isOutside || d.noLayer){
 	  			d.position.x = d.x;
 	  			d.position.y = d.y;
 	  		}
@@ -359,6 +360,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			.on("mouseover", function(d){
 				var surfix = "";
 				var frameId = "";
+				//console.log(d.content);
 				if (d.type == "nodeLabel"){
 					surfix = "#nodeLabelBoard" + d.node.id;
 					frameId = "#nodeLabelG" + d.node.id;
@@ -389,6 +391,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				}
 				d3.select(surfix)
 					.attr("stroke-width", 0);
+				d3.select(frameId)
+					.moveToBack();
 			});
 
 
@@ -467,6 +471,12 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				d.position.y = height - nodeRadius - d.layer * unitLinkLength;
 			})
 			.on("mouseover", function(d){
+				d3.select(this)
+					.transition()
+					.duration(500)
+					.attr("opacity", 1)
+					.attr("r", nodeRadius * 1.5);
+
 				d3.select("#nodeLabel" + d.id)
 					.attr("opacity", 1);			
 				d.showLabel = true;
@@ -488,6 +498,12 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				labelForce.start();
 			})
 			.on("mouseout", function(d){
+				d3.select(this)
+					.transition()
+					.duration(500)
+					.attr("opacity", 0.7)
+					.attr("r", nodeRadius)
+
 				if (d.noLayer){
 
 				} else if (d.outside.isOutside){
@@ -1303,7 +1319,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 							change++;
 						}
 						nodesData[e].xpos = (d3.min(tmp) + d3.max(tmp)) / 2;
-						nodesData[e].position.x = nodesData[e].xpos;
+						if (!d.fixed){
+							nodesData[e].position.x = nodesData[e].xpos;
+						}
 						nodesData[e].outside.isOutside = false;
 					}
 				}); 
@@ -1329,22 +1347,20 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		
 		//Set the color, opacity of nodes based on the status of isOutside
 		nodes.each(function(d){
-			if (d.noLayer){
+			/*if (d.noLayer){
 				d.outside.isOutside = true;
 				d3.select(this)
-					.transition()
-					.duration(500)
 					.attr("opacity", 0.8)
 					.attr("r", nodeRadius)
-					.attr("fill", "red");	
-				return;				
-			}						
-			if (d.fixed && d.outside.isOutside){				
-				d3.select(this).classed("fixed", d.fixed = false);
+					.attr("fill", "red");
+			}		*/				
+			if (d.fixed && !(d.x - nodeRadius > offset && d.x + nodeRadius < offset + windowWidth)){
+				d.fixed = false				
+				d3.select(this).classed("fixed", false);
 	  			d.position.x = d.xpos;
 				d.position.y = height - nodeRadius - d.layer * unitLinkLength;
 			}
-			if (d.outside.isOutside){
+			if (d.outside.isOutside && !d.noLayer){
 				if (d.unAssigned){
 
 				}				
@@ -1416,7 +1432,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 					d.show = true;
 					return 1;					
 				});
-			d3.select(htmlElement).selectAll(".clickBoard")
+			/*d3.select(htmlElement).selectAll(".clickBoard")
 				.attr("fill", function(d){
 					if (d.content == "edgeLinks"){
 						if (nodesData[d.node.tgt].outside.isOutside || !d.node.src.show){
@@ -1430,7 +1446,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 						return "transparent";
 					} 
 					return d.node.showLabel ? "transparent" : "none";
-				});
+				});*/
 
 			links.classed("outsideLink", function(d){
 				/*if (d.type == "edgeLink"){
@@ -1478,7 +1494,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				height += (maxLayer + 0.5) * outsideUnitLinkLength;
 			}
 
-			console.log("window width: " + windowWidth + "  window height: " + height);
+			console.log("width: " + width + "  window height: " + height + " max offset: " + maxXOfferset);
 
 			svg.attr("width", width);
 			svg.attr("height", height);
