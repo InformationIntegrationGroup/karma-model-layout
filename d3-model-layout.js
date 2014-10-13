@@ -606,7 +606,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				d.y = dy;
 				d.x = dx;
 	    	}
-	    })
+		})
 
 	    //if (!firstTime){
 	    	links.call(updateLink);
@@ -792,6 +792,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	//update label of nodes for tick function
 	var updateLabel = function() {
 		layerLabel = [];
+		/*
 		textData.forEach(function(d, i){
 			if (i % 2 == 1){
 				if (d.type == "nodeLabel"){
@@ -834,7 +835,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	      			n = e.length;
 	    		while (++i < n) q.visit(collideOutside(e[i]));
 	    	}
-		});
+		});*/
 	      	
 		this.attr("transform", function(d) {
 			//dx = Math.max(xOffset + 20, Math.min(xOffset + width, d.x)); 
