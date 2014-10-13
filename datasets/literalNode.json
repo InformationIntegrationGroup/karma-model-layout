@@ -19,13 +19,13 @@
       "xPos": 300,
       "id": 1,
       "isForcedByUser": true,
-      "nodeId": "HN20",
-      "nodeDomain": "HN20",
+      "nodeId": "HN22",
+      "nodeDomain": "HN22",
       "column": 1,
       "isUri": false,
       "label": "name_uri",
       "nodeType": "ColumnNode",
-      "hNodeId": "HN20"
+      "hNodeId": "HN22"
     },
     {
       "xPos": 500,
@@ -58,11 +58,20 @@
       "isUri": true,
       "label": "http:\/\/memexproxy.com\/data\/controlledvocabularies\/features",
       "nodeType": "LiteralNode"
+    },
+    {
+      "id": 5,
+      "isForcedByUser": true,
+      "nodeId": "http:\/\/memexproxy.com\/data\/controlledvocabularies\/feature1",
+      "nodeDomain": "",
+      "isUri": true,
+      "label": "http:\/\/memexproxy.com\/data\/controlledvocabularies\/feature",
+      "nodeType": "LiteralNode"
     }
   ],
   "links": [
     {
-      "id": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN20",
+      "id": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN22",
       "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
       "source": 3,
       "sourceNodeId": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1",
@@ -70,7 +79,7 @@
       "linkType": "ClassInstanceLink",
       "linkStatus": "ForcedByUser",
       "label": "classLink",
-      "targetNodeId": "HN20"
+      "targetNodeId": "HN22"
     },
     {
       "id": "http:\/\/www.w3.org\/2004\/02\/skos\/core#Concept1---http:\/\/www.w3.org\/2004\/02\/skos\/core#definition---HN5",
@@ -104,7 +113,7 @@
     {
       "columnName": "name_uri",
       "hasNestedTable": false,
-      "hNodeId": "HN20"
+      "hNodeId": "HN22"
     },
     {
       "columnName": "description",
@@ -112,5 +121,5 @@
       "hNodeId": "HN5"
     }
   ],
-  "width":600
+  "width": 600
 }
