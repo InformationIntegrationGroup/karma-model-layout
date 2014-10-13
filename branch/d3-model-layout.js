@@ -15,8 +15,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	
 	var test = [];
 	var anchorData = [];                           //store anchor nodes
-	var nodesData = [];                            //store all nodes includes anchors
-	var linksData = [];                            //links data
+	 nodesData = [];                            //store all nodes includes anchors
+	 linksData = [];                            //links data
 	var noCycleLinksData = [];                     //cycles are removed
 	var cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
 	var textData = [];                             //text nodes
@@ -957,12 +957,12 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			}
 			node.position = {};
 			node.outside = {};
-			//node.outside.position = {};
+			node.outside.position = {};
 			node.outside.isOutside = false;
-			/*if (nodePosMap.has(node.nodeId)){
+			if (nodePosMap.has(node.nodeId)){
 				node.x = nodePosMap.get(node.nodeId).x;
 				node.y = nodePosMap.get(node.nodeId).y;
-			}*/
+			}
 			nodesData.push(node);
 			idMap[d.id] = i;
 
@@ -1456,14 +1456,14 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		//read file and execute program
 		//d3.json(jsonFile, function(d){
 		var processData = function(d) {
-			//resetData();
+			resetData();
 			var tmpNodeData = d.anchors.concat(d.nodes);
 			var tmpLinkData = d.links;
 			var tmpEdgeLink = d.edgeLinks;
 
 			xOffset = window.pageXOffset;
 			width = d.width + padding;
-			maxXOfferset = Math.max(0, leftPanelWidth + width - window.innerWidth);
+			maxXOfferset = leftPanelWidth + width - window.innerWidth;
 			windowWidth = Math.ceil(Math.min(windowWidth + Math.min(xOffset, leftPanelWidth), width));
 
 			initializeData(tmpLinkData, tmpNodeData);

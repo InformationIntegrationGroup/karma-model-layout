@@ -123,7 +123,7 @@ setTimeout(function(){
 	layout1.generateLayoutForJsonFile("datasets/schedule2.json");
 }, 3000);
 
-
+/*
 var layout2 = new D3ModelLayout("div#svgDiv_WS2", "col-sm-10");
 var jsonFile2 = "datasets/person.json";
 drawTable($("#WS2"), jsonFile2);
@@ -134,15 +134,15 @@ layout2.setNodeClickListener(function(node) {
 layout2.setLinkClickListener(function(link) {
 	console.log("This function is called when the link2 is clicked");
 });
-
+*/
 window.onscroll = function(event) {
 	layout1.onscroll(event);
-	layout2.onscroll(event);
+	//layout2.onscroll(event);
 }
 
 window.onresize = function(event) {
 	layout1.onresize(event);
-	layout2.onresize(event);
+	//layout2.onresize(event);
 }
 
 </script>
