@@ -46,7 +46,7 @@
 	<div id="leftPanel" style="background:grey; height:100%;" class="col-sm-2">Left Panel</div>
 	<div id="rightPanel" class="col-sm-10">
 
-		<div id="WS1" class="Worksheet" style="width:1800px; overflow:auto">
+		<div id="WS1" class="Worksheet" style="width:3000px; overflow:auto">
 			<div id="svgDiv_WS1" ></div>
 			<div class="table-container worksheet-table-container" >
 				<div class="table-header-container">
@@ -91,7 +91,7 @@ function drawTable(worksheet, jsonFile) {
 
 
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
-var jsonFile1 = "datasets/schedule.json";
+var jsonFile1 = "datasets/stanford.json";
 drawTable($("#WS1"), jsonFile1);
 layout1.generateLayoutForJsonFile(jsonFile1);
 layout1.setNodeClickListener(function(node) {
