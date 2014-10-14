@@ -16,11 +16,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	
 	var test = [];
 	var anchorData = [];                           //store anchor nodes
-	 nodesData = [];                            //store all nodes includes anchors
-	 linksData = [];                            //links data
+	var nodesData = [];                            //store all nodes includes anchors
+	var linksData = [];                            //links data
 	var noCycleLinksData = [];                     //cycles are removed
 	var cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
-	 textData = [];                             //text nodes
+	var textData = [];                             //text nodes
 	var textLinksData = [];                        //text links
 	var layerMap = [];                             //store nodes'id in sequence of layers
 	var nodesChildren = [];                        //store node's id and its children pair
