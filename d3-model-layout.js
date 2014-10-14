@@ -16,11 +16,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	
 	var test = [];
 	var anchorData = [];                           //store anchor nodes
-	var nodesData = [];                            //store all nodes includes anchors
-	var linksData = [];                            //links data
+	 nodesData = [];                            //store all nodes includes anchors
+	 linksData = [];                            //links data
 	var noCycleLinksData = [];                     //cycles are removed
 	var cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
-	var textData = [];                             //text nodes
+	 textData = [];                             //text nodes
 	var textLinksData = [];                        //text links
 	var layerMap = [];                             //store nodes'id in sequence of layers
 	var nodesChildren = [];                        //store node's id and its children pair
@@ -638,15 +638,15 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			var b = d.target;
 
 			
-			if (d.type == "edgeLink"){
-				if (b.outside.isOutside){
+			//if (d.type == "edgeLink"){
+				if (b.outside.isOutside && d.target.noLayer == undefined){
 					return "M" + b.x + " " + b.y + " L " + a.x + " " + a.y;
 				}
-			} else {
-				if ((a.outside.isOutside && b.outside.isOutside) || (b.outside.isOutside && b.type == "anchor")){
-					return "M" + b.x + " " + b.y + " L " + a.x + " " + a.y;
-				}
-			}
+			///} else {
+				//if ((a.outside.isOutside && b.outside.isOutside) || (b.outside.isOutside && b.type == "anchor")){
+				//	return "M" + b.x + " " + b.y + " L " + a.x + " " + a.y;
+				//}
+			//}
 			
 			var ax = a.x - (a.x - b.x) / 3;
 			var by = b.y - (b.y - a.y) / 3;
@@ -700,6 +700,10 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			if (d.target.outside.isOutside && d.target.noLayer == undefined){
 				return "";
 			}
+			//if (d.arrow == undefined){
+				//console.log(d.id);
+				//return "";
+			//}
 			if (d.up){
 				var ax = d.arrow.x;
 				var ay = d.arrow.y;
@@ -718,10 +722,14 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			return ax + "," + ay + " " + bx + "," + by + " " + cx + "," + cy;
 		})
 		.attr("transform", function(d){
+			//if (d.arrow == undefined){
+				//return "";
+			//}
 			if (!d.target.outside.isOutside || d.target.noLayer){
 				return "rotate(" + d.angle + " " + d.arrow.x + " " + d.arrow.y + ")";
 			}
 		})
+		//alert();
 	}
 
 	//calculate the X of inside labels
