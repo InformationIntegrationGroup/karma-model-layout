@@ -1,0 +1,581 @@
+{
+  "edgeLinks": [],
+  "anchors": [
+    {
+      "id": 0,
+      "isForcedByUser": true,
+      "nodeId": "HN102",
+      "nodeDomain": "HN102",
+      "column": 0,
+      "isUri": false,
+      "label": "Values",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN102",
+      "xPos": 56
+    },
+    {
+      "id": 1,
+      "isForcedByUser": false,
+      "nodeId": "HN4",
+      "nodeDomain": "",
+      "column": 1,
+      "isUri": false,
+      "label": "modtime",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN4",
+      "xPos": 194
+    },
+    {
+      "id": 2,
+      "isForcedByUser": false,
+      "nodeId": "HN5",
+      "nodeDomain": "",
+      "column": 2,
+      "isUri": false,
+      "label": "url",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN5",
+      "xPos": 336.5
+    },
+    {
+      "id": 3,
+      "isForcedByUser": true,
+      "nodeId": "HN52",
+      "nodeDomain": "HN52",
+      "column": 3,
+      "isUri": false,
+      "label": "crawl_url",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN52",
+      "xPos": 479
+    },
+    {
+      "id": 4,
+      "isForcedByUser": true,
+      "nodeId": "HN150",
+      "nodeDomain": "HN150",
+      "column": 4,
+      "isUri": false,
+      "label": "featurecollection_uri",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN150",
+      "xPos": 628
+    },
+    {
+      "id": 5,
+      "isForcedByUser": false,
+      "nodeId": "HN6",
+      "nodeDomain": "",
+      "column": 5,
+      "isUri": false,
+      "label": "id",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN6",
+      "xPos": 757
+    },
+    {
+      "id": 6,
+      "isForcedByUser": false,
+      "nodeId": "HN7",
+      "nodeDomain": "",
+      "column": 6,
+      "isUri": false,
+      "label": "names",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN7",
+      "xPos": 866
+    },
+    {
+      "id": 7,
+      "isForcedByUser": false,
+      "nodeId": "HN61",
+      "nodeDomain": "",
+      "column": 7,
+      "isUri": false,
+      "label": "namelist",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN61",
+      "xPos": 975
+    },
+    {
+      "id": 8,
+      "isForcedByUser": true,
+      "nodeId": "HN120",
+      "nodeDomain": "HN120",
+      "column": 8,
+      "isUri": false,
+      "label": "Values",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN120",
+      "xPos": 1095
+    },
+    {
+      "id": 9,
+      "isForcedByUser": false,
+      "nodeId": "HN8",
+      "nodeDomain": "",
+      "column": 9,
+      "isUri": false,
+      "label": "phones",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN8",
+      "xPos": 1231
+    },
+    {
+      "id": 10,
+      "isForcedByUser": false,
+      "nodeId": "HN70",
+      "nodeDomain": "",
+      "column": 10,
+      "isUri": false,
+      "label": "phonelist",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN70",
+      "xPos": 1358
+    },
+    {
+      "id": 11,
+      "isForcedByUser": false,
+      "nodeId": "HN9",
+      "nodeDomain": "",
+      "column": 11,
+      "isUri": false,
+      "label": "locations",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN9",
+      "xPos": 1467
+    },
+    {
+      "id": 12,
+      "isForcedByUser": false,
+      "nodeId": "HN79",
+      "nodeDomain": "",
+      "column": 12,
+      "isUri": false,
+      "label": "locationlist",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN79",
+      "xPos": 1585
+    },
+    {
+      "id": 13,
+      "isForcedByUser": true,
+      "nodeId": "HN142",
+      "nodeDomain": "HN142",
+      "column": 13,
+      "isUri": false,
+      "label": "Values",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN142",
+      "xPos": 1714
+    }
+  ],
+  "nodes": [
+    {
+      "id": 14,
+      "isForcedByUser": false,
+      "nodeId": "http://memexproxy.com/ontology/Feature1",
+      "nodeDomain": "http://memexproxy.com/ontology/Feature",
+      "isUri": false,
+      "label": "Feature1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 15,
+      "isForcedByUser": true,
+      "nodeId": "http://memexproxy.com/data/features/personname1",
+      "nodeDomain": "",
+      "isUri": false,
+      "label": "person/name",
+      "nodeType": "LiteralNode"
+    },
+    {
+      "id": 16,
+      "isForcedByUser": true,
+      "nodeId": "2014-10-121",
+      "nodeDomain": "http://www.w3.org/2001/XMLSchema#date",
+      "isUri": false,
+      "label": "2014-10-12",
+      "nodeType": "LiteralNode"
+    },
+    {
+      "id": 17,
+      "isForcedByUser": true,
+      "nodeId": "http://memexproxy.com/data/software/extractor/stanford/0.11",
+      "nodeDomain": "",
+      "isUri": true,
+      "label": "http://memexproxy.com/data/software/extractor/stanford/0.1",
+      "nodeType": "LiteralNode"
+    },
+    {
+      "id": 18,
+      "isForcedByUser": false,
+      "nodeId": "http://memexproxy.com/ontology/Feature2",
+      "nodeDomain": "http://memexproxy.com/ontology/Feature",
+      "isUri": false,
+      "label": "Feature2",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 19,
+      "isForcedByUser": true,
+      "nodeId": "http://memexproxy.com/data/features/phonenumber1",
+      "nodeDomain": "",
+      "isUri": false,
+      "label": "phonenumber",
+      "nodeType": "LiteralNode"
+    },
+    {
+      "id": 20,
+      "isForcedByUser": false,
+      "nodeId": "http://memexproxy.com/ontology/Feature3",
+      "nodeDomain": "http://memexproxy.com/ontology/Feature",
+      "isUri": false,
+      "label": "Feature3",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 21,
+      "isForcedByUser": true,
+      "nodeId": "http://memexproxy.com/data/features/location1",
+      "nodeDomain": "",
+      "isUri": false,
+      "label": "place/name",
+      "nodeType": "LiteralNode"
+    },
+    {
+      "id": 22,
+      "isForcedByUser": false,
+      "nodeId": "http://memexproxy.com/ontology/FeatureCollection1",
+      "nodeDomain": "http://memexproxy.com/ontology/FeatureCollection",
+      "isUri": false,
+      "label": "FeatureCollection1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 23,
+      "isForcedByUser": false,
+      "nodeId": "http://schema.org/WebPage1",
+      "nodeDomain": "http://schema.org/WebPage",
+      "isUri": false,
+      "label": "WebPage1",
+      "nodeType": "InternalNode"
+    }
+  ],
+  "links": [
+    {
+      "id": "http://memexproxy.com/ontology/Feature1---http://memexproxy.com/ontology/featureName---http://memexproxy.com/data/features/personname1",
+      "linkUri": "http://memexproxy.com/ontology/featureName",
+      "source": 14,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature1",
+      "target": 15,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "featureName",
+      "targetNodeId": "http://memexproxy.com/data/features/personname1"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature1---http://memexproxy.com/ontology/featureValue---HN102",
+      "linkUri": "http://memexproxy.com/ontology/featureValue",
+      "source": 14,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature1",
+      "target": 0,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "featureValue",
+      "targetNodeId": "HN102"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature1---http://www.w3.org/ns/prov#generatedAtTime---2014-10-121",
+      "linkUri": "http://www.w3.org/ns/prov#generatedAtTime",
+      "source": 14,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature1",
+      "target": 16,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "generatedAtTime",
+      "targetNodeId": "2014-10-121"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature1---http://www.w3.org/ns/prov#wasGeneratedBy---http://memexproxy.com/data/software/extractor/stanford/0.11",
+      "linkUri": "http://www.w3.org/ns/prov#wasGeneratedBy",
+      "source": 14,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature1",
+      "target": 17,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "wasGeneratedBy",
+      "targetNodeId": "http://memexproxy.com/data/software/extractor/stanford/0.11"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature2---http://memexproxy.com/ontology/featureName---http://memexproxy.com/data/features/phonenumber1",
+      "linkUri": "http://memexproxy.com/ontology/featureName",
+      "source": 18,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature2",
+      "target": 19,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "featureName",
+      "targetNodeId": "http://memexproxy.com/data/features/phonenumber1"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature2---http://memexproxy.com/ontology/featureValue---HN120",
+      "linkUri": "http://memexproxy.com/ontology/featureValue",
+      "source": 18,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature2",
+      "target": 8,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "featureValue",
+      "targetNodeId": "HN120"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature3---http://memexproxy.com/ontology/featureName---http://memexproxy.com/data/features/location1",
+      "linkUri": "http://memexproxy.com/ontology/featureName",
+      "source": 20,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature3",
+      "target": 21,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "featureName",
+      "targetNodeId": "http://memexproxy.com/data/features/location1"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature3---http://memexproxy.com/ontology/featureValue---HN142",
+      "linkUri": "http://memexproxy.com/ontology/featureValue",
+      "source": 20,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature3",
+      "target": 13,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "featureValue",
+      "targetNodeId": "HN142"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/FeatureCollection1---http://isi.edu/integration/karma/dev#classLink---HN150",
+      "linkUri": "http://isi.edu/integration/karma/dev#classLink",
+      "source": 22,
+      "sourceNodeId": "http://memexproxy.com/ontology/FeatureCollection1",
+      "target": 4,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "ForcedByUser",
+      "label": "uri",
+      "targetNodeId": "HN150"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/FeatureCollection1---http://memexproxy.com/ontology/hasFeatures---http://memexproxy.com/ontology/Feature1",
+      "linkUri": "http://memexproxy.com/ontology/hasFeatures",
+      "source": 22,
+      "sourceNodeId": "http://memexproxy.com/ontology/FeatureCollection1",
+      "target": 14,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasFeatures",
+      "targetNodeId": "http://memexproxy.com/ontology/Feature1"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/FeatureCollection1---http://memexproxy.com/ontology/hasFeatures---http://memexproxy.com/ontology/Feature2",
+      "linkUri": "http://memexproxy.com/ontology/hasFeatures",
+      "source": 22,
+      "sourceNodeId": "http://memexproxy.com/ontology/FeatureCollection1",
+      "target": 18,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasFeatures",
+      "targetNodeId": "http://memexproxy.com/ontology/Feature2"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/FeatureCollection1---http://memexproxy.com/ontology/hasFeatures---http://memexproxy.com/ontology/Feature3",
+      "linkUri": "http://memexproxy.com/ontology/hasFeatures",
+      "source": 22,
+      "sourceNodeId": "http://memexproxy.com/ontology/FeatureCollection1",
+      "target": 20,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasFeatures",
+      "targetNodeId": "http://memexproxy.com/ontology/Feature3"
+    },
+    {
+      "id": "http://schema.org/WebPage1---http://isi.edu/integration/karma/dev#classLink---HN52",
+      "linkUri": "http://isi.edu/integration/karma/dev#classLink",
+      "source": 23,
+      "sourceNodeId": "http://schema.org/WebPage1",
+      "target": 3,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "ForcedByUser",
+      "label": "uri",
+      "targetNodeId": "HN52"
+    },
+    {
+      "id": "http://schema.org/WebPage1---http://memexproxy.com/ontology/hasFeatureCollection---http://memexproxy.com/ontology/FeatureCollection1",
+      "linkUri": "http://memexproxy.com/ontology/hasFeatureCollection",
+      "source": 23,
+      "sourceNodeId": "http://schema.org/WebPage1",
+      "target": 22,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "hasFeatureCollection",
+      "targetNodeId": "http://memexproxy.com/ontology/FeatureCollection1"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature3---http://www.w3.org/ns/prov#generatedAtTime---2014-10-121",
+      "linkUri": "http://www.w3.org/ns/prov#generatedAtTime",
+      "source": 20,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature3",
+      "target": 16,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "generatedAtTime",
+      "targetNodeId": "2014-10-121"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature2---http://www.w3.org/ns/prov#generatedAtTime---2014-10-121",
+      "linkUri": "http://www.w3.org/ns/prov#generatedAtTime",
+      "source": 18,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature2",
+      "target": 16,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "generatedAtTime",
+      "targetNodeId": "2014-10-121"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature2---http://www.w3.org/ns/prov#wasDerivedFrom---http://schema.org/WebPage1",
+      "linkUri": "http://www.w3.org/ns/prov#wasDerivedFrom",
+      "source": 18,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature2",
+      "target": 23,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "wasDerivedFrom",
+      "targetNodeId": "http://schema.org/WebPage1"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature2---http://www.w3.org/ns/prov#wasGeneratedBy---http://memexproxy.com/data/software/extractor/stanford/0.11",
+      "linkUri": "http://www.w3.org/ns/prov#wasGeneratedBy",
+      "source": 18,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature2",
+      "target": 17,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "wasGeneratedBy",
+      "targetNodeId": "http://memexproxy.com/data/software/extractor/stanford/0.11"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature1---http://www.w3.org/ns/prov#wasDerivedFrom---http://schema.org/WebPage1",
+      "linkUri": "http://www.w3.org/ns/prov#wasDerivedFrom",
+      "source": 14,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature1",
+      "target": 23,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "wasDerivedFrom",
+      "targetNodeId": "http://schema.org/WebPage1"
+    },
+    {
+      "id": "http://memexproxy.com/ontology/Feature3---http://www.w3.org/ns/prov#wasGeneratedBy---http://memexproxy.com/data/software/extractor/stanford/0.11",
+      "linkUri": "http://www.w3.org/ns/prov#wasGeneratedBy",
+      "source": 20,
+      "sourceNodeId": "http://memexproxy.com/ontology/Feature3",
+      "target": 17,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "ForcedByUser",
+      "label": "wasGeneratedBy",
+      "targetNodeId": "http://memexproxy.com/data/software/extractor/stanford/0.11"
+    }
+  ],
+  "tableLayout": [
+    {
+      "columns": [
+        {
+          "columnName": "Values",
+          "hasNestedTable": false,
+          "hNodeId": "HN102"
+        }
+      ],
+      "columnName": "names_values",
+      "hasNestedTable": true,
+      "hNodeId": "HN90"
+    },
+    {
+      "columnName": "modtime",
+      "hasNestedTable": false,
+      "hNodeId": "HN4"
+    },
+    {
+      "columnName": "url",
+      "hasNestedTable": false,
+      "hNodeId": "HN5"
+    },
+    {
+      "columnName": "crawl_url",
+      "hasNestedTable": false,
+      "hNodeId": "HN52"
+    },
+    {
+      "columnName": "featurecollection_uri",
+      "hasNestedTable": false,
+      "hNodeId": "HN150"
+    },
+    {
+      "columnName": "id",
+      "hasNestedTable": false,
+      "hNodeId": "HN6"
+    },
+    {
+      "columnName": "names",
+      "hasNestedTable": false,
+      "hNodeId": "HN7"
+    },
+    {
+      "columnName": "namelist",
+      "hasNestedTable": false,
+      "hNodeId": "HN61"
+    },
+    {
+      "columns": [
+        {
+          "columnName": "Values",
+          "hasNestedTable": false,
+          "hNodeId": "HN120"
+        }
+      ],
+      "columnName": "phones_values",
+      "hasNestedTable": true,
+      "hNodeId": "HN108"
+    },
+    {
+      "columnName": "phones",
+      "hasNestedTable": false,
+      "hNodeId": "HN8"
+    },
+    {
+      "columnName": "phonelist",
+      "hasNestedTable": false,
+      "hNodeId": "HN70"
+    },
+    {
+      "columnName": "locations",
+      "hasNestedTable": false,
+      "hNodeId": "HN9"
+    },
+    {
+      "columnName": "locationlist",
+      "hasNestedTable": false,
+      "hNodeId": "HN79"
+    },
+    {
+      "columns": [
+        {
+          "columnName": "Values",
+          "hasNestedTable": false,
+          "hNodeId": "HN142"
+        }
+      ],
+      "columnName": "locations_values",
+      "hasNestedTable": true,
+      "hNodeId": "HN130"
+    }
+  ],
+  "width": 1860
+}
