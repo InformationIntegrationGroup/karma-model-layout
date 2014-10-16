@@ -28,6 +28,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	var SCCNodes = [];                             //SCC nodes set
 	var SCCtmpNodes = [];                          //the nodes stack of SCC
 	var layerLabel = [];                           //layers are divided into sections based on its layer
+	var cycleSet = [];                             //each element in the array is an arraylist, consist of edges of cycle. ex: {1->2, 2->3, 3->1}
 	var myMap = function(){
 		var data = [];
 		this.entry = data;
@@ -45,6 +46,52 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		}
 		this.clear = function(){
 			data = [];
+		}
+	}
+	var ArrayList = function(){
+		var data = [];
+		this.contains = function(arg){			
+			for (var i = 0; i < data.length; i++){
+				if (data[i] == arg){
+					return true;
+				}
+			};
+			return false;
+		}
+		this.add = function(arg){
+			data.push(arg);
+		}
+		this.removeByValue = function(arg){
+			var index = data.indexOf(arg);
+			if (index > -1){
+				data.splice(index, 1);
+				return true;
+			}
+			return false;
+		}
+		this.removeByIndex = function(arg){
+			if (arg >= 0 && arg < data.length){
+				data.splice(arg, 1);
+				return true;
+			}
+			return false;
+		}
+		this.get = function(arg){
+			if (arg >= 0 && arg < data.length){
+				return data[arg];
+			}
+			return undefined;
+		}
+		this.print = function(){
+			var output = "[";
+			data.forEach(function(d, i){
+				output += d;
+				if (i < data.length - 1){
+					output += ',';
+				}
+			});
+			output += "]";
+			console.log("ArrayList: " + output);
 		}
 	}
 	var map = new myMap();
@@ -182,8 +229,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			.duration(500)
 			.attr("opacity", 500)
 			.remove();
-
-
+			
 		labels = labels.data(textData, function(d){
 			return d.nodeId;
 		});
@@ -411,6 +457,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			.remove();
 
 
+		
+			
 
 		nodesData.forEach(function(d){				
 			if (d.noLayer){					
@@ -1118,68 +1166,86 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	function removeCycle(){
 		detectCycle();
 		map.clear();
+		//model point of cycles to edge, ex: [1,2,3] to {1->2, 2->3, 3->1}
+		//edge set stored in the data structure of arraylist, and all these edge sets store into an array, defined above -- cycleSet
 		cycles.forEach(function(d){
-			var tmp = [];
+			var tmpArrayList = new ArrayList();
 			for (var i = 0; i < d.length; i++){
+				//e is the edge, the pattern is (source Id) + " " + (target Id)
 				var e = "";
 				if (i == d.length - 1){
 					e = d[i] + " " + d[0];
 				} else {
 					e = d[i] + " " + d[i + 1];
 				}
-				map.set(e, tmp);
-				tmp.push(e);
+				//console.log(e);
+				tmpArrayList.add(e);
 			}
+			//tmpArrayList.print();
+			cycleSet.push(tmpArrayList);
 		});
-		/*map.forEach(function(v, k, m){
-			console.log(v + "------" + k);
-		})*/
 	}
 
 	//set layer and position for each node
 	function setLayer(tmpLinkData, tmpE){
 		//layer is set from bottem to top, one layer per loop. The anchors are layer 0.
+		//change evalutes how many node's layer has set in one loop, if no node's layer is set, change is 0. It means all node's layer is set properly
 		var change = anchorData.length;
-		//for (var i = 0; i < 10; i++){
+		var baseLayer = new ArrayList();
+		anchorData.forEach(function(d){
+			baseLayer.add(d.id);
+		});
+
+		//for (var j = 0; j < 5; j++){
 		while (change > 0){
-			var tmpLayerMap = [];
+			//tmpLayerMap is a set of nodes that change their layer in this loop, they will be considered as the base layer for next iteration.
+			//the base layer of first iteration is anchors, their layer is 0.
+			//console.log("baseLayer: ");
+			//baseLayer.print();
+			var nextLayer = new ArrayList();
 			change = 0;
+			//parse all edges
 			tmpLinkData.forEach(function(d){
-			//for (var i = 0; i < tmpLinkData.length; i++){
-				//d = tmpLinkData[i];
 				var src = d.source;
 				var tgt = d.target;
-				var flag = true;
-				if (tgt in layerMap){
+				//flag to check if one link need to be evaluated. It is used to avoid infinity loop of cycle.
+				//when target id is in the base layer, the source will be set will layer = target's layer + 1, if this edge dose not comprise a cycle, the third edge of above example.
+				if (baseLayer.contains(tgt)){
 					var e = src + " " + tgt;
-					if (map.has(e)){
-						var tmp = map.get(e);
-						if (tmp.length > 1){
-							tmp.splice(tmp.indexOf(e), 1);
-							//console.log(tmp);
-						} else {
-							if (tmp[0] == e){
-								var index = nodesChildren[src].indexOf(tgt);
-								if (index > -1){
-									nodesChildren[src].splice(index, 1);
-								}
+					var flag = true;
+					cycleSet.forEach(function(cycleInstance){
+						if (cycleInstance.contains(e)){
+							//when the edge set has only one edge, this edge will comprise a cycle based on the tree we build befor, the tree consists of all edge we evaluated before
+							if (cycleInstance.size > 1){
+								//remove the edge from edge set.
+								cycleInstance.removeByValue(e);											
+							} else {
 								flag = false;
-								//console.log("left" + e);
-							}
+							}						
 						}
-					}
+					});
+					//set the source node's layer, and record the source node id for next iteration
 					if (flag){
 						nodesData[src].layer = nodesData[tgt].layer + 1;
-						tmpLayerMap[src] = 1;
+						if (!nextLayer.contains(src)){
+							nextLayer.add(src);
+						}
 						change++;
-					}
+						//console.log("id: " + src + "  layer: " + nodesData[src].layer);		
+					}		
 				}
 			});
-			layerMap = tmpLayerMap.slice(0);
+			baseLayer = nextLayer;
+			//maxLayer is the max layer value we set.
 			maxLayer++;
+			//console.log("change: " + change);			
 		}
 		maxLayer--;	
-
+		/*
+		nodesData.forEach(function(d, i){
+			console.log(i + " " + d.layer);
+		})
+		*/
 
 		//store the node id in the sequence of layer
 		//xPos is the x position for nodes in the unit of column's width
@@ -1493,13 +1559,14 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 			initializeData(tmpLinkData, tmpNodeData);
 			removeCycle();
+			
 			var tmpL = linksData.slice(0);
 			setLayer(tmpL, tmpEdgeLink);
 
 			
 			height = (maxLayer + 0.5) * unitLinkLength;
 			if (width > window.innerWidth){
-				height += (maxLayer + 0.5) * outsideUnitLinkLength;
+				height += (maxLayer + 1.5) * outsideUnitLinkLength;
 			}
 
 			console.log("width: " + width + "  window height: " + height + " max offset: " + maxXOfferset);
