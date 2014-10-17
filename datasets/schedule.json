@@ -113,7 +113,16 @@
       "nodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#PhysicalEntity2",
       "nodeDomain": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#PhysicalEntity",
       "isUri": false,
-      "label": "PhysicalEntity2",
+      "label": "PhysicaleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeEntity2",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 10,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#MentalEntity2",
+      "nodeDomain": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#MentalEntity",
+      "isUri": false,
+      "label": "MentaleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeEntity2",
       "nodeType": "InternalNode"
     }
   ],

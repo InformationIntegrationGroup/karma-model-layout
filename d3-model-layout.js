@@ -2,14 +2,15 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	var htmlElement = p_htmlElement;
 	var cssClass = p_cssClass;
 
-	var padding = 35;
-	var windowWidth = parseInt($("." + cssClass).css("width"));
-	var leftPanelWidth = window.innerWidth - windowWidth;
-	console.log("windowWidth: " + windowWidth + "  leftPanelWidth: " + leftPanelWidth);
+	//var padding = 35;
+	var rightPanelWidth = parseInt($("." + cssClass).css("width"));
+	var leftPanelWidth = window.innerWidth - rightPanelWidth;
+	console.log("rightPanelWidth: " + rightPanelWidth + "  leftPanelWidth: " + leftPanelWidth);
+	var windowWidth = rightPanelWidth;
 	var maxXOfferset = 0;
 	var width=0;           
 	var height=0;
-
+	var textHeight = 15;
 
 	var linkClickListener = null;
 	var nodeClickListener = null;
@@ -286,9 +287,17 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			})
 			.append("text")
 			.text(function(d, i){
+				if (d.content.length > 20){
+					d.alt = d.content.slice(0, 7) + "..." + d.content.slice(d.content.length - 10, d.content.length);
+					return d.alt;
+				}
 				return d.content;
 			})
 			.attr("fill", function(d){
+				d.width = this.getBBox().width + textHeight / 3 * 2;
+				if (d.type == "nodeLabel"){
+					d.node.labelWidth = d.width;
+				}
 				if (d.type == "nodeLabel"){
 					return "white";
 				}
@@ -347,16 +356,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 					d.width = 0;
 					return "";
 				}
-				var textWidth = Math.ceil(this.parentNode.firstChild.getBBox().width);
-				var textHeight = Math.ceil(this.parentNode.firstChild.getBBox().height);
-				//console.log(textWidth + " " + textHeight);
+				var textWidth = d.width;
 				var dx = -textWidth / 2;
-				var dy = 0;
-				d.width = textWidth + textHeight / 3 * 2;
-				d.height = textHeight;
-				if (d.type == "linkLabel" || d.tyoe == "edgeLinkLabel" || (d.node.type != "anchor")){
-					maxLabelLength = Math.max(maxLabelLength, d.width);
-				}
+				var dy = 0;							
 				return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
 			});
 			
@@ -394,6 +396,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				return -h;
 			})
 			.on("click", function(d){
+				console.log(d.node.labelWidth);
 				if (d.type == "linkLabel" || d.type == "edgeLinkLabel"){
 					if(linkClickListener != null)
 						linkClickListener(d.node.original, d3.event);
@@ -403,42 +406,79 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				}
 				//console.log(d.type);
 			})
-			.on("mouseover", function(d){
-				var surfix = "";
+			.on("mouseover", function(d){				
 				var frameId = "";
 				//console.log(d.content);
 				if (d.type == "nodeLabel"){
-					surfix = "#nodeLabelBoard" + d.node.id;
 					frameId = "#nodeLabelG" + d.node.id;
 				} else if (d.type == "linkLabel"){
-					surfix = "#linkLabelBoard" + d.node.src + "-" + d.node.tgt;
 					frameId = "#linkLabelG" + d.node.src + "-" + d.node.tgt;
 				} else if (d.type == "edgeLinkLabel"){
-					surfix = "#edgeLinkLabelBoard" + nodesData[d.node.tgt].id;
 					frameId = "#edgeLinkLabelG" + nodesData[d.node.tgt].id;
 				}
-				d3.select(surfix)
+				if (d.alt != undefined){
+					d3.select(frameId)
+						.select("text")
+						.text(function(d){
+							return d.content;
+						})
+						.attr("x", function(d){
+							d.width = this.getBBox().width
+							return -(d.width / 2);
+						})
+					d3.select(frameId)
+						.select("path")	
+						.transition()
+						.duration(500)					
+						.attr("d", function(d){							
+							var textWidth = d.width;
+							var dx = -textWidth / 2;
+							var dy = 0;
+							return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
+						})
+				}
+				d3.select(frameId)
+					.select("path")
 					.attr("stroke-width", 2);
 				d3.select(frameId)
 					.moveToFront();
 			})
 			.on("mouseout", function(d, i){
-				var surfix = "";
 				var frameId = "";
 				if (d.type == "nodeLabel"){
-					surfix = "#nodeLabelBoard" + d.node.id;
 					frameId = "#nodeLabelG" + d.node.id;
 				} else if (d.type == "linkLabel"){
-					surfix = "#linkLabelBoard" + d.node.src + "-" + d.node.tgt;
 					frameId = "#linkLabelG" + d.node.src + "-" + d.node.tgt;
 				} else if (d.type == "edgeLinkLabel"){
-					surfix = "#edgeLinkLabelBoard" + nodesData[d.node.tgt].id;
 					frameId = "#edgeLinkLabelG" + nodesData[d.node.tgt].id;
 				}
-				d3.select(surfix)
+				if (d.alt != undefined){
+					d3.select(frameId)
+						.select("text")
+						.text(function(d){
+							return d.alt;
+						})
+						.attr("x", function(d){
+							d.width = this.getBBox().width
+							return -(d.width / 2);
+						})
+					d3.select(frameId)
+						.select("path")	
+						.transition()
+						.duration(500)					
+						.attr("d", function(d){							
+							var textWidth = d.width;
+							var dx = -textWidth / 2;
+							var dy = 0;
+							return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
+						})
+				}
+				d3.select(frameId)
+					.select("path")
 					.attr("stroke-width", 0);
 				d3.select(frameId)
 					.moveToBack();
+
 			});
 
 
@@ -601,8 +641,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		nodes
 			.attr("cx", function(d) {
 				if (d.outside.isOutside){		
-					var tmpXOffset = Math.min(xOffset, maxXOfferset);		
-					return d.x = Math.max(tmpXOffset + nodeRadius, Math.min(tmpXOffset + windowWidth - nodeRadius, d.x));
+					var tmpXOffset = Math.max(Math.min(xOffset, maxXOfferset) - leftPanelWidth, 0);		
+					return d.x = Math.max(tmpXOffset + nodeRadius + d.labelWidth / 2, Math.min(tmpXOffset + windowWidth - nodeRadius - d.labelWidth / 2, d.x));
 				} 
 				var differX = d.position.x - d.x;
 				if (d.type == "anchor"){
@@ -973,7 +1013,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			nodePosMap.set(d.nodeId, {x : d.x, y : d.y});
 		});
 
-		padding = 35;
+		//padding = 35;
 		windowWidth = parseInt($("." + cssClass).css("width"));
 		leftPanelWidth = window.innerWidth - windowWidth;
 		maxXOfferset = 0;
@@ -1553,7 +1593,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			var tmpEdgeLink = d.edgeLinks;
 
 			xOffset = window.pageXOffset;
-			width = d.width + padding;
+			width = d.width;// + padding;
 			maxXOfferset = Math.max(0, leftPanelWidth + width - window.innerWidth);
 			windowWidth = Math.ceil(Math.min(windowWidth + Math.min(xOffset, leftPanelWidth), width));
 
@@ -1622,13 +1662,13 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		//console.log(window.pageXOffset);
 		if (Math.abs(window.pageXOffset - xOffset) > reshuffleFrequency){
 			xOffset = window.pageXOffset;
-			windowWidth = Math.min(window.innerWidth * 0.8 + Math.min(xOffset, leftPanelWidth) - padding, width);
+			windowWidth = Math.min(rightPanelWidth + Math.min(xOffset, leftPanelWidth)/* - padding*/, width);
 			setNodePosition();
 		}
 	}
 
 	this.onresize = function(event) {
-	    windowWidth = Math.min(window.innerWidth * 0.8 + Math.min(xOffset, leftPanelWidth) - padding, width);
+	    windowWidth = Math.min(rightPanelWidth + Math.min(xOffset, leftPanelWidth)/* - padding*/, width);
 	    //height=window.innerHeight - padding;
 	    //console.log(width + " " + height);
 	};
