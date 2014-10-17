@@ -124,20 +124,18 @@
       "isUri": false,
       "label": "MentaleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeEntity2",
       "nodeType": "InternalNode"
+    },
+    {
+      "id": 11,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#MentalEntity",
+      "nodeDomain": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#MentalEntity",
+      "isUri": false,
+      "label": "MentalEntity1",
+      "nodeType": "InternalNode"
     }
   ],
   "links": [
-    {
-      "id": "http://lod.isi.edu/ontology/syllabus/Event1---http://isi.edu/integration/karma/dev#classLink---HN230",
-      "linkUri": "http://isi.edu/integration/karma/dev#classLink",
-      "source": 7,
-      "sourceNodeId": "http://lod.isi.edu/ontology/syllabus/Event1",
-      "target": 2,
-      "linkType": "ClassInstanceLink",
-      "linkStatus": "ForcedByUser",
-      "label": "classLinkclassLinkclassLinkclassLinkclassLink",
-      "targetNodeId": "HN230"
-    },
     {
       "id": "http://lod.isi.edu/ontology/syllabus/Event1---http://isi.edu/integration/karma/dev#columnSubClassOfLink---HN277",
       "linkUri": "http://isi.edu/integration/karma/dev#columnSubClassOfLink",
@@ -192,6 +190,39 @@
       "linkStatus": "ForcedByUser",
       "label": "classLink",
       "targetNodeId": "HN433"
+    },
+    {
+      "id": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#MentalEntity---http://isi.edu/integration/karma/dev#classLink---HN370",
+      "linkUri": "http://isi.edu/integration/karma/dev#classLink",
+      "source": 10,
+      "sourceNodeId": "http:\/\/www.biopax.org\/release\/biopax-level3.owl#MentalEntity2",
+      "target": 4,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "ForcedByUser",
+      "label": "testcase",
+      "targetNodeId": "HN370"
+    },
+    {
+      "id": "http://lod.isi.edu/ontology/syllabus/Event1---http://www.biopax.org/release/biopax-level3.owl#MentalEntity2",
+      "linkUri": "http://isi.edu/integration/karma/dev#classLink",
+      "source": 7,
+      "sourceNodeId": "http://lod.isi.edu/ontology/syllabus/Event1",
+      "target": 10,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "ForcedByUser",
+      "label": "testcase1",
+      "targetNodeId": "http://www.biopax.org/release/biopax-level3.owl#MentalEntity2"
+    },
+    {
+      "id": "http://lod.isi.edu/ontology/syllabus/Event1---http://www.biopax.org/release/biopax-level3.owl#MentalEntity1",
+      "linkUri": "http://isi.edu/integration/karma/dev#classLink",
+      "source": 7,
+      "sourceNodeId": "http://lod.isi.edu/ontology/syllabus/Event1",
+      "target": 11,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "ForcedByUser",
+      "label": "testcase3",
+      "targetNodeId": "http://www.biopax.org/release/biopax-level3.owl#MentalEntity1"
     }
   ],
   "tableLayout": [

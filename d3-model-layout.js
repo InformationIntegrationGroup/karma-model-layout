@@ -176,7 +176,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			return 0;
 		})
 		.linkDistance(0)
-		.linkStrength(3);
+		.linkStrength(0.8);
 		//node can be dragged to the position you want
 
 	var drag = force.drag()
@@ -294,10 +294,6 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				return d.content;
 			})
 			.attr("fill", function(d){
-				d.width = this.getBBox().width + textHeight / 3 * 2;
-				if (d.type == "nodeLabel"){
-					d.node.labelWidth = d.width;
-				}
 				if (d.type == "nodeLabel"){
 					return "white";
 				}
@@ -314,7 +310,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			})
 			.classed("labelText", true)
 			.attr("x", function(d){
-				return -(this.getBBox().width / 2);
+				d.width = this.getBBox().width //+ textHeight / 3 * 2;
+				if (d.type == "nodeLabel"){
+					d.node.labelWidth = d.width;
+				}
+				return -(d.width / 2);
 			})
 			.attr("y", -3);
 
@@ -465,7 +465,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 					d3.select(frameId)
 						.select("path")	
 						.transition()
-						.duration(500)					
+						.duration(200)					
 						.attr("d", function(d){							
 							var textWidth = d.width;
 							var dx = -textWidth / 2;
@@ -904,7 +904,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	//update label of nodes for tick function
 	var updateLabel = function() {
 		layerLabel = [];
-		/*
+		
 		textData.forEach(function(d, i){
 			if (i % 2 == 1){
 				if (d.type == "nodeLabel"){
@@ -923,19 +923,24 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				} else if (d.type == "edgeLinkLabel"){
 
 				} else if (d.type == "linkLabel"){
-					if (!nodesData[d.node.src].outside.isOutside && !nodesData[d.node.tgt].outside.isOutside){
-						var l = (nodesData[d.node.src].layer + nodesData[d.node.tgt].layer) / 2;
-						if (!layerLabel[l]){
-							layerLabel[l] = [];
+					//if (!nodesData[d.node.src].outside.isOutside && !nodesData[d.node.tgt].outside.isOutside){
+					if (d.show){
+						if (nodesData[d.node.tgt].noLayer == undefined){
+							var l = (nodesData[d.node.src].layer + nodesData[d.node.tgt].layer) / 2;
+							if (!layerLabel[l]){
+								layerLabel[l] = [];
+							}
+							layerLabel[l].push(d);
+						} else {
+							layerLabel[0].push(d);
 						}
-						layerLabel[l].push(d);
 					}
 				}
 			}
 		});
 
 		layerLabel.forEach(function(e, i){
-			if (e.length > 1 && i > 0){
+			/*if (e.length > 1 && i > 0){
 				var q = d3.geom.quadtree(e),
 					i = 0,
 	      			n = e.length;
@@ -946,8 +951,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 					i = 0,
 	      			n = e.length;
 	    		while (++i < n) q.visit(collideOutside(e[i]));
-	    	}
-		});*/
+	    	}*/
+		});
 	      	
 		this.attr("transform", function(d) {
 			//dx = Math.max(xOffset + 20, Math.min(xOffset + width, d.x)); 
@@ -983,7 +988,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	  	var r = d.width / 2,
 	      	nx1 = d.x - r,
 	      	nx2 = d.x + r,
-	      	ny1 = d.y - d.height,
+	      	ny1 = d.y - textHeight,
 	      	ny2 = d.y;
 	  	return function(quad, x1, y1, x2, y2) {
 	    	if (quad.point && (quad.point !== d)) {
@@ -999,8 +1004,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	          	}      		
 	        	ly = (ly - ry) / ly * .5;
 	        	d.y -= y *= ly;
-	        	quad.point.y += y;
-	      		
+	        	quad.point.y += y;	      		
 	    	}
 	    	return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
 	  	};
@@ -1072,10 +1076,10 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			node.outside = {};
 			//node.outside.position = {};
 			node.outside.isOutside = false;
-			/*if (nodePosMap.has(node.nodeId)){
+			if (nodePosMap.has(node.nodeId)){
 				node.x = nodePosMap.get(node.nodeId).x;
 				node.y = nodePosMap.get(node.nodeId).y;
-			}*/
+			}
 			nodesData.push(node);
 			idMap[d.id] = i;
 
@@ -1587,7 +1591,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		//read file and execute program
 		//d3.json(jsonFile, function(d){
 		var processData = function(d) {
-			//resetData();
+			resetData();
 			var tmpNodeData = d.anchors.concat(d.nodes);
 			var tmpLinkData = d.links;
 			var tmpEdgeLink = d.edgeLinks;
