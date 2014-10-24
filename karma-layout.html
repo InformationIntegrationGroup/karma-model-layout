@@ -4,6 +4,7 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="d3.v3.min.js"></script>
 <script type="text/javascript" src="d3-model-layout.js"></script>
+<script type="text/javascript" src="saveSvgAsPng.js"></script>
 
 
 <style type="text/css">
@@ -46,7 +47,7 @@
 	<div id="leftPanel" style="background:grey; height:100%;" class="col-sm-2">Left Panel</div>
 	<div id="rightPanel" class="col-sm-10">
 
-		<div id="WS1" class="Worksheet" style="width:1200px; overflow:auto">
+		<div id="WS1" class="Worksheet" style="width:3000px; overflow:auto">
 			<div id="svgDiv_WS1" ></div>
 			<div class="table-container worksheet-table-container" >
 				<div class="table-header-container">
@@ -91,7 +92,7 @@ function drawTable(worksheet, jsonFile) {
 
 
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
-var jsonFile1 = "datasets/schedule.json";
+var jsonFile1 = "datasets/wide-table.json";
 //drawTable($("#WS1"), jsonFile1);
 layout1.generateLayoutForJsonFile(jsonFile1);
 layout1.setNodeClickListener(function(node) {
@@ -101,6 +102,12 @@ layout1.setLinkClickListener(function(link) {
 	console.log("This function is called when the link is clicked");
 });
 
+
+
+setTimeout(function(){
+	layout1.printExtented("", 3);
+}, 3000);
+/*
 setTimeout(function(){
 	layout1.generateLayoutForJsonFile("datasets/schedule-next.json");
 },3000)
@@ -119,8 +126,8 @@ setTimeout(function(){
 
 setTimeout(function(){
 	layout1.generateLayoutForJsonFile("datasets/schedule-next4.json");
-},15000)/**/
-
+},15000)
+*/
 window.onscroll = function(event) {
 	layout1.onscroll(event);
 	

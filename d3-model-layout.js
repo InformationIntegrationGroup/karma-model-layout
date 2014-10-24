@@ -114,6 +114,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	//create svg
 	var svg = d3.select(htmlElement)                         
 	    .append("svg")
+	    .attr("id", p_htmlElement)
 	    .on("mousemove", mousemove);
 
 
@@ -1394,6 +1395,26 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			.text(Math.round(ary[0]) + ", " + Math.round(ary[1]));
 	}
 
+	//print the Extented svg
+	function printExtentedSVG(savePath, resolution){
+		var recordWidth = windowWidth;
+		windowWidth = width + 100;
+		setNodePosition();
+
+		var objSVG = document.getElementById(p_htmlElement);
+		setTimeout(function(){
+			saveSvgAsPng(objSVG, savePath + p_htmlElement + ".png", resolution);
+			windowWidth = recordWidth;
+			setNodePosition();
+		}, 1500);
+	}
+
+	//print screen shot
+	function printSVG(savePath, resolution){
+		var objSVG = document.getElementById(p_htmlElement);
+		saveSvgAsPng(objSVG, savePath + p_htmlElement + ".png", resolution);
+	}
+
 	//move element to the back of its parent's children
 	d3.selection.prototype.moveToBack = function() { 
 	    return this.each(function() { 
@@ -1615,7 +1636,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 			console.log("width: " + width + "  window height: " + height + " max offset: " + maxXOfferset);
 
-			svg.attr("width", width);
+			svg.attr("width", width + 100);
 			svg.attr("height", height);
 			force.size([width, height]);
 			labelForce.size([width, height]);
@@ -1676,4 +1697,12 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	    //height=window.innerHeight - padding;
 	    //console.log(width + " " + height);
 	};
+
+	//The savePath format: "file/image/", include last 'image'. 
+	this.printExtented = function(savePath, resolution){
+		printExtentedSVG(savePath, resolution);
+	}
+	this.print = function(savePath, resolution){
+		printSVG(savePath, resolution);
+	}
 };
