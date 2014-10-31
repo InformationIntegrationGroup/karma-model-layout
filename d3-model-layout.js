@@ -821,11 +821,16 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			}
 			return ax + "," + ay + " " + bx + "," + by + " " + cx + "," + cy;
 		})
-		.attr("transform", function(d){
-			//if (d.arrow == undefined){
-				//return "";
-			//}
+		.attr("transform", function(d){			
 			if (!d.target.outside.isOutside || d.target.noLayer){
+				if (d.arrow.x == NaN){
+					console.log("x NaN: " + d);
+					d.arrow.x = xOffset + 10;
+				}
+				if (d.arrow.y == NaN){
+					console.log("y NaN: " + d);
+					d.arrow.y = 10;
+				}
 				return "rotate(" + d.angle + " " + d.arrow.x + " " + d.arrow.y + ")";
 			}
 		})
@@ -927,10 +932,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 						layerLabel[0].push(d);
 					}
 					if (!d.node.outside.isOutside && d.node.layer > 0){
-						if (!layerLabel[d.node.layer]){
-							layerLabel[d.node.layer] = [];
+						var layer = d.node.layer * 2;
+						if (!layerLabel[layer]){
+							layerLabel[layer] = [];
 						}
-						layerLabel[d.node.layer].push(d);
+						layerLabel[layer].push(d);
 					}
 				} else if (d.type == "edgeLinkLabel"){
 
@@ -938,11 +944,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 					//if (!nodesData[d.node.src].outside.isOutside && !nodesData[d.node.tgt].outside.isOutside){
 					if (d.show){
 						if (nodesData[d.node.tgt].noLayer == undefined){
-							var l = (nodesData[d.node.src].layer + nodesData[d.node.tgt].layer) / 2;
-							if (!layerLabel[l]){
-								layerLabel[l] = [];
+							var layer = (nodesData[d.node.src].layer + nodesData[d.node.tgt].layer);
+							if (!layerLabel[layer]){
+								layerLabel[layer] = [];
 							}
-							layerLabel[l].push(d);
+							layerLabel[layer].push(d);
 						} else {
 							layerLabel[0].push(d);
 						}
@@ -950,25 +956,33 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				}
 			}
 		});
-
+		
 		layerLabel.forEach(function(e, i){
-			/*if (e.length > 1 && i > 0){
+			if (e.length > 1 && i > 0){
 				var q = d3.geom.quadtree(e),
 					i = 0,
 	      			n = e.length;
 	    		while (++i < n) q.visit(collide(e[i]));
-	    	}
+	    	}/**/
 	    	if (i == 0 && e.length > 1){
 	    		var q = d3.geom.quadtree(e),
 					i = 0,
 	      			n = e.length;
 	    		while (++i < n) q.visit(collideOutside(e[i]));
-	    	}*/
+	    	}
 		});
 	      	
 		this.attr("transform", function(d) {
 			//dx = Math.max(xOffset + 20, Math.min(xOffset + width, d.x)); 
 			//d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y)); 
+			if (d.x == NaN){
+				console.log("x NaN: " + d);
+				d.x = xOffset + 10;
+			}
+			if (d.y == NaN){
+				console.log("y NaN: " + d);
+				d.y = 10;
+			}
 			return "translate(" + d.x + "," + d.y + ")";
 		});
 	}
@@ -976,19 +990,18 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	//collision detection
 	function collide(d) {
 	    var r = d.width / 2,
-	    //var r = d.width * 8,
 	      	nx1 = d.x - r,
 	      	nx2 = d.x + r;
 	  	return function(quad, x1, y1, x2, y2) {
 	    	if (quad.point && (quad.point !== d)) {
 	      		var x = d.x - quad.point.x,
-	          		y = 0,
 	          		l = Math.sqrt(x * x),
-	          		r = d.width / 2 + quad.point.width / 2;
+	          		r = d.width / 2 + textHeight / 3 * 2 + quad.point.width / 2;
 	      		if (l < r) {
-	        		l = (l - r) / l * .5;
-	        		d.x -= x *= l;
-	        		quad.point.x += x;
+	        		l = (l != 0) ? (l - r) / l * 0.5 : (l - r) * 0.5;
+	        		x *= l;
+	        		d.x = Math.max(d.width, d.x - x);
+	        		quad.point.x = Math.min(xOffset + windowWidth - d.width, quad.point.x + x);
 	      		}
 	    	}
 	    	return x1 > nx2 || x2 < nx1;
@@ -997,7 +1010,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 	//collision detection for outside nodes
 	function collideOutside(d){
-	  	var r = d.width / 2,
+	  	var r = d.width / 2 + textHeight,
 	      	nx1 = d.x - r,
 	      	nx2 = d.x + r,
 	      	ny1 = d.y - textHeight,
@@ -1009,19 +1022,19 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	          		lx = Math.abs(x),
 	          		ly = Math.abs(y),
 	          		rx = d.width / 2 + quad.point.width / 2,
-	          		ry = d.height;
+	          		ry = textHeight;
 
 	          	if (ly >= ry || lx >= rx){
 	          		return true;
 	          	}      		
-	        	ly = (ly - ry) / ly * .5;
-	        	d.y -= y *= ly;
-	        	quad.point.y += y;	      		
+	        	ly = (ly != 0) ? (ly - ry) / ly * 0.5 : (ly - ry) * 0.5;
+	        	y *= ly;
+	        	d.y = Math.max(d.y - y, textHeight);
+	        	quad.point.y = Math.min(quad.point.y + y, height);
 	    	}
 	    	return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
 	  	};
 	}
-
 	//reset data
 	function resetData(){
 		nodePosMap.clear();
@@ -1472,7 +1485,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 	//set the outside nodes
 	function setNodePosition(){
-		console.log(print);
+		//console.log(print);
 		var change = 0;
 		var offset = Math.max(xOffset - leftPanelWidth,0);
 
@@ -1661,8 +1674,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			maxXOfferset = Math.max(0, leftPanelWidth + width - window.innerWidth);
 			windowWidth = Math.ceil(Math.min(windowWidth + Math.min(xOffset, leftPanelWidth), width));
 
-			extractTable(d.tableLayout, "");
-			console.log(anchorName);
+			//extractTable(d.tableLayout, "");
+			//console.log(anchorName);
 			initializeData(tmpLinkData, tmpNodeData);
 			removeCycle();
 			
@@ -1728,15 +1741,22 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		//console.log(window.pageXOffset);
 		if (Math.abs(window.pageXOffset - xOffset) > reshuffleFrequency){
 			xOffset = window.pageXOffset;
-			windowWidth = Math.min(rightPanelWidth + Math.min(xOffset, leftPanelWidth)/* - padding*/, width);
+			windowWidth = Math.min(rightPanelWidth + Math.min(xOffset, leftPanelWidth), width);
 			setNodePosition();
 		}
 	}
 
 	this.onresize = function(event) {
-	    windowWidth = Math.min(rightPanelWidth + Math.min(xOffset, leftPanelWidth)/* - padding*/, width);
-	    //height=window.innerHeight - padding;
-	    //console.log(width + " " + height);
+		rightPanelWidth = parseInt($("." + cssClass).css("width"));
+		leftPanelWidth = window.innerWidth - rightPanelWidth;
+		windowWidth = rightPanelWidth;
+		maxXOfferset = 0;
+		xOffset = window.pageXOffset;
+		maxXOfferset = Math.max(0, leftPanelWidth + width - window.innerWidth);
+		windowWidth = Math.ceil(Math.min(windowWidth + Math.min(xOffset, leftPanelWidth), width));
+
+	    console.log("on resize: rightPanelWidth: " + rightPanelWidth + "  leftPanelWidth: " + leftPanelWidth + " maxXOfferset: " + maxXOfferset + " windowWidth: " + windowWidth + " xOffset: " + xOffset);
+		setNodePosition();
 	};
 
 	//The savePath format: "file/image/", include last 'image'. 

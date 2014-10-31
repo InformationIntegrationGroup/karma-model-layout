@@ -1,0 +1,374 @@
+
+
+{
+  "edgeLinks": [
+    
+  ],
+  "anchors": [
+    {
+      "id": 0,
+      "xPos":100,
+      "isForcedByUser": false,
+      "nodeId": "HN4",
+      "nodeDomain": "",
+      "column": 0,
+      "isUri": false,
+      "label": "ID",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN4"
+    },
+    {
+      "id": 1,
+      "xPos":200,
+      "isForcedByUser": false,
+      "nodeId": "HN7024",
+      "nodeDomain": "HN7024",
+      "column": 1,
+      "isUri": false,
+      "label": "HN7024",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN7024"
+    },
+    {
+      "id": 2,
+      "xPos":300,
+      "isForcedByUser": false,
+      "nodeId": "HN5",
+      "nodeDomain": "HN5",
+      "column": 2,
+      "isUri": false,
+      "label": "HN5",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN5"
+    },
+    {
+      "id": 3,
+      "xPos":400,
+      "isForcedByUser": false,
+      "nodeId": "HN6",
+      "nodeDomain": "HN6",
+      "column": 3,
+      "isUri": false,
+      "label": "HN6",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN6"
+    },
+    {
+      "id": 4,
+      "xPos":500,
+      "isForcedByUser": false,
+      "nodeId": "HN7",
+      "nodeDomain": "HN7",
+      "column": 4,
+      "isUri": false,
+      "label": "HN7",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN7"
+    },
+    {
+      "id": 5,
+      "xPos":600,
+      "isForcedByUser": false,
+      "nodeId": "HN8",
+      "nodeDomain": "HN8",
+      "column": 5,
+      "isUri": false,
+      "label": "HN8",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN8"
+    },
+    {
+      "id": 6,
+      "xPos":700,
+      "isForcedByUser": false,
+      "nodeId": "HN9",
+      "nodeDomain": "HN9",
+      "column": 6,
+      "isUri": false,
+      "label": "HN9",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN9"
+    },
+    {
+      "id": 7,
+      "xPos":800,
+      "isForcedByUser": false,
+      "nodeId": "HN10",
+      "nodeDomain": "HN10",
+      "column": 7,
+      "isUri": false,
+      "label": "HN10",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN10"
+    },
+    {
+      "id": 8,
+      "xPos":900,
+      "isForcedByUser": false,
+      "nodeId": "HN11",
+      "nodeDomain": "HN11",
+      "column": 8,
+      "isUri": false,
+      "label": "HN11",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN11"
+    },
+    {
+      "id": 9,
+      "xPos":1000,
+      "isForcedByUser": false,
+      "nodeId": "HN12",
+      "nodeDomain": "HN12",
+      "column": 9,
+      "isUri": false,
+      "label": "HN12",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN12"
+    },
+    {
+      "id": 10,
+      "xPos":1100,
+      "isForcedByUser": false,
+      "nodeId": "HN13",
+      "nodeDomain": "HN13",
+      "column": 10,
+      "isUri": false,
+      "label": "HN13",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN13"
+    },
+    {
+      "id": 11,
+      "xPos":1200,
+      "isForcedByUser": false,
+      "nodeId": "HN14",
+      "nodeDomain": "HN14",
+      "column": 11,
+      "isUri": false,
+      "label": "HN14",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN14"
+    },
+    {
+      "id": 12,
+      "xPos":1300,
+      "isForcedByUser": false,
+      "nodeId": "HN15",
+      "nodeDomain": "HN15",
+      "column": 12,
+      "isUri": false,
+      "label": "HN15",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN15"
+    },
+    {
+      "id": 13,
+      "xPos":1400,
+      "isForcedByUser": false,
+      "nodeId": "HN16",
+      "nodeDomain": "HN16",
+      "column": 13,
+      "isUri": false,
+      "label": "HN16",
+      "nodeType": "ColumnNode",
+      "hNodeId": "HN16"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 14,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/schema.org\/Organization1",
+      "nodeDomain": "http:\/\/schema.org\/Organization",
+      "isUri": false,
+      "label": "Organization1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 15,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/schema.org\/Person1",
+      "nodeDomain": "http:\/\/schema.org\/Person",
+      "isUri": false,
+      "label": "Person1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 16,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/schema.org\/PostalAddress1",
+      "nodeDomain": "http:\/\/schema.org\/PostalAddress",
+      "isUri": false,
+      "label": "PostalAddress1PostalAddress1",
+      "nodeType": "InternalNode"
+    },
+    {
+      "id": 17,
+      "isForcedByUser": false,
+      "nodeId": "http:\/\/schema.org\/PostalAddress2",
+      "nodeDomain": "http:\/\/schema.org\/PostalAddress",
+      "isUri": false,
+      "label": "PostalAddress2PostalAddress2",
+      "nodeType": "InternalNode"
+    }
+  ],
+  "links": [
+    
+    
+    {
+      "id": "http:\/\/schema.org\/Person1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN7024",
+      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
+      "source": 15,
+      "sourceNodeId": "http:\/\/schema.org\/Person1",
+      "target": 1,
+      "linkType": "ClassInstanceLink",
+      "linkStatus": "PreferredByUI",
+      "label": "classLink",
+      "targetNodeId": "HN7024"
+    },
+    {
+      "id": "http:\/\/schema.org\/Person1---http:\/\/schema.org\/address---http:\/\/schema.org\/PostalAddress1",
+      "linkUri": "http:\/\/schema.org\/address",
+      "source": 15,
+      "sourceNodeId": "http:\/\/schema.org\/Person1",
+      "target": 16,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "address",
+      "targetNodeId": "http:\/\/schema.org\/PostalAddress1"
+    },
+    {
+      "id": "http:\/\/schema.org\/Person1---http:\/\/schema.org\/email---HN15",
+      "linkUri": "http:\/\/schema.org\/email",
+      "source": 15,
+      "sourceNodeId": "http:\/\/schema.org\/Person1",
+      "target": 12,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "email",
+      "targetNodeId": "HN15"
+    },
+    {
+      "id": "http:\/\/schema.org\/Person1---http:\/\/schema.org\/familyName---HN6",
+      "linkUri": "http:\/\/schema.org\/familyName",
+      "source": 15,
+      "sourceNodeId": "http:\/\/schema.org\/Person1",
+      "target": 3,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "familyfamilyName",
+      "targetNodeId": "HN6"
+    },
+    {
+      "id": "http:\/\/schema.org\/Person1---http:\/\/schema.org\/givenName---HN5",
+      "linkUri": "http:\/\/schema.org\/givenName",
+      "source": 15,
+      "sourceNodeId": "http:\/\/schema.org\/Person1",
+      "target": 2,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "givenName",
+      "targetNodeId": "HN5"
+    },
+    {
+      "id": "http:\/\/schema.org\/Person1---http:\/\/schema.org\/telephone---HN13",
+      "linkUri": "http:\/\/schema.org\/telephone",
+      "source": 15,
+      "sourceNodeId": "http:\/\/schema.org\/Person1",
+      "target": 10,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "telephone",
+      "targetNodeId": "HN13"
+    },
+    {
+      "id": "http:\/\/schema.org\/Person1---http:\/\/schema.org\/telephone---HN14",
+      "linkUri": "http:\/\/schema.org\/telephone",
+      "source": 15,
+      "sourceNodeId": "http:\/\/schema.org\/Person1",
+      "target": 11,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "telephone",
+      "targetNodeId": "HN14"
+    },
+    {
+      "id": "http:\/\/schema.org\/Person1---http:\/\/schema.org\/worksFor---http:\/\/schema.org\/Organization1",
+      "linkUri": "http:\/\/schema.org\/worksFor",
+      "source": 15,
+      "sourceNodeId": "http:\/\/schema.org\/Person1",
+      "target": 14,
+      "linkType": "ObjectPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "worksFor",
+      "targetNodeId": "http:\/\/schema.org\/Organization1"
+    },
+    {
+      "id": "http:\/\/schema.org\/PostalAddress1---http:\/\/schema.org\/addressCountry---HN10",
+      "linkUri": "http:\/\/schema.org\/addressCountry",
+      "source": 16,
+      "sourceNodeId": "http:\/\/schema.org\/PostalAddress1",
+      "target": 7,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "addressCountry",
+      "targetNodeId": "HN10"
+    },
+    {
+      "id": "http:\/\/schema.org\/PostalAddress1---http:\/\/schema.org\/addressLocality---HN9",
+      "linkUri": "http:\/\/schema.org\/addressLocality",
+      "source": 16,
+      "sourceNodeId": "http:\/\/schema.org\/PostalAddress1",
+      "target": 6,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "addressLocality",
+      "targetNodeId": "HN9"
+    },
+    {
+      "id": "http:\/\/schema.org\/PostalAddress1---http:\/\/schema.org\/addressRegion---HN11",
+      "linkUri": "http:\/\/schema.org\/addressRegion",
+      "source": 16,
+      "sourceNodeId": "http:\/\/schema.org\/PostalAddress1",
+      "target": 8,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "addressRegion",
+      "targetNodeId": "HN11"
+    },
+    {
+      "id": "http:\/\/schema.org\/PostalAddress1---http:\/\/schema.org\/postalCode---HN12",
+      "linkUri": "http:\/\/schema.org\/postalCode",
+      "source": 16,
+      "sourceNodeId": "http:\/\/schema.org\/PostalAddress1",
+      "target": 9,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "postalCode",
+      "targetNodeId": "HN12"
+    },
+    {
+      "id": "http:\/\/schema.org\/PostalAddress1---http:\/\/schema.org\/streetAddress---HN8",
+      "linkUri": "http:\/\/schema.org\/streetAddress",
+      "source": 16,
+      "sourceNodeId": "http:\/\/schema.org\/PostalAddress1",
+      "target": 5,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "streetAddress",
+      "targetNodeId": "HN8"
+    },
+    {
+      "id": "http:\/\/schema.org\/PostalAddress2---http:\/\/schema.org\/streetAddress---HN8",
+      "linkUri": "http:\/\/schema.org\/streetAddress",
+      "source": 17,
+      "sourceNodeId": "http:\/\/schema.org\/PostalAddress2",
+      "target": 5,
+      "linkType": "DataPropertyLink",
+      "linkStatus": "PreferredByUI",
+      "label": "streetAddress",
+      "targetNodeId": "HN8"
+    }
+  ],
+  "width":1500
+}
