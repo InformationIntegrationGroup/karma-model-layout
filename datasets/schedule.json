@@ -83,7 +83,7 @@
       "nodeDomain": "",
       "column": 6,
       "isUri": false,
-      "label": "",
+      "label": "useless",
       "nodeType": "ColumnNode",
       "hNodeId": "HN7"
     }
@@ -233,7 +233,7 @@
       "hNodeId": "HN6"
     },
     {
-      "columnName": "",
+      "columnName": "useless",
       "hasNestedTable": false,
       "hNodeId": "HN7"
     }

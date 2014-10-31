@@ -16,6 +16,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	var nodeClickListener = null;
 	
 	var test = [];
+	//var tableData = [];                            //store table data
+	//var columnPos = [];                            //position for each column
+	var anchorName = [];                           //store anchor name, include nested
 	var anchorData = [];                           //store anchor nodes
 	var nodesData = [];                            //store all nodes includes anchors
 	var linksData = [];                            //links data
@@ -101,6 +104,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	var nodePosMap = new myMap();                  //map of node's position
 
 
+	var print = false;                             //whether or not print 
 	var nodeRadius = 4;
 	var unitLinkLength = 70;                       //difference between layers
 	var outsideUnitLinkLength = 50;                //length for outside links
@@ -109,13 +113,15 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	var xOffset = 0;                               //x position offset
 	var firstTime = true;                          //first time to load the force-layout
 	var maxLabelLength = 0;    
+	var tableHeight = 0;
+	var cellWidth = $(".wk-header-cell").css("width");
 	var cScale = d3.scale.category20();
 
 	//create svg
 	var svg = d3.select(htmlElement)                         
 	    .append("svg")
 	    .attr("id", p_htmlElement)
-	    .on("mousemove", mousemove);
+	    //.on("mousemove", mousemove);
 
 
 	//svg to draw nodes and links
@@ -288,6 +294,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			})
 			.append("text")
 			.text(function(d, i){
+				if (d.type == "nodeLabel" && d.node.type == "anchor"){
+					return d.content;
+				}
 				if (d.content.length > 20){
 					d.alt = d.content.slice(0, 7) + "..." + d.content.slice(d.content.length - 10, d.content.length);
 					return d.alt;
@@ -309,7 +318,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				}
 				return "normal";
 			})
-			.classed("labelText", true)
+			.attr("font-family", "Arial")
+			.attr("font-size", 12)
+			.attr("opacity", 0.8)
 			.attr("x", function(d){
 				d.width = this.getBBox().width //+ textHeight / 3 * 2;
 				if (d.type == "nodeLabel"){
@@ -1026,6 +1037,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		height=0;
 
 		test = [];
+	 	//tableData = [];                            //store table data
+		//columnPos = [];                            //position for each column
 		anchorData = [];                           //store anchor nodes
 		nodesData = [];                            //store all nodes includes anchors
 		linksData = [];                            //links data
@@ -1053,6 +1066,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 	//initialize data
 	function initializeData(tmpL, tmpN){
+		var anchorNameIndex = 0;
 		tmpN.forEach(function(d, i){
 			var node = {};
 			node.label = d.id;
@@ -1063,6 +1077,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			node.original = d;
 			node.isForcedByUser = d.isForcedByUser;
 			if (d.column || d.column == 0){
+				//columnPos.push(d.xPos);
 				node.nodeId = d.hNodeId;
 				node.column = d.column;
 				node.type = "anchor";
@@ -1092,7 +1107,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			textData.push({
 				node : node,
 				nodeId : d.nodeId,
-				content : d.label,
+				content : anchorNameIndex < anchorName.length ? anchorName[anchorNameIndex++] : d.label,
 				type : "nodeLabel"
 			});
 
@@ -1396,23 +1411,46 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	}
 
 	//print the Extented svg
-	function printExtentedSVG(savePath, resolution){
+	function printExtentedSVG(resolution){
 		var recordWidth = windowWidth;
 		windowWidth = width + 100;
+		print = true;
+		firstTime = true;
 		setNodePosition();
 
-		var objSVG = document.getElementById(p_htmlElement);
+		var objSVG = document.getElementById(htmlElement);
 		setTimeout(function(){
-			saveSvgAsPng(objSVG, savePath + p_htmlElement + ".png", resolution);
+			saveSvgAsPng(objSVG, htmlElement + ".png", resolution);
 			windowWidth = recordWidth;
+			print = false;
+			firstTime = true;
 			setNodePosition();
 		}, 1500);
 	}
 
 	//print screen shot
-	function printSVG(savePath, resolution){
-		var objSVG = document.getElementById(p_htmlElement);
-		saveSvgAsPng(objSVG, savePath + p_htmlElement + ".png", resolution);
+	function printSVG(resolution){
+		print = true;
+		firstTime = true;
+		setNodePosition();
+		var objSVG = document.getElementById(htmlElement);
+		setTimeout(function(){
+			saveSvgAsPng(objSVG, htmlElement + ".png", resolution);
+			print = false;
+			firstTime = true;
+			setNodePosition();
+		}, 1500);
+	}
+
+	//extract table header
+	function extractTable(data, prefix) {		
+		data.forEach(function(column, i) {			
+			if(column.hasNestedTable) {
+				extractTable(column.columns, column.columnName + ":");
+			} else {
+				anchorName.push(prefix + column.columnName);
+			}
+		});
 	}
 
 	//move element to the back of its parent's children
@@ -1434,6 +1472,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 	//set the outside nodes
 	function setNodePosition(){
+		console.log(print);
 		var change = 0;
 		var offset = Math.max(xOffset - leftPanelWidth,0);
 
@@ -1534,7 +1573,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 						return 1;
 					}
 					if (d.type == "nodeLabel" && d.node.outside){
-						if ((!d.node.outside.isOutside && d.node.type != "anchor") || (d.node.outside.isOutside && d.node.degree >= 3)){
+						if ((!d.node.outside.isOutside && (print || d.node.type != "anchor")) || (d.node.outside.isOutside && d.node.degree >= 3)){
 							d.node.showLabel = true;
 							return 1;
 						}
@@ -1622,6 +1661,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			maxXOfferset = Math.max(0, leftPanelWidth + width - window.innerWidth);
 			windowWidth = Math.ceil(Math.min(windowWidth + Math.min(xOffset, leftPanelWidth), width));
 
+			extractTable(d.tableLayout, "");
+			console.log(anchorName);
 			initializeData(tmpLinkData, tmpNodeData);
 			removeCycle();
 			
@@ -1699,10 +1740,10 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	};
 
 	//The savePath format: "file/image/", include last 'image'. 
-	this.printExtented = function(savePath, resolution){
-		printExtentedSVG(savePath, resolution);
+	this.printExtented = function(resolution){
+		printExtentedSVG(resolution);
 	}
-	this.print = function(savePath, resolution){
-		printSVG(savePath, resolution);
+	this.print = function(resolution){
+		printSVG(resolution);
 	}
 };
