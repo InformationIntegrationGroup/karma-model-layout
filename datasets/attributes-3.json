@@ -23,7 +23,7 @@
       "label": "timestamp",
       "nodeType": "ColumnNode",
       "hNodeId": "HN5",
-      "xPos": 59
+      "xPos": 59.5
     },
     {
       "id": 1,
@@ -35,7 +35,7 @@
       "label": "url",
       "nodeType": "ColumnNode",
       "hNodeId": "HN7",
-      "xPos": 201
+      "xPos": 202
     },
     {
       "id": 2,
@@ -47,7 +47,7 @@
       "label": "crawl_uri",
       "nodeType": "ColumnNode",
       "hNodeId": "HN70",
-      "xPos": 350
+      "xPos": 351
     },
     {
       "id": 3,
@@ -59,7 +59,7 @@
       "label": "featurecollection_uri",
       "nodeType": "ColumnNode",
       "hNodeId": "HN93",
-      "xPos": 499
+      "xPos": 500
     },
     {
       "id": 4,
@@ -71,7 +71,7 @@
       "label": "id",
       "nodeType": "ColumnNode",
       "hNodeId": "HN9",
-      "xPos": 628
+      "xPos": 629
     },
     {
       "id": 5,
@@ -83,7 +83,7 @@
       "label": "ads_id",
       "nodeType": "ColumnNode",
       "hNodeId": "HN11",
-      "xPos": 737
+      "xPos": 738
     },
     {
       "id": 6,
@@ -95,7 +95,7 @@
       "label": "attribute",
       "nodeType": "ColumnNode",
       "hNodeId": "HN13",
-      "xPos": 846
+      "xPos": 847
     },
     {
       "id": 7,
@@ -107,7 +107,7 @@
       "label": "feature_name",
       "nodeType": "ColumnNode",
       "hNodeId": "HN84",
-      "xPos": 968.5
+      "xPos": 969.5
     },
     {
       "id": 8,
@@ -119,7 +119,7 @@
       "label": "feature_name_property",
       "nodeType": "ColumnNode",
       "hNodeId": "HN132",
-      "xPos": 1111
+      "xPos": 1112
     },
     {
       "id": 9,
@@ -131,7 +131,7 @@
       "label": "value",
       "nodeType": "ColumnNode",
       "hNodeId": "HN15",
-      "xPos": 1240
+      "xPos": 1241
     },
     {
       "id": 10,
@@ -143,7 +143,7 @@
       "label": "feature_value",
       "nodeType": "ColumnNode",
       "hNodeId": "HN103",
-      "xPos": 1362.5
+      "xPos": 1363.5
     },
     {
       "id": 11,
@@ -155,7 +155,7 @@
       "label": "feature_value2",
       "nodeType": "ColumnNode",
       "hNodeId": "HN141",
-      "xPos": 1503
+      "xPos": 1504
     },
     {
       "id": 12,
@@ -167,7 +167,7 @@
       "label": "extracted",
       "nodeType": "ColumnNode",
       "hNodeId": "HN17",
-      "xPos": 1630
+      "xPos": 1631
     },
     {
       "id": 13,
@@ -179,7 +179,7 @@
       "label": "extractedraw",
       "nodeType": "ColumnNode",
       "hNodeId": "HN19",
-      "xPos": 1759
+      "xPos": 1760
     },
     {
       "id": 14,
@@ -191,7 +191,7 @@
       "label": "modtime",
       "nodeType": "ColumnNode",
       "hNodeId": "HN21",
-      "xPos": 1908
+      "xPos": 1909
     },
     {
       "id": 15,
@@ -203,7 +203,7 @@
       "label": "feature_modtime",
       "nodeType": "ColumnNode",
       "hNodeId": "HN121",
-      "xPos": 2057
+      "xPos": 2058
     }
   ],
   "nodes": [
@@ -217,30 +217,12 @@
       "nodeType": "InternalNode"
     },
     {
-      "id": 17,
-      "isForcedByUser": true,
-      "nodeId": "ttp:\/\/memexproxy.com\/data\/software\/extractor\/ist\/ist-attributes-database1",
-      "nodeDomain": "",
-      "isUri": true,
-      "label": "http:\/\/memexproxy.com\/data\/software\/extractor\/ist\/ist-attributes-database",
-      "nodeType": "LiteralNode"
-    },
-    {
       "id": 18,
       "isForcedByUser": false,
       "nodeId": "http:\/\/memexproxy.com\/ontology\/FeatureCollection1",
       "nodeDomain": "http:\/\/memexproxy.com\/ontology\/FeatureCollection",
       "isUri": false,
       "label": "FeatureCollection1",
-      "nodeType": "InternalNode"
-    },
-    {
-      "id": 19,
-      "isForcedByUser": false,
-      "nodeId": "http:\/\/schema.org\/WebPage1",
-      "nodeDomain": "http:\/\/schema.org\/WebPage",
-      "isUri": false,
-      "label": "WebPage1",
       "nodeType": "InternalNode"
     }
   ],
@@ -321,28 +303,6 @@
       "linkStatus": "ForcedByUser",
       "label": "hasFeatures",
       "targetNodeId": "http:\/\/memexproxy.com\/ontology\/Feature1"
-    },
-    {
-      "id": "http:\/\/schema.org\/WebPage1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN70",
-      "linkUri": "http:\/\/isi.edu\/integration\/karma\/dev#classLink",
-      "source": 19,
-      "sourceNodeId": "http:\/\/schema.org\/WebPage1",
-      "target": 2,
-      "linkType": "ClassInstanceLink",
-      "linkStatus": "ForcedByUser",
-      "label": "uri",
-      "targetNodeId": "HN70"
-    },
-    {
-      "id": "http:\/\/schema.org\/WebPage1---http:\/\/memexproxy.com\/ontology\/hasFeatureCollection---http:\/\/memexproxy.com\/ontology\/FeatureCollection1",
-      "linkUri": "http:\/\/memexproxy.com\/ontology\/hasFeatureCollection",
-      "source": 19,
-      "sourceNodeId": "http:\/\/schema.org\/WebPage1",
-      "target": 18,
-      "linkType": "ObjectPropertyLink",
-      "linkStatus": "ForcedByUser",
-      "label": "hasFeatureCollection",
-      "targetNodeId": "http:\/\/memexproxy.com\/ontology\/FeatureCollection1"
     }
   ],
   "tableLayout": [
@@ -427,5 +387,5 @@
       "hNodeId": "HN121"
     }
   ],
-  "width": 2222
+  "width": 2223
 }

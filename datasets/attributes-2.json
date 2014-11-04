@@ -217,15 +217,6 @@
       "nodeType": "InternalNode"
     },
     {
-      "id": 17,
-      "isForcedByUser": true,
-      "nodeId": "ttp:\/\/memexproxy.com\/data\/software\/extractor\/ist\/ist-attributes-database1",
-      "nodeDomain": "",
-      "isUri": true,
-      "label": "http:\/\/memexproxy.com\/data\/software\/extractor\/ist\/ist-attributes-database1",
-      "nodeType": "LiteralNode"
-    },
-    {
       "id": 18,
       "isForcedByUser": false,
       "nodeId": "http:\/\/memexproxy.com\/ontology\/FeatureCollection1",
@@ -299,17 +290,6 @@
       "linkStatus": "ForcedByUser",
       "label": "generatedAtTime",
       "targetNodeId": "HN21"
-    },
-    {
-      "id": "http:\/\/memexproxy.com\/ontology\/Feature1---http:\/\/www.w3.org\/ns\/prov#wasGeneratedBy---ttp:\/\/memexproxy.com\/data\/software\/extractor\/ist\/ist-attributes-database1",
-      "linkUri": "http:\/\/www.w3.org\/ns\/prov#wasGeneratedBy",
-      "source": 16,
-      "sourceNodeId": "http:\/\/memexproxy.com\/ontology\/Feature1",
-      "target": 17,
-      "linkType": "ObjectPropertyLink",
-      "linkStatus": "ForcedByUser",
-      "label": "wasGeneratedBy",
-      "targetNodeId": "ttp:\/\/memexproxy.com\/data\/software\/extractor\/ist\/ist-attributes-database1"
     },
     {
       "id": "http:\/\/memexproxy.com\/ontology\/FeatureCollection1---http:\/\/isi.edu\/integration\/karma\/dev#classLink---HN93",
