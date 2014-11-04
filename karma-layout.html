@@ -44,7 +44,9 @@
 <body>
 
 <div id="mainContainer">
-	<div id="leftPanel" style="background:grey; height:100%;" class="col-sm-2">Left Panel</div>
+	<div id="leftPanel" style="background:grey; height:100%;" class="col-sm-2">Left Panel
+	<input type="button" value="Print"  onclick="javascript:printLayout();" />
+	</div>
 	<div id="rightPanel" class="col-sm-10">
 
 		<div id="WS1" class="Worksheet" style="width:3000px; overflow:auto">
@@ -90,10 +92,18 @@ function drawTable(worksheet, jsonFile) {
 	});
 }
 
+function printLayout() {
+	layout1.printExtented(3);
+}
 
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
-var jsonFile1 = "datasets/wide-table.json";
-//drawTable($("#WS1"), jsonFile1);
+var jsonFiles = [
+			"datasets/attributes-1.json",
+			"datasets/attributes-2.json"
+			];
+
+var jsonFile1 = jsonFiles[0];
+drawTable($("#WS1"), jsonFile1);
 layout1.generateLayoutForJsonFile(jsonFile1);
 layout1.setNodeClickListener(function(node) {
 	console.log("This function is called when the node is clicked");
@@ -102,33 +112,15 @@ layout1.setLinkClickListener(function(link) {
 	console.log("This function is called when the link is clicked");
 });
 
+for(var i=1; i<jsonFiles.length; i++) {
+	var jsonFile = jsonFiles[i];
+	setTimeout(function(){
+		console.log("Generate Layout for JSON File:" + jsonFile);
+		layout1.generateLayoutForJsonFile(jsonFile);
+	},3000 * i);
+}
 
 
-setTimeout(function(){
-	layout1.printExtented(3);
-}, 3000);
-
-/*
-setTimeout(function(){
-	layout1.generateLayoutForJsonFile("datasets/schedule-next.json");
-},3000)
-
-setTimeout(function(){
-	layout1.generateLayoutForJsonFile("datasets/schedule-next1.json");
-},6000)
-
-setTimeout(function(){
-	layout1.generateLayoutForJsonFile("datasets/schedule-next2.json");
-},9000)
-
-setTimeout(function(){
-	layout1.generateLayoutForJsonFile("datasets/schedule-next3.json");
-},12000)
-
-setTimeout(function(){
-	layout1.generateLayoutForJsonFile("datasets/schedule-next4.json");
-},15000)
-*/
 window.onscroll = function(event) {
 	layout1.onscroll(event);
 	
