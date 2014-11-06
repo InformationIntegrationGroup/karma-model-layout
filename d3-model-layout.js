@@ -139,7 +139,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 	var nodes = forceSVG.selectAll(".node");       //all nodes    
 	var links = forceSVG.selectAll(".link");       //all links
-	var  labels = forceSVG.selectAll(".label");     //all labels
+	var labels = forceSVG.selectAll(".label");     //all labels
 	var labelLinks = forceSVG.selectAll(".labelLinks"); //all label links.
 	var linkArrow = forceSVG.selectAll(".linkArrow");   //little triangle of links
 	var labelFrame = forceSVG.selectAll(".labelFrame"); //the frame of each label
@@ -1327,6 +1327,48 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		})
 		*/
 
+		//set the edge link
+		tmpE.forEach(function(d, i){
+			var srcIndex = nodesData.length * 2 + edgeIdMap[d.source] * 2 + 1;
+			textData[srcIndex].layer = (nodesData[textData[srcIndex].node.src].layer + nodesData[textData[srcIndex].node.tgt].layer) / 2;
+
+			var edge = {};
+			edge.source = textData[srcIndex];
+			edge.target = idMap[d.target];
+			edge.id = linksData.length;
+			edge.linkType = d.linkType;
+			edge.type = "edgeLink";
+			edge.node = {};
+			edge.node.original = d;
+			linksData.push(edge);
+
+			var node = {};
+			node.src = edge.source;
+			node.tgt = edge.target;
+			node.original = d;
+			textData.push({
+				node : node,
+				type : "edgeLinkCircle",
+				content : d.label,
+				nodeId : "circle" + node.src.nodeId + "-" + node.tgt
+			});
+			textData.push({
+				node : node,
+				type : "edgeLinkLabel",
+				content : d.label,
+				nodeId : node.src.nodeId + "-" + node.tgt
+			});
+
+			textLinksData.push({
+				source : textData.length - 2,
+				target : textData.length - 1,
+				edgeId : node.src.nodeId + "-" + node.tgt
+			});
+
+			nodesData[node.tgt].unAssigned = false;
+			nodesData[node.tgt].degree++;
+		});
+
 		//store the node id in the sequence of layer
 		//xPos is the x position for nodes in the unit of column's width
 		layerMap = d3.range(maxLayer + 1)
@@ -1336,6 +1378,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		nodesData.forEach(function(d){
 			if (d.layer != undefined){
 				if (!d.unAssigned){
+					if (layerMap[d.layer] == undefined)
+						console.log(d);
 					layerMap[d.layer].push(d.id);
 				}				
 			}		
@@ -1380,46 +1424,6 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				d.layer = -1;
 				d.xpos = -1;
 			}	
-		});
-
-
-		//set the edge link
-		tmpE.forEach(function(d, i){
-			var srcIndex = nodesData.length * 2 + edgeIdMap[d.source] * 2 + 1;
-			textData[srcIndex].layer = (nodesData[textData[srcIndex].node.src].layer + nodesData[textData[srcIndex].node.tgt].layer) / 2;
-
-			var edge = {};
-			edge.source = textData[srcIndex];
-			edge.target = idMap[d.target];
-			edge.id = linksData.length;
-			edge.linkType = d.linkType;
-			edge.type = "edgeLink";
-			edge.node = {};
-			edge.node.original = d;
-			linksData.push(edge);
-
-			var node = {};
-			node.src = edge.source;
-			node.tgt = edge.target;
-			node.original = d;
-			textData.push({
-				node : node,
-				type : "edgeLinkCircle",
-				content : d.label,
-				nodeId : "circle" + d.id
-			});
-			textData.push({
-				node : node,
-				type : "edgeLinkLabel",
-				content : d.label,
-				nodeId : d.id
-			});
-
-			textLinksData.push({
-				source : textData.length - 2,
-				target : textData.length - 1,
-				edgeId : d.id
-			});
 		});
 	}
 

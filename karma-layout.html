@@ -98,9 +98,9 @@ function printLayout() {
 
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
 var jsonFiles = [
-			"datasets/delete-1.json",
-			"datasets/delete-2.json",
-			//"datasets/attributes-3.json"
+			"datasets/attributes-1.json",
+			"datasets/attributes-2.json",
+			"datasets/attributes-3.json"
 			];
 
 var jsonFile1 = jsonFiles[0];
@@ -118,10 +118,10 @@ layout1.setLinkClickListener(function(link) {
 		console.log("Generate Layout for JSON File:" + jsonFiles[1]);
 		layout1.generateLayoutForJsonFile(jsonFiles[1]);
 	},3000);
-	/*setTimeout(function(){
+	setTimeout(function(){
 		console.log("Generate Layout for JSON File:" + jsonFiles[2]);
 		layout1.generateLayoutForJsonFile(jsonFiles[2]);
-	},6000);*/
+	},6000);
 
 
 
