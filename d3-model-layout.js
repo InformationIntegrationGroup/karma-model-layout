@@ -16,18 +16,16 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	var nodeClickListener = null;
 	
 	var test = [];
-	//var tableData = [];                            //store table data
-	//var columnPos = [];                            //position for each column
 	var anchorName = [];                           //store anchor name, include nested
 	var anchorData = [];                           //store anchor nodes
-	 nodesData = [];                            //store all nodes includes anchors
-	 linksData = [];                            //links data
+	var nodesData = [];                            //store all nodes includes anchors
+	var linksData = [];                            //links data
 	var noCycleLinksData = [];                     //cycles are removed
 	var cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
-	 textData = [];                             //text nodes
+	var textData = [];                             //text nodes
 	var textLinksData = [];                        //text links
 	var layerMap = [];                             //store nodes'id in sequence of layers
-	 nodesChildren = [];                        //store node's id and its children pair
+	var nodesChildren = [];                        //store node's id and its children pair
 	var SCCindex = 0;                              //strong connected component node's index
 	var SCCNodes = [];                             //SCC nodes set
 	var SCCtmpNodes = [];                          //the nodes stack of SCC
@@ -137,11 +135,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		//.domain([0, height]) 
 		.range([1, 0]);        
 
-	 nodes = forceSVG.selectAll(".node");       //all nodes    
-	 links = forceSVG.selectAll(".link");       //all links
-	 labels = forceSVG.selectAll(".label");     //all labels
-	 labelLinks = forceSVG.selectAll(".labelLinks"); //all label links.
-	 linkArrow = forceSVG.selectAll(".linkArrow");   //little triangle of links
+	var nodes = forceSVG.selectAll(".node");       //all nodes    
+	var links = forceSVG.selectAll(".link");       //all links
+	var labels = forceSVG.selectAll(".label");     //all labels
+	var labelLinks = forceSVG.selectAll(".labelLinks"); //all label links.
+	var linkArrow = forceSVG.selectAll(".linkArrow");   //little triangle of links
 	var labelFrame = forceSVG.selectAll(".labelFrame"); //the frame of each label
 
 	//force layout for nodes
