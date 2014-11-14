@@ -98,7 +98,9 @@ function printLayout() {
 
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
 var jsonFiles = [
-			"datasets/edgeLinks-2.json"
+			"datasets/overlaplinks-0.json",
+			"datasets/overlaplinks-1.json",
+			"datasets/overlaplinks-2.json",
 			];
 
 var jsonFile1 = jsonFiles[0];
@@ -111,16 +113,12 @@ layout1.setLinkClickListener(function(link) {
 	console.log("This function is called when the link is clicked");
 });
 
-/*
-	setTimeout(function(){
-		console.log("Generate Layout for JSON File:" + jsonFiles[1]);
-		layout1.generateLayoutForJsonFile(jsonFiles[1]);
-	},3000);
-	setTimeout(function(){
-		console.log("Generate Layout for JSON File:" + jsonFiles[2]);
-		layout1.generateLayoutForJsonFile(jsonFiles[2]);
-	},6000);
-*/
+
+for(var i=1; i<jsonFiles.length; i++) {
+	var next = jsonFiles[i];
+	loadJsonFile(next, i);
+}
+
 
 
 window.onscroll = function(event) {
@@ -132,6 +130,12 @@ window.onresize = function(event) {
 	layout1.onresize(event);
 }
 
+function loadJsonFile(next, i) {
+	setTimeout(function(){
+		console.log("Generate Layout for JSON File:" + next);
+		layout1.generateLayoutForJsonFile(next);
+	},3000*i);
+}
 </script>
 
 </body>
