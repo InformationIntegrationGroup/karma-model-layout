@@ -18,8 +18,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	var test = [];
 	var anchorName = [];                           //store anchor name, include nested
 	var anchorData = [];                           //store anchor nodes
-	var nodesData = [];                            //store all nodes includes anchors
-	var linksData = [];                            //links data
+	 nodesData = [];                            //store all nodes includes anchors
+	 linksData = [];                            //links data
 	var noCycleLinksData = [];                     //cycles are removed
 	var cycles = [];                               //all cycles, each cycle contians all nodes in that cycle.
 	var textData = [];                             //text nodes
@@ -657,7 +657,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		var k = 0.03 * e.alpha;
 		var kY = 0.05;
 
-
+		try {
 		nodes
 			.attr("cx", function(d) {
 				if (d.outside.isOutside){		
@@ -691,9 +691,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	        	}
 	        	return d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y));
 	        });
-	    
+	    } catch(e){
+	    	console.log("Node force layout tick error")
+	    }
 
-
+	    try {
 	    labels.each(function(d, i){
 	    	if (i % 2 == 0){
 	    		if (d.type == "linkCircle"){
@@ -731,6 +733,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				d.x = dx;
 	    	}
 		})
+	    } catch(e){
+	    	console.log("Label force layout tick error")
+	    }
 
 	    //if (!firstTime){
 	    	links.call(updateLink);
@@ -741,6 +746,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 	//updata link for tick function
 	var updateLink = function(){
+		try {
 	    this.attr("d", function(d){
 	    	var a = d.source;
 			var b = d.target;
@@ -803,7 +809,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			}
 			return p;
 		});	
+		} catch (e){
+			console.log("Update link error")
+		}
 
+		try {
 		linkArrow.attr("points", function(d){
 			if (d.target.outside.isOutside && d.target.noLayer == undefined){
 				return "";
@@ -842,7 +852,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				return "rotate(" + d.angle + " " + d.arrow.x + " " + d.arrow.y + ")";
 			}
 		})
-		//alert();
+		} catch(e) {
+			console.log("Update link arrow error")
+		}
 	}
 
 	//calculate the X of inside labels
@@ -979,7 +991,8 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	    		while (++i < n) q.visit(collideOutside(e[i]));
 	    	}
 		});
-	      	
+	      
+	    try {  	
 		this.attr("transform", function(d) {
 			//dx = Math.max(xOffset + 20, Math.min(xOffset + width, d.x)); 
 			//d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y)); 
@@ -993,6 +1006,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			}
 			return "translate(" + d.x + "," + d.y + ")";
 		});
+		} catch(e){
+			console.log("Adjust label position error")
+		}
 	}
 
 	//collision detection
@@ -1096,6 +1112,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	//initialize data
 	function initializeData(tmpL, tmpN){
 		var anchorNameIndex = 0;
+		try {
 		tmpN.forEach(function(d, i){
 			var node = {};
 			node.label = d.id;
@@ -1147,7 +1164,11 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			});
 			
 		});
+		} catch(e){
+			console.log("Initialize node error")
+		}
 
+		try {
 		tmpL.forEach(function(d, i){
 			var edge = {};
 			edge.source = idMap[d.source];
@@ -1182,6 +1203,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				edgeId : nodesData[node.src].nodeId + "-" + nodesData[node.tgt].nodeId//node.src + "-" + node.tgt
 			});
 		});
+	    } catch(e){
+	    	console.log("Initialize link error")
+	    }
 
 		//nodesChildren contains the node's id - node's children pair.
 		anchorData.forEach(function(d){
@@ -1207,6 +1231,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 	//detect the strong connect component in the graph
 	function detectCycle(){
+		try {
 		SCCNodes = d3.range(nodesData.length).map(function(d, i){
 			return {id : nodesData[i].id, index : -1};
 		})
@@ -1215,6 +1240,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			if (SCCNodes[i].index == -1 && SCCNodes[i].id in nodesChildren){
 				strongConnect(SCCNodes[i]);
 			}
+		}
+		} catch(e){
+			console.log("Detect cycle error")
 		}
 	}
 
@@ -1256,6 +1284,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		map.clear();
 		//model point of cycles to edge, ex: [1,2,3] to {1->2, 2->3, 3->1}
 		//edge set stored in the data structure of arraylist, and all these edge sets store into an array, defined above -- cycleSet
+		try {
 		cycles.forEach(function(d){
 			var tmpArrayList = new ArrayList();
 			for (var i = 0; i < d.length; i++){
@@ -1272,6 +1301,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			//tmpArrayList.print();
 			cycleSet.push(tmpArrayList);
 		});
+		} catch(e){
+			console.log("Remove cycle error")
+		}
 	}
 
 	//set layer and position for each node
@@ -1284,6 +1316,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			baseLayer.add(d.id);
 		});
 
+		try{
 		//for (var j = 0; j < 5; j++){
 		while (change > 0){
 			//tmpLayerMap is a set of nodes that change their layer in this loop, they will be considered as the base layer for next iteration.
@@ -1329,6 +1362,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			//console.log("change: " + change);			
 		}
 		maxLayer--;	
+		} catch(e){
+			console.log("Set layer error")
+		}
 		/*
 		nodesData.forEach(function(d, i){
 			console.log(i + " " + d.layer);
@@ -1336,6 +1372,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		*/
 
 		//set the edge link
+		try {
 		tmpE.forEach(function(d, i){
 			var srcIndex = nodesData.length * 2 + edgeIdMap[d.source] * 2 + 1;
 			textData[srcIndex].layer = (nodesData[textData[srcIndex].node.src].layer + nodesData[textData[srcIndex].node.tgt].layer) / 2;
@@ -1377,6 +1414,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			nodesData[node.tgt].unAssigned = false;
 			nodesData[node.tgt].degree++;
 		});
+		} catch(e){
+			console.log("Initialize edge link error")
+		}
 
 		//store the node id in the sequence of layer
 		//xPos is the x position for nodes in the unit of column's width
@@ -1395,6 +1435,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		});
 
 		//set xpos of nodes, check whether a node is a outside nodes;
+		try {
 		var offset = Math.max(xOffset - leftPanelWidth,0);
 		layerMap.forEach(function(d, i){
 			if (i > 0){
@@ -1423,6 +1464,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				})
 			}
 		});
+		} catch(e){
+			console.log("Initialize node position error")
+		}
 
 
 		//for node that has no layer, set it as outside node	
@@ -1517,6 +1561,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 		var offset = Math.max(xOffset - leftPanelWidth,0);
 
 		//set xpos of nodes, and check if node is an outside node
+		try {
 		layerMap.forEach(function(d, i){
 			if (i > 0){
 				d.forEach(function(e){
@@ -1561,7 +1606,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			}
 		});
 
-
+	
 		
 		//Set the color, opacity of nodes based on the status of isOutside
 		nodes.each(function(d){
@@ -1602,8 +1647,12 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 			//console.log(d.id + " " + d.outside.isOutside + " " + d.position.x);
 		});
 		//console.log(change)
+		} catch(e){
+			console.log("Update node position error")
+		}
 
 		//when some node changes its status, the correspoding links, labels and the x position of inside nodes should also change.
+		try {
 		if (change > 0 || firstTime){
 			firstTime = false;
 			d3.select(htmlElement).selectAll(".nodeLabel")
@@ -1690,6 +1739,9 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 
 			
 			force.start();
+		}
+		} catch(e){
+			console.log("Update node/link appearance error")
 		}
 	}
 
