@@ -37,6 +37,18 @@
 		width: 83%;
 	}
 
+	.link.ForcedByUser {
+stroke-dasharray: none;
+stroke-width: 1px;
+}
+
+.link {
+fill: none;
+stroke: #ccc;
+stroke-dasharray: 9, 5;
+stroke-width: 1.5px;
+}
+
 </style>
 </head>
 
@@ -98,8 +110,8 @@ function printLayout() {
 
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
 var jsonFiles = [
-			"datasets/mohsen2-1.json",
-			"datasets/mohsen2-2.json"
+			"datasets/linkstatus-1.json",
+			"datasets/linkstatus-2.json"
 			];
 
 var jsonFile1 = jsonFiles[0];
