@@ -110,7 +110,7 @@ function printLayout() {
 
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
 var jsonFiles = [
-			"datasets/andrew-1.json",
+			//"datasets/andrew-1.json",
 			"datasets/andrew-2.json"
 			];
 
@@ -130,15 +130,45 @@ for(var i=1; i<jsonFiles.length; i++) {
 	loadJsonFile(next, i);
 }
 
+var layout2 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
+jsonFiles = [
+			//"datasets/andrew-1.json",
+			"datasets/andrew-2.json"
+			];
+
+jsonFile1 = jsonFiles[0];
+drawTable($("#WS1"), jsonFile1);
+layout2.generateLayoutForJsonFile(jsonFile1);
+layout2.setNodeClickListener(function(node) {
+	console.log("This function is called when the node is clicked");
+});
+layout2.setLinkClickListener(function(link) {
+	console.log("This function is called when the link is clicked");
+});
+
+
+for(var i=1; i<jsonFiles.length; i++) {
+	var next = jsonFiles[i];
+	loadJsonFile2(next, i);
+}
+
+function loadJsonFile2(next, i) {
+	setTimeout(function(){
+		console.log("Generate Layout for JSON File:" + next);
+		layout2.generateLayoutForJsonFile(next);
+	},3000*i);
+}
+
 
 
 window.onscroll = function(event) {
 	layout1.onscroll(event);
-	
+	layout2.onscroll(event);
 }
 
 window.onresize = function(event) {
 	layout1.onresize(event);
+	layout2.onresize(event);
 }
 
 function loadJsonFile(next, i) {
