@@ -2,8 +2,9 @@
 <head>
 <link rel="stylesheet" href="d3-model-layout.css" />
 <script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="d3.v3.min.js"></script>
+<script type="text/javascript" src="d3.js" charset="utf-8"></script>
 <script type="text/javascript" src="d3-model-layout.js"></script>
+<script type="text/javascript" src="saveSvgAsPng.js"></script>
 
 
 <style type="text/css">
@@ -36,6 +37,18 @@
 		width: 83%;
 	}
 
+	.link.ForcedByUser {
+stroke-dasharray: none;
+stroke-width: 1px;
+}
+
+.link {
+fill: none;
+stroke: #ccc;
+stroke-dasharray: 9, 5;
+stroke-width: 1.5px;
+}
+
 </style>
 </head>
 
@@ -43,10 +56,12 @@
 <body>
 
 <div id="mainContainer">
-	<div id="leftPanel" style="background:grey; height:100%;" class="col-sm-2">Left Panel</div>
+	<div id="leftPanel" style="background:grey; height:100%;" class="col-sm-2">Left Panel
+	<input type="button" value="Print"  onclick="javascript:printLayout();" />
+	</div>
 	<div id="rightPanel" class="col-sm-10">
 
-		<div id="WS1" class="Worksheet" style="width:1200px; overflow:auto">
+		<div id="WS1" class="Worksheet" style="width:3000px; overflow:auto">
 			<div id="svgDiv_WS1" ></div>
 			<div class="table-container worksheet-table-container" >
 				<div class="table-header-container">
@@ -89,10 +104,18 @@ function drawTable(worksheet, jsonFile) {
 	});
 }
 
+function printLayout() {
+	layout1.printExtented(3);
+}
 
 var layout1 = new D3ModelLayout("div#svgDiv_WS1", "col-sm-10");
-var jsonFile1 = "datasets/schedule.json";
-//drawTable($("#WS1"), jsonFile1);
+var jsonFiles = [
+			"datasets/andrew-1.json",
+			"datasets/andrew-2.json"
+			];
+
+var jsonFile1 = jsonFiles[0];
+drawTable($("#WS1"), jsonFile1);
 layout1.generateLayoutForJsonFile(jsonFile1);
 layout1.setNodeClickListener(function(node) {
 	console.log("This function is called when the node is clicked");
@@ -100,6 +123,14 @@ layout1.setNodeClickListener(function(node) {
 layout1.setLinkClickListener(function(link) {
 	console.log("This function is called when the link is clicked");
 });
+
+
+for(var i=1; i<jsonFiles.length; i++) {
+	var next = jsonFiles[i];
+	loadJsonFile(next, i);
+}
+
+
 
 window.onscroll = function(event) {
 	layout1.onscroll(event);
@@ -110,6 +141,12 @@ window.onresize = function(event) {
 	layout1.onresize(event);
 }
 
+function loadJsonFile(next, i) {
+	setTimeout(function(){
+		console.log("Generate Layout for JSON File:" + next);
+		layout1.generateLayoutForJsonFile(next);
+	},3000*i);
+}
 </script>
 
 </body>

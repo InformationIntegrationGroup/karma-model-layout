@@ -119,7 +119,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 	//create svg
 	var svg = d3.select(htmlElement)                         
 	    .append("svg")
-	    .attr("id", p_htmlElement)
+	    .attr("id", htmlElement)
 	    //.on("mousemove", mousemove);
 
 
@@ -436,7 +436,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 				}
 				if (d.alt != undefined){
 					//console.log(d.alt + " " + d.content + " " + d.index)
-					d3.select(frameId)
+					svg.select(frameId)
 						.select("text")
 						.text(function(d){
 							//d.content = ""
@@ -446,7 +446,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 							d.width = this.getBBox().width
 							return -(d.width / 2);
 						})
-					d3.select(frameId)
+					svg.select(frameId)
 						.select("path")	
 						.transition()
 						.duration(500)					
@@ -457,10 +457,10 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 							return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
 						})
 				}
-				d3.select(frameId)
+				svg.select(frameId)
 					.select("path")
 					.attr("stroke-width", 2);
-				d3.select(frameId)
+				svg.select(frameId)
 					.moveToFront();
 			})
 			.on("mouseout", function(d, i){
@@ -473,7 +473,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 					frameId = "#edgeLinkLabelG" + nodesData[d.node.tgt].id;
 				}
 				if (d.alt != undefined){
-					d3.select(frameId)
+					svg.select(frameId)
 						.select("text")
 						.text(function(d){
 							return d.alt;
@@ -482,7 +482,7 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 							d.width = this.getBBox().width
 							return -(d.width / 2);
 						})
-					d3.select(frameId)
+					svg.select(frameId)
 						.select("path")	
 						.transition()
 						.duration(200)					
@@ -493,10 +493,10 @@ D3ModelLayout = function(p_htmlElement, p_cssClass) {
 							return "M " + dx + " " + dy + " L " + (dx + textWidth) + " " + dy + " Q " + (dx + textWidth + textHeight / 3) + " " + (dy - textHeight / 2) + " " + (dx + textWidth) + " " + (dy - textHeight) + " L " + dx + " " + (dy - textHeight) + " Q " + (dx - textHeight / 3) + " " + (dy - textHeight / 2) + " " + dx + " " + dy;
 						})
 				}/**/
-				d3.select(frameId)
+				svg.select(frameId)
 					.select("path")
 					.attr("stroke-width", 0);
-				d3.select(frameId)
+				svg.select(frameId)
 					.moveToBack();
 
 			});
